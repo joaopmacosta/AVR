@@ -20,7 +20,7 @@ CROSS ?= avr-
 MCU ?= atxmega32a4u
 F_CPU ?= 32000000L
 
-TARGET = blink
+TARGET = usart
 
 OBJDIR = obj
 
