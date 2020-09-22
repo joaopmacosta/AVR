@@ -8,7 +8,8 @@
 
 #include "../../Inc/core/main.h"
 
-uint8_t T0_millis = 0;
+/*! Success variable, used to test driver. */
+extern int end_stop1;
 
 int main(void)
 {
@@ -16,19 +17,11 @@ int main(void)
   board_init();
   sei();
 
-  while (true)
+  while (1)
   {
-    if (T0_millis >= 5)
-    {
-      GPIO_TGL(LED);
-      T0_millis = 0;
-    }
-  }
-  return 0;
-}
+    /* NO INTERRUPTS MODE*/
+    /*read_end_stops();*/
 
-ISR(TCE0_OVF_vect)
-{
-  T0_millis++;
-  //GPIO_TGL(LED);
+    _delay_ms(1);
+  }
 }
