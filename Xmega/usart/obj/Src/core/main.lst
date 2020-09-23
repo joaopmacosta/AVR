@@ -1,0 +1,477 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  10               		.text
+  11               	.Ltext0:
+ 509               		.section	.text.startup,"ax",@progbits
+ 511               	.global	main
+ 513               	main:
+ 514               		.stabd	46,0,0
+   1:Src/core/main.c **** //***************************************************************************
+   2:Src/core/main.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/main.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/main.c **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/main.c **** //***************************************************************************
+   6:Src/core/main.c **** // Author: João Costa                                                       *
+   7:Src/core/main.c **** //***************************************************************************
+   8:Src/core/main.c **** 
+   9:Src/core/main.c **** #include "../../Inc/core/main.h"
+  10:Src/core/main.c **** 
+  11:Src/core/main.c **** /*! Number of bytes to send in test example. */
+  12:Src/core/main.c **** #define NUM_BYTES 3
+  13:Src/core/main.c **** /*! USART data struct used in example. */
+  14:Src/core/main.c **** USART_data_t USART_cpu;
+  15:Src/core/main.c **** 
+  16:Src/core/main.c **** /*! Test data to send. */
+  17:Src/core/main.c **** uint8_t sendArray[NUM_BYTES] = {0x55, 0xaa, 0xf0};
+  18:Src/core/main.c **** /*! Array to put received data in. */
+  19:Src/core/main.c **** uint8_t receiveArray[NUM_BYTES];
+  20:Src/core/main.c **** /*! Success variable, used to test driver. */
+  21:Src/core/main.c **** bool success;
+  22:Src/core/main.c **** 
+  23:Src/core/main.c **** int main(void)
+  24:Src/core/main.c **** {
+ 516               	.LM0:
+ 517               	.LFBB1:
+ 518               	/* prologue: function */
+ 519               	/* frame size = 0 */
+ 520               	/* stack size = 0 */
+ 521               	.L__stack_usage = 0
+  25:Src/core/main.c ****   cli();
+ 523               	.LM1:
+ 524               	/* #APP */
+ 525               	 ;  25 "Src/core/main.c" 1
+ 526 0000 F894      		cli
+ 527               	 ;  0 "" 2
+ 528               	/* #NOAPP */
+ 529               	.LBB5:
+ 530               	.LBB6:
+ 532               	.Ltext1:
+   1:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   2:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   6:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Author: Pedro Gonçalves                                                  *
+   7:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   8:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+   9:Src/core/../../Inc/core/../../Inc/core/board_init.h **** /// ISO C 99 headers.
+  10:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stddef.h>
+  11:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <inttypes.h>
+  12:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdio.h>
+  13:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdlib.h>
+  14:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <string.h>
+  15:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  16:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Local Headers
+  17:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../config.h"
+  18:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../driver/io.h"
+  19:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../Inc/driver/usart_driver.h"
+  20:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../TC_driver/TC_driver.h"
+  21:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  22:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // AVR headers.
+  23:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <avr/io.h>
+  24:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  25:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #ifndef BOARD_INIT_H_INCLUDED_
+  26:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #define BOARD_INIT_H_INCLUDED_
+  27:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  28:Src/core/../../Inc/core/../../Inc/core/board_init.h **** extern USART_data_t USART_cpu;
+  29:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  30:Src/core/../../Inc/core/../../Inc/core/board_init.h **** static inline void
+  31:Src/core/../../Inc/core/../../Inc/core/board_init.h **** board_init(void)
+  32:Src/core/../../Inc/core/../../Inc/core/board_init.h **** {
+  33:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  34:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // System Clock.                                                        *
+  35:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  36:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // ENABLE INTERNAL 32MHZ OSCILLATOR
+  37:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  38:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+ 534               	.LM2:
+ 535 0002 88ED      		ldi r24,lo8(-40)
+ 536 0004 84BF      		out __CCP__,r24
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  40:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   OSC.CTRL = OSC_RC32MEN_bm;
+ 538               	.LM3:
+ 539 0006 82E0      		ldi r24,lo8(2)
+ 540 0008 8093 5000 		sts 80,r24
+ 541               	.L2:
+  41:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  42:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
+ 543               	.LM4:
+ 544 000c 8091 5100 		lds r24,81
+ 545 0010 81FF      		sbrs r24,1
+ 546 0012 00C0      		rjmp .L2
+  43:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  44:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  45:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+ 548               	.LM5:
+ 549 0014 88ED      		ldi r24,lo8(-40)
+ 550 0016 84BF      		out __CCP__,r24
+  46:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  47:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
+ 552               	.LM6:
+ 553 0018 81E0      		ldi r24,lo8(1)
+ 554 001a 8093 4000 		sts 64,r24
+  48:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  49:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  50:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* GPIO.                                                               *
+  51:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  52:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  53:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setup pins as IN/OUTputs
+  54:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(LED, false);
+ 556               	.LM7:
+ 557 001e 40E0      		ldi r20,0
+ 558 0020 60E0      		ldi r22,0
+ 559 0022 80E4      		ldi r24,lo8(64)
+ 560 0024 96E0      		ldi r25,lo8(6)
+ 561 0026 0E94 0000 		call gpio_cfg_out_np
+  55:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  56:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_IN(UART0_RX);
+ 563               	.LM8:
+ 564 002a 62E0      		ldi r22,lo8(2)
+ 565 002c 80E4      		ldi r24,lo8(64)
+ 566 002e 96E0      		ldi r25,lo8(6)
+ 567 0030 0E94 0000 		call gpio_cfg_in_np
+  57:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(UART0_TX, false);
+ 569               	.LM9:
+ 570 0034 40E0      		ldi r20,0
+ 571 0036 63E0      		ldi r22,lo8(3)
+ 572 0038 80E4      		ldi r24,lo8(64)
+ 573 003a 96E0      		ldi r25,lo8(6)
+ 574 003c 0E94 0000 		call gpio_cfg_out_np
+  58:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  59:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  60:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* SERIAL                                                              *
+  61:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  62:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Use USARTC0 and initialize buffers.
+  63:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   USART_InterruptDriver_Initialize(&USART_cpu, &USART_CPU, USART0_DRE_INT_LVL);
+ 576               	.LM10:
+ 577 0040 41E0      		ldi r20,lo8(1)
+ 578 0042 60EA      		ldi r22,lo8(-96)
+ 579 0044 78E0      		ldi r23,lo8(8)
+ 580 0046 80E0      		ldi r24,lo8(USART_cpu)
+ 581 0048 90E0      		ldi r25,hi8(USART_cpu)
+ 582 004a 0E94 0000 		call USART_InterruptDriver_Initialize
+  64:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  65:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // USARTC0, 8 Data bits, No Parity, 1 Stop bit.
+  66:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   USART_Format_Set(USART_cpu.usart, USART0_DATA_BITS,
+ 584               	.LM11:
+ 585 004e E091 0000 		lds r30,USART_cpu
+ 586 0052 F091 0000 		lds r31,USART_cpu+1
+ 587 0056 83E0      		ldi r24,lo8(3)
+ 588 0058 8583      		std Z+5,r24
+  67:Src/core/../../Inc/core/../../Inc/core/board_init.h ****                    USART0_PARITY_MODE, false);
+  68:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  69:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Set Baudrate to 9600 bps:
+  70:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Baudrate select = (1/(16*(((I/O clock frequency)/Baudrate)-1) = 12
+  71:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   USART_Baudrate_Set(&USART_CPU, 12, 0);
+ 590               	.LM12:
+ 591 005a 8CE0      		ldi r24,lo8(12)
+ 592 005c 8093 A608 		sts 2214,r24
+ 593 0060 1092 A708 		sts 2215,__zero_reg__
+  72:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  73:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Enable RXC interrupt.
+  74:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   USART_RxdInterruptLevel_Set(USART_cpu.usart, USART0_RX_INT_LVL);
+ 595               	.LM13:
+ 596 0064 8381      		ldd r24,Z+3
+ 597 0066 8F7C      		andi r24,lo8(-49)
+ 598 0068 8061      		ori r24,lo8(16)
+ 599 006a 8383      		std Z+3,r24
+  75:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  76:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Enable both RX and TX.
+  77:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   USART_Rx_Enable(USART_cpu.usart);
+ 601               	.LM14:
+ 602 006c 8481      		ldd r24,Z+4
+ 603 006e 8061      		ori r24,lo8(16)
+ 604 0070 8483      		std Z+4,r24
+  78:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   USART_Tx_Enable(USART_cpu.usart);
+ 606               	.LM15:
+ 607 0072 8481      		ldd r24,Z+4
+ 608 0074 8860      		ori r24,lo8(8)
+ 609 0076 8483      		std Z+4,r24
+  79:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  80:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  81:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* Interrupt levels.                                                   *
+  82:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  83:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //Enables High, Medium and Low Level Interrupts
+  84:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PMIC.CTRL |= PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_LOLVLEN_bm;
+ 611               	.LM16:
+ 612 0078 8091 A200 		lds r24,162
+ 613 007c 8760      		ori r24,lo8(7)
+ 614 007e 8093 A200 		sts 162,r24
+ 615               	.LBE6:
+ 616               	.LBE5:
+ 618               	.Ltext2:
+  26:Src/core/main.c ****   board_init();
+  27:Src/core/main.c ****   sei();
+ 620               	.LM17:
+ 621               	/* #APP */
+ 622               	 ;  27 "Src/core/main.c" 1
+ 623 0082 7894      		sei
+ 624               	 ;  0 "" 2
+ 625               	/* #NOAPP */
+ 626               	.L8:
+  28:Src/core/main.c **** 
+  29:Src/core/main.c ****   /* counter variable. */
+  30:Src/core/main.c ****   uint8_t i;
+  31:Src/core/main.c ****   while (1)
+  32:Src/core/main.c ****   {
+  33:Src/core/main.c ****     // Send sendArray. //
+  34:Src/core/main.c ****     i = 0;
+ 628               	.LM18:
+ 629 0084 C0E0      		ldi r28,0
+ 630               	.L4:
+ 631               	.LBB7:
+  35:Src/core/main.c ****     while (i < NUM_BYTES)
+  36:Src/core/main.c ****     {
+  37:Src/core/main.c ****       bool byteToBuffer;
+  38:Src/core/main.c ****       byteToBuffer = USART_TXBuffer_PutByte(&USART_cpu, sendArray[i]);
+ 633               	.LM19:
+ 634 0086 EC2F      		mov r30,r28
+ 635 0088 F0E0      		ldi r31,0
+ 636 008a E050      		subi r30,lo8(-(sendArray))
+ 637 008c F040      		sbci r31,hi8(-(sendArray))
+ 638 008e 6081      		ld r22,Z
+ 639 0090 80E0      		ldi r24,lo8(USART_cpu)
+ 640 0092 90E0      		ldi r25,hi8(USART_cpu)
+ 641 0094 0E94 0000 		call USART_TXBuffer_PutByte
+  39:Src/core/main.c ****       if (byteToBuffer)
+ 643               	.LM20:
+ 644 0098 8111      		cpse r24,__zero_reg__
+  40:Src/core/main.c ****       {
+  41:Src/core/main.c ****         i++;
+ 646               	.LM21:
+ 647 009a CF5F      		subi r28,lo8(-(1))
+ 648               	.L3:
+ 649               	.LBE7:
+  35:Src/core/main.c ****     {
+ 651               	.LM22:
+ 652 009c C330      		cpi r28,lo8(3)
+ 653 009e 00F0      		brlo .L4
+ 654 00a0 C0E0      		ldi r28,lo8(receiveArray)
+ 655 00a2 D0E0      		ldi r29,hi8(receiveArray)
+ 656               	.L6:
+  42:Src/core/main.c ****       }
+  43:Src/core/main.c ****     }
+  44:Src/core/main.c **** 
+  45:Src/core/main.c ****     // Fetch received data as it is received.
+  46:Src/core/main.c ****     i = 0;
+  47:Src/core/main.c ****     while (i < NUM_BYTES)
+ 658               	.LM23:
+ 659 00a4 80E0      		ldi r24,hi8(receiveArray+3)
+ 660 00a6 C030      		cpi r28,lo8(receiveArray+3)
+ 661 00a8 D807      		cpc r29,r24
+ 662 00aa 01F0      		breq .L8
+  48:Src/core/main.c ****     {
+  49:Src/core/main.c ****       if (USART_RXBufferData_Available(&USART_cpu))
+ 664               	.LM24:
+ 665 00ac 80E0      		ldi r24,lo8(USART_cpu)
+ 666 00ae 90E0      		ldi r25,hi8(USART_cpu)
+ 667 00b0 0E94 0000 		call USART_RXBufferData_Available
+ 668 00b4 8823      		tst r24
+ 669 00b6 01F0      		breq .L6
+  50:Src/core/main.c ****       {
+  51:Src/core/main.c ****         GPIO_TGL(LED);
+ 671               	.LM25:
+ 672 00b8 60E0      		ldi r22,0
+ 673 00ba 80E4      		ldi r24,lo8(64)
+ 674 00bc 96E0      		ldi r25,lo8(6)
+ 675 00be 0E94 0000 		call gpio_tgl_np
+  52:Src/core/main.c ****         receiveArray[i] = USART_RXBuffer_GetByte(&USART_cpu);
+ 677               	.LM26:
+ 678 00c2 80E0      		ldi r24,lo8(USART_cpu)
+ 679 00c4 90E0      		ldi r25,hi8(USART_cpu)
+ 680 00c6 0E94 0000 		call USART_RXBuffer_GetByte
+ 681 00ca 8993      		st Y+,r24
+ 682 00cc 00C0      		rjmp .L6
+ 687               	.Lscope1:
+ 689               		.stabd	78,0,0
+ 690               		.text
+ 692               	.global	__vector_25
+ 694               	__vector_25:
+ 695               		.stabd	46,0,0
+  53:Src/core/main.c ****         i++;
+  54:Src/core/main.c ****       }
+  55:Src/core/main.c ****     }
+  56:Src/core/main.c **** 
+  57:Src/core/main.c ****     // Test to see if sent data equals received data.
+  58:Src/core/main.c ****     // Assume success first.
+  59:Src/core/main.c ****     /*success = true;
+  60:Src/core/main.c ****     for (i = 0; i < NUM_BYTES; i++)
+  61:Src/core/main.c ****     {
+  62:Src/core/main.c ****       // Check that each element is received correctly.
+  63:Src/core/main.c ****       if (receiveArray[i] != sendArray[i])
+  64:Src/core/main.c ****       {
+  65:Src/core/main.c ****         success = false;
+  66:Src/core/main.c ****       }
+  67:Src/core/main.c ****     }
+  68:Src/core/main.c **** 
+  69:Src/core/main.c ****     // If success the program ends up inside the if statement.
+  70:Src/core/main.c ****     if (success)
+  71:Src/core/main.c ****     {
+  72:Src/core/main.c ****       GPIO_SET(LED);
+  73:Src/core/main.c ****     }
+  74:Src/core/main.c ****     else
+  75:Src/core/main.c ****     {
+  76:Src/core/main.c ****       GPIO_CLR(LED);
+  77:Src/core/main.c ****     }
+  78:Src/core/main.c **** 
+  79:Src/core/main.c ****     _delay_ms(1000);*/
+  80:Src/core/main.c ****   }
+  81:Src/core/main.c **** }
+  82:Src/core/main.c **** 
+  83:Src/core/main.c **** // Receive complete interrupt service routine.
+  84:Src/core/main.c **** ISR(USARTC0_RXC_vect)
+  85:Src/core/main.c **** {
+ 697               	.LM27:
+ 698               	.LFBB2:
+ 699 0000 1F92      		push r1
+ 700 0002 0F92      		push r0
+ 701 0004 0FB6      		in r0,__SREG__
+ 702 0006 0F92      		push r0
+ 703 0008 1124      		clr __zero_reg__
+ 704 000a 2F93      		push r18
+ 705 000c 3F93      		push r19
+ 706 000e 4F93      		push r20
+ 707 0010 5F93      		push r21
+ 708 0012 6F93      		push r22
+ 709 0014 7F93      		push r23
+ 710 0016 8F93      		push r24
+ 711 0018 9F93      		push r25
+ 712 001a AF93      		push r26
+ 713 001c BF93      		push r27
+ 714 001e EF93      		push r30
+ 715 0020 FF93      		push r31
+ 716               	/* prologue: Signal */
+ 717               	/* frame size = 0 */
+ 718               	/* stack size = 15 */
+ 719               	.L__stack_usage = 15
+  86:Src/core/main.c ****   USART_RXComplete(&USART_cpu);
+ 721               	.LM28:
+ 722 0022 80E0      		ldi r24,lo8(USART_cpu)
+ 723 0024 90E0      		ldi r25,hi8(USART_cpu)
+ 724 0026 0E94 0000 		call USART_RXComplete
+ 725               	/* epilogue start */
+  87:Src/core/main.c **** }
+ 727               	.LM29:
+ 728 002a FF91      		pop r31
+ 729 002c EF91      		pop r30
+ 730 002e BF91      		pop r27
+ 731 0030 AF91      		pop r26
+ 732 0032 9F91      		pop r25
+ 733 0034 8F91      		pop r24
+ 734 0036 7F91      		pop r23
+ 735 0038 6F91      		pop r22
+ 736 003a 5F91      		pop r21
+ 737 003c 4F91      		pop r20
+ 738 003e 3F91      		pop r19
+ 739 0040 2F91      		pop r18
+ 740 0042 0F90      		pop r0
+ 741 0044 0FBE      		out __SREG__,r0
+ 742 0046 0F90      		pop r0
+ 743 0048 1F90      		pop r1
+ 744 004a 1895      		reti
+ 746               	.Lscope2:
+ 748               		.stabd	78,0,0
+ 750               	.global	__vector_26
+ 752               	__vector_26:
+ 753               		.stabd	46,0,0
+  88:Src/core/main.c **** 
+  89:Src/core/main.c **** // Data register empty  interrupt service routine.
+  90:Src/core/main.c **** ISR(USARTC0_DRE_vect)
+  91:Src/core/main.c **** {
+ 755               	.LM30:
+ 756               	.LFBB3:
+ 757 004c 1F92      		push r1
+ 758 004e 0F92      		push r0
+ 759 0050 0FB6      		in r0,__SREG__
+ 760 0052 0F92      		push r0
+ 761 0054 1124      		clr __zero_reg__
+ 762 0056 2F93      		push r18
+ 763 0058 3F93      		push r19
+ 764 005a 4F93      		push r20
+ 765 005c 5F93      		push r21
+ 766 005e 6F93      		push r22
+ 767 0060 7F93      		push r23
+ 768 0062 8F93      		push r24
+ 769 0064 9F93      		push r25
+ 770 0066 AF93      		push r26
+ 771 0068 BF93      		push r27
+ 772 006a EF93      		push r30
+ 773 006c FF93      		push r31
+ 774               	/* prologue: Signal */
+ 775               	/* frame size = 0 */
+ 776               	/* stack size = 15 */
+ 777               	.L__stack_usage = 15
+  92:Src/core/main.c ****   USART_DataRegEmpty(&USART_cpu);
+ 779               	.LM31:
+ 780 006e 80E0      		ldi r24,lo8(USART_cpu)
+ 781 0070 90E0      		ldi r25,hi8(USART_cpu)
+ 782 0072 0E94 0000 		call USART_DataRegEmpty
+ 783               	/* epilogue start */
+  93:Src/core/main.c **** }
+ 785               	.LM32:
+ 786 0076 FF91      		pop r31
+ 787 0078 EF91      		pop r30
+ 788 007a BF91      		pop r27
+ 789 007c AF91      		pop r26
+ 790 007e 9F91      		pop r25
+ 791 0080 8F91      		pop r24
+ 792 0082 7F91      		pop r23
+ 793 0084 6F91      		pop r22
+ 794 0086 5F91      		pop r21
+ 795 0088 4F91      		pop r20
+ 796 008a 3F91      		pop r19
+ 797 008c 2F91      		pop r18
+ 798 008e 0F90      		pop r0
+ 799 0090 0FBE      		out __SREG__,r0
+ 800 0092 0F90      		pop r0
+ 801 0094 1F90      		pop r1
+ 802 0096 1895      		reti
+ 804               	.Lscope3:
+ 806               		.stabd	78,0,0
+ 807               		.comm	success,1,1
+ 808               		.comm	receiveArray,3,1
+ 809               	.global	sendArray
+ 810               		.data
+ 813               	sendArray:
+ 814 0000 55        		.byte	85
+ 815 0001 AA        		.byte	-86
+ 816 0002 F0        		.byte	-16
+ 817               		.comm	USART_cpu,263,1
+ 822               		.text
+ 824               	.Letext0:
+ 825               		.ident	"GCC: (GNU) 5.4.0"
+ 826               	.global __do_copy_data
+ 827               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccN33eBw.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccN33eBw.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccN33eBw.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccN33eBw.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccN33eBw.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccN33eBw.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccN33eBw.s:513    .text.startup:0000000000000000 main
+                            *COM*:0000000000000107 USART_cpu
+     /tmp/ccN33eBw.s:813    .data:0000000000000000 sendArray
+                            *COM*:0000000000000003 receiveArray
+     /tmp/ccN33eBw.s:694    .text:0000000000000000 __vector_25
+     /tmp/ccN33eBw.s:752    .text:000000000000004c __vector_26
+                            *COM*:0000000000000001 success
+
+UNDEFINED SYMBOLS
+gpio_cfg_out_np
+gpio_cfg_in_np
+USART_InterruptDriver_Initialize
+USART_TXBuffer_PutByte
+USART_RXBufferData_Available
+gpio_tgl_np
+USART_RXBuffer_GetByte
+USART_RXComplete
+USART_DataRegEmpty
+__do_copy_data
+__do_clear_bss

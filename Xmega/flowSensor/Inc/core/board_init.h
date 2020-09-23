@@ -16,7 +16,6 @@
 // Local Headers
 #include "../../config.h"
 #include "../driver/io.h"
-#include "../../Inc/driver/usart_driver.h"
 #include "../../TC_driver/TC_driver.h"
 
 // AVR headers.
@@ -24,8 +23,6 @@
 
 #ifndef BOARD_INIT_H_INCLUDED_
 #define BOARD_INIT_H_INCLUDED_
-
-extern USART_data_t USART_cpu;
 
 static inline void
 board_init(void)
@@ -52,30 +49,21 @@ board_init(void)
 
   // Setup pins as IN/OUTputs
   GPIO_CFG_OUT(LED, false);
+  GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
+  
+  GPIO_CFG_IN(BUTTON);
+  GPIO_CFG_OPC(BUTTON, GPIO_OPC_PULLUP);
+  GPIO_CFG_ISC(BUTTON, GPIO_ISC_FALLING);
 
-  GPIO_CFG_IN(UART0_RX);
-  GPIO_CFG_OUT(UART0_TX, false);
 
   //***********************************************************************
-  //* SERIAL                                                              *
+  //* GPIO/External Interrupt                                             *
   //***********************************************************************
-  // Use USARTC0 and initialize buffers.
-  USART_InterruptDriver_Initialize(&USART_cpu, &USART_CPU, USART0_DRE_INT_LVL);
+  // External interrupt 0 on PC1, enable pullup, sence falling edge
+  //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
+  PORTC.INT0MASK = (1 << BUTTON_PIN);
+  PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
 
-  // USARTC0, 8 Data bits, No Parity, 1 Stop bit.
-  USART_Format_Set(USART_cpu.usart, USART0_DATA_BITS,
-                   USART0_PARITY_MODE, false);
-
-  // Set Baudrate to 9600 bps:
-  // Baudrate select = (1/(16*(((I/O clock frequency)/Baudrate)-1) = 12
-  USART_Baudrate_Set(&USART_CPU, 12, 0);
-
-  // Enable RXC interrupt.
-  USART_RxdInterruptLevel_Set(USART_cpu.usart, USART0_RX_INT_LVL);
-
-  // Enable both RX and TX.
-  USART_Rx_Enable(USART_cpu.usart);
-  USART_Tx_Enable(USART_cpu.usart);
 
   //***********************************************************************
   //* Interrupt levels.                                                   *

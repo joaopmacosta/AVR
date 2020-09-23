@@ -21,7 +21,10 @@
 
 #include "../../Inc/core/board_init.h"
 #include "../../Inc/driver/io.h"
-#include "../../Inc/driver/usart_driver.h"
+#include "../../Inc/core/inputs.h"
 #include "../../TC_driver/avr_compiler.h"
+
+/*! Number of bytes to send in test example. */
+#define NUM_BYTES 3
 
 #endif
