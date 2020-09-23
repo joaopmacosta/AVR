@@ -20,6 +20,8 @@ uint8_t receiveArray[NUM_BYTES];
 /*! Success variable, used to test driver. */
 bool success;
 
+uint16_t test;
+
 int main(void)
 {
   cli();
@@ -27,11 +29,11 @@ int main(void)
   sei();
 
   /* counter variable. */
-  uint8_t i;
+  uint8_t i = 1;
   while (1)
   {
     // Send sendArray. //
-    i = 0;
+    /*i = 0;
     while (i < NUM_BYTES)
     {
       bool byteToBuffer;
@@ -40,22 +42,21 @@ int main(void)
       {
         i++;
       }
-    }
+    }*/
 
-    // Fetch received data as it is received.
-    i = 0;
-    while (i < NUM_BYTES)
+    // If buffer is loaded with data.
+    if (USART_RXBufferData_Available(&USART_cpu))
     {
-      if (USART_RXBufferData_Available(&USART_cpu))
-      {
-        GPIO_TGL(LED);
-        receiveArray[i] = USART_RXBuffer_GetByte(&USART_cpu);
-        i++;
-      }
+      // Get data from RX buffer
+      //receiveArray[i] = USART_RXBuffer_GetByte(&USART_cpu);
+      GPIO_TGL(LED);
+      USART_TXBuffer_PutByte(&USART_cpu, 0x55);
+      //test = USART_NineBits_GetChar(&USART_cpu);
+      //USART_NineBits_PutChar(&USART_cpu, test);
     }
 
     // Test to see if sent data equals received data.
-    // Assume success first.
+    // Assume success first.uU
     /*success = true;
     for (i = 0; i < NUM_BYTES; i++)
     {
@@ -75,14 +76,16 @@ int main(void)
     {
       GPIO_CLR(LED);
     }
-
-    _delay_ms(1000);*/
+*/
+    _delay_ms(10);
   }
 }
 
 // Receive complete interrupt service routine.
 ISR(USARTC0_RXC_vect)
 {
+  // When receive complete calls RXcomplete that stores received
+  // data in RX software buffer.
   USART_RXComplete(&USART_cpu);
 }
 

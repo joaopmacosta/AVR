@@ -228,7 +228,7 @@ void USART_NineBits_PutChar(USART_t *usart, uint16_t data)
 /*! \brief Get received data (9 bit character).
  *
  *  This function reads out the received 9 bit character (uint16_t).
- *  Use the function USART_IsRXComplete to check if anything is received.
+ *  Use the function USART_RXComplete to check if anything is received.
  *
  *  \param usart      The USART module.
  *
