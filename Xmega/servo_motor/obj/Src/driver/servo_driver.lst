@@ -1,0 +1,881 @@
+   1               		.file	"servo_driver.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               	.global	servo_cfg_start
+  13               	servo_cfg_start:
+  14               	.LVL0:
+  15               	.LFB11:
+  16               		.file 1 "Src/driver/servo_driver.c"
+   1:Src/driver/servo_driver.c **** #include <stdlib.h>
+   2:Src/driver/servo_driver.c **** #include <avr/io.h>
+   3:Src/driver/servo_driver.c **** #include <avr/interrupt.h>
+   4:Src/driver/servo_driver.c **** #include <util/delay.h>
+   5:Src/driver/servo_driver.c **** #include <avr/pgmspace.h>
+   6:Src/driver/servo_driver.c **** #include <stdbool.h>
+   7:Src/driver/servo_driver.c **** 
+   8:Src/driver/servo_driver.c **** #include "../../Inc/driver/io.h"
+   9:Src/driver/servo_driver.c **** #include "../../Inc/driver/servo_driver.h"
+  10:Src/driver/servo_driver.c **** 
+  11:Src/driver/servo_driver.c **** void servo_cfg_start(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value)
+  12:Src/driver/servo_driver.c **** {
+  17               		.loc 1 12 1 view -0
+  18               		.cfi_startproc
+  19               		.loc 1 12 1 is_stmt 0 view .LVU1
+  20 0000 8F92      		push r8
+  21               		.cfi_def_cfa_offset 3
+  22               		.cfi_offset 8, -2
+  23 0002 AF92      		push r10
+  24               		.cfi_def_cfa_offset 4
+  25               		.cfi_offset 10, -3
+  26 0004 CF92      		push r12
+  27               		.cfi_def_cfa_offset 5
+  28               		.cfi_offset 12, -4
+  29 0006 DF92      		push r13
+  30               		.cfi_def_cfa_offset 6
+  31               		.cfi_offset 13, -5
+  32 0008 EF92      		push r14
+  33               		.cfi_def_cfa_offset 7
+  34               		.cfi_offset 14, -6
+  35 000a FF92      		push r15
+  36               		.cfi_def_cfa_offset 8
+  37               		.cfi_offset 15, -7
+  38 000c 0F93      		push r16
+  39               		.cfi_def_cfa_offset 9
+  40               		.cfi_offset 16, -8
+  41 000e 1F93      		push r17
+  42               		.cfi_def_cfa_offset 10
+  43               		.cfi_offset 17, -9
+  44 0010 CF93      		push r28
+  45               		.cfi_def_cfa_offset 11
+  46               		.cfi_offset 28, -10
+  47 0012 DF93      		push r29
+  48               		.cfi_def_cfa_offset 12
+  49               		.cfi_offset 29, -11
+  50 0014 CDB7      		in r28,__SP_L__
+  51 0016 DEB7      		in r29,__SP_H__
+  52               		.cfi_def_cfa_register 28
+  53 0018 2C97      		sbiw r28,12
+  54               		.cfi_def_cfa_offset 24
+  55 001a CDBF      		out __SP_L__,r28
+  56 001c DEBF      		out __SP_H__,r29
+  57               	/* prologue: function */
+  58               	/* frame size = 12 */
+  59               	/* stack size = 22 */
+  60               	.L__stack_usage = 22
+  61 001e E982      		std Y+1,r14
+  62 0020 FA82      		std Y+2,r15
+  63 0022 C601      		movw r24,r12
+  64 0024 6A2D      		mov r22,r10
+  65 0026 482D      		mov r20,r8
+  66 0028 E981      		ldd r30,Y+1
+  67 002a FA81      		ldd r31,Y+2
+  68               	.LVL1:
+  13:Src/driver/servo_driver.c ****   servo.start_stop->port = port;
+  69               		.loc 1 13 3 is_stmt 1 view .LVU2
+  70               		.loc 1 13 26 is_stmt 0 view .LVU3
+  71 002c C082      		st Z,r12
+  72 002e 9183      		std Z+1,r25
+  14:Src/driver/servo_driver.c ****   servo.start_stop->pin = pin;
+  73               		.loc 1 14 3 is_stmt 1 view .LVU4
+  74               		.loc 1 14 25 is_stmt 0 view .LVU5
+  75 0030 A282      		std Z+2,r10
+  15:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+  76               		.loc 1 15 3 is_stmt 1 view .LVU6
+  77               	/* epilogue start */
+  16:Src/driver/servo_driver.c **** }
+  78               		.loc 1 16 1 is_stmt 0 view .LVU7
+  79 0032 2C96      		adiw r28,12
+  80 0034 CDBF      		out __SP_L__,r28
+  81 0036 DEBF      		out __SP_H__,r29
+  82 0038 DF91      		pop r29
+  83 003a CF91      		pop r28
+  84 003c 1F91      		pop r17
+  85 003e 0F91      		pop r16
+  86 0040 FF90      		pop r15
+  87 0042 EF90      		pop r14
+  88 0044 DF90      		pop r13
+  89 0046 CF90      		pop r12
+  90               	.LVL2:
+  91               		.loc 1 16 1 view .LVU8
+  92 0048 AF90      		pop r10
+  93               	.LVL3:
+  94               		.loc 1 16 1 view .LVU9
+  95 004a 8F90      		pop r8
+  96               	.LVL4:
+  15:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+  97               		.loc 1 15 3 view .LVU10
+  98 004c 0C94 0000 		jmp gpio_cfg_out_np
+  99               	.LVL5:
+  15:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 100               		.loc 1 15 3 view .LVU11
+ 101               		.cfi_endproc
+ 102               	.LFE11:
+ 104               	.global	servo_cfg_brake
+ 106               	servo_cfg_brake:
+ 107               	.LVL6:
+ 108               	.LFB12:
+  17:Src/driver/servo_driver.c **** 
+  18:Src/driver/servo_driver.c **** void servo_cfg_brake(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value)
+  19:Src/driver/servo_driver.c **** {
+ 109               		.loc 1 19 1 is_stmt 1 view -0
+ 110               		.cfi_startproc
+ 111               		.loc 1 19 1 is_stmt 0 view .LVU13
+ 112 0050 8F92      		push r8
+ 113               		.cfi_def_cfa_offset 3
+ 114               		.cfi_offset 8, -2
+ 115 0052 AF92      		push r10
+ 116               		.cfi_def_cfa_offset 4
+ 117               		.cfi_offset 10, -3
+ 118 0054 CF92      		push r12
+ 119               		.cfi_def_cfa_offset 5
+ 120               		.cfi_offset 12, -4
+ 121 0056 DF92      		push r13
+ 122               		.cfi_def_cfa_offset 6
+ 123               		.cfi_offset 13, -5
+ 124 0058 EF92      		push r14
+ 125               		.cfi_def_cfa_offset 7
+ 126               		.cfi_offset 14, -6
+ 127 005a FF92      		push r15
+ 128               		.cfi_def_cfa_offset 8
+ 129               		.cfi_offset 15, -7
+ 130 005c 0F93      		push r16
+ 131               		.cfi_def_cfa_offset 9
+ 132               		.cfi_offset 16, -8
+ 133 005e 1F93      		push r17
+ 134               		.cfi_def_cfa_offset 10
+ 135               		.cfi_offset 17, -9
+ 136 0060 CF93      		push r28
+ 137               		.cfi_def_cfa_offset 11
+ 138               		.cfi_offset 28, -10
+ 139 0062 DF93      		push r29
+ 140               		.cfi_def_cfa_offset 12
+ 141               		.cfi_offset 29, -11
+ 142 0064 CDB7      		in r28,__SP_L__
+ 143 0066 DEB7      		in r29,__SP_H__
+ 144               		.cfi_def_cfa_register 28
+ 145 0068 2C97      		sbiw r28,12
+ 146               		.cfi_def_cfa_offset 24
+ 147 006a CDBF      		out __SP_L__,r28
+ 148 006c DEBF      		out __SP_H__,r29
+ 149               	/* prologue: function */
+ 150               	/* frame size = 12 */
+ 151               	/* stack size = 22 */
+ 152               	.L__stack_usage = 22
+ 153 006e 0B83      		std Y+3,r16
+ 154 0070 1C83      		std Y+4,r17
+ 155 0072 C601      		movw r24,r12
+ 156 0074 6A2D      		mov r22,r10
+ 157 0076 482D      		mov r20,r8
+ 158 0078 EB81      		ldd r30,Y+3
+ 159 007a FC81      		ldd r31,Y+4
+ 160               	.LVL7:
+  20:Src/driver/servo_driver.c ****   servo.run_brake->port = port;
+ 161               		.loc 1 20 3 is_stmt 1 view .LVU14
+ 162               		.loc 1 20 25 is_stmt 0 view .LVU15
+ 163 007c C082      		st Z,r12
+ 164 007e 9183      		std Z+1,r25
+  21:Src/driver/servo_driver.c ****   servo.run_brake->pin = pin;
+ 165               		.loc 1 21 3 is_stmt 1 view .LVU16
+ 166               		.loc 1 21 24 is_stmt 0 view .LVU17
+ 167 0080 A282      		std Z+2,r10
+  22:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 168               		.loc 1 22 3 is_stmt 1 view .LVU18
+ 169               	/* epilogue start */
+  23:Src/driver/servo_driver.c **** }
+ 170               		.loc 1 23 1 is_stmt 0 view .LVU19
+ 171 0082 2C96      		adiw r28,12
+ 172 0084 CDBF      		out __SP_L__,r28
+ 173 0086 DEBF      		out __SP_H__,r29
+ 174 0088 DF91      		pop r29
+ 175 008a CF91      		pop r28
+ 176 008c 1F91      		pop r17
+ 177 008e 0F91      		pop r16
+ 178 0090 FF90      		pop r15
+ 179 0092 EF90      		pop r14
+ 180 0094 DF90      		pop r13
+ 181 0096 CF90      		pop r12
+ 182               	.LVL8:
+ 183               		.loc 1 23 1 view .LVU20
+ 184 0098 AF90      		pop r10
+ 185               	.LVL9:
+ 186               		.loc 1 23 1 view .LVU21
+ 187 009a 8F90      		pop r8
+ 188               	.LVL10:
+  22:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 189               		.loc 1 22 3 view .LVU22
+ 190 009c 0C94 0000 		jmp gpio_cfg_out_np
+ 191               	.LVL11:
+  22:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 192               		.loc 1 22 3 view .LVU23
+ 193               		.cfi_endproc
+ 194               	.LFE12:
+ 196               	.global	servo_cfg_alarm_in
+ 198               	servo_cfg_alarm_in:
+ 199               	.LVL12:
+ 200               	.LFB13:
+  24:Src/driver/servo_driver.c **** 
+  25:Src/driver/servo_driver.c **** void servo_cfg_alarm_in(servo_motor_t servo, PORT_t *port, uint8_t pin)
+  26:Src/driver/servo_driver.c **** {
+ 201               		.loc 1 26 1 is_stmt 1 view -0
+ 202               		.cfi_startproc
+ 203               		.loc 1 26 1 is_stmt 0 view .LVU25
+ 204 00a0 AF92      		push r10
+ 205               		.cfi_def_cfa_offset 3
+ 206               		.cfi_offset 10, -2
+ 207 00a2 CF92      		push r12
+ 208               		.cfi_def_cfa_offset 4
+ 209               		.cfi_offset 12, -3
+ 210 00a4 DF92      		push r13
+ 211               		.cfi_def_cfa_offset 5
+ 212               		.cfi_offset 13, -4
+ 213 00a6 EF92      		push r14
+ 214               		.cfi_def_cfa_offset 6
+ 215               		.cfi_offset 14, -5
+ 216 00a8 FF92      		push r15
+ 217               		.cfi_def_cfa_offset 7
+ 218               		.cfi_offset 15, -6
+ 219 00aa 0F93      		push r16
+ 220               		.cfi_def_cfa_offset 8
+ 221               		.cfi_offset 16, -7
+ 222 00ac 1F93      		push r17
+ 223               		.cfi_def_cfa_offset 9
+ 224               		.cfi_offset 17, -8
+ 225 00ae CF93      		push r28
+ 226               		.cfi_def_cfa_offset 10
+ 227               		.cfi_offset 28, -9
+ 228 00b0 DF93      		push r29
+ 229               		.cfi_def_cfa_offset 11
+ 230               		.cfi_offset 29, -10
+ 231 00b2 CDB7      		in r28,__SP_L__
+ 232 00b4 DEB7      		in r29,__SP_H__
+ 233               		.cfi_def_cfa_register 28
+ 234 00b6 2C97      		sbiw r28,12
+ 235               		.cfi_def_cfa_offset 23
+ 236 00b8 CDBF      		out __SP_L__,r28
+ 237 00ba DEBF      		out __SP_H__,r29
+ 238               	/* prologue: function */
+ 239               	/* frame size = 12 */
+ 240               	/* stack size = 21 */
+ 241               	.L__stack_usage = 21
+ 242 00bc 2D83      		std Y+5,r18
+ 243 00be 3E83      		std Y+6,r19
+ 244 00c0 C601      		movw r24,r12
+ 245 00c2 6A2D      		mov r22,r10
+ 246 00c4 ED81      		ldd r30,Y+5
+ 247 00c6 FE81      		ldd r31,Y+6
+ 248               	.LVL13:
+  27:Src/driver/servo_driver.c ****   servo.alarm->port = port;
+ 249               		.loc 1 27 3 is_stmt 1 view .LVU26
+ 250               		.loc 1 27 21 is_stmt 0 view .LVU27
+ 251 00c8 C082      		st Z,r12
+ 252 00ca 9183      		std Z+1,r25
+  28:Src/driver/servo_driver.c ****   servo.alarm->pin = pin;
+ 253               		.loc 1 28 3 is_stmt 1 view .LVU28
+ 254               		.loc 1 28 20 is_stmt 0 view .LVU29
+ 255 00cc A282      		std Z+2,r10
+  29:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 256               		.loc 1 29 3 is_stmt 1 view .LVU30
+ 257               	/* epilogue start */
+  30:Src/driver/servo_driver.c **** }
+ 258               		.loc 1 30 1 is_stmt 0 view .LVU31
+ 259 00ce 2C96      		adiw r28,12
+ 260 00d0 CDBF      		out __SP_L__,r28
+ 261 00d2 DEBF      		out __SP_H__,r29
+ 262 00d4 DF91      		pop r29
+ 263 00d6 CF91      		pop r28
+ 264 00d8 1F91      		pop r17
+ 265 00da 0F91      		pop r16
+ 266 00dc FF90      		pop r15
+ 267 00de EF90      		pop r14
+ 268 00e0 DF90      		pop r13
+ 269 00e2 CF90      		pop r12
+ 270               	.LVL14:
+ 271               		.loc 1 30 1 view .LVU32
+ 272 00e4 AF90      		pop r10
+ 273               	.LVL15:
+  29:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 274               		.loc 1 29 3 view .LVU33
+ 275 00e6 0C94 0000 		jmp gpio_cfg_in_np
+ 276               	.LVL16:
+  29:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 277               		.loc 1 29 3 view .LVU34
+ 278               		.cfi_endproc
+ 279               	.LFE13:
+ 281               	.global	servo_cfg_alarm_out
+ 283               	servo_cfg_alarm_out:
+ 284               	.LVL17:
+ 285               	.LFB14:
+  31:Src/driver/servo_driver.c **** 
+  32:Src/driver/servo_driver.c **** void servo_cfg_alarm_out(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value)
+  33:Src/driver/servo_driver.c **** {
+ 286               		.loc 1 33 1 is_stmt 1 view -0
+ 287               		.cfi_startproc
+ 288               		.loc 1 33 1 is_stmt 0 view .LVU36
+ 289 00ea 8F92      		push r8
+ 290               		.cfi_def_cfa_offset 3
+ 291               		.cfi_offset 8, -2
+ 292 00ec AF92      		push r10
+ 293               		.cfi_def_cfa_offset 4
+ 294               		.cfi_offset 10, -3
+ 295 00ee CF92      		push r12
+ 296               		.cfi_def_cfa_offset 5
+ 297               		.cfi_offset 12, -4
+ 298 00f0 DF92      		push r13
+ 299               		.cfi_def_cfa_offset 6
+ 300               		.cfi_offset 13, -5
+ 301 00f2 EF92      		push r14
+ 302               		.cfi_def_cfa_offset 7
+ 303               		.cfi_offset 14, -6
+ 304 00f4 FF92      		push r15
+ 305               		.cfi_def_cfa_offset 8
+ 306               		.cfi_offset 15, -7
+ 307 00f6 0F93      		push r16
+ 308               		.cfi_def_cfa_offset 9
+ 309               		.cfi_offset 16, -8
+ 310 00f8 1F93      		push r17
+ 311               		.cfi_def_cfa_offset 10
+ 312               		.cfi_offset 17, -9
+ 313 00fa CF93      		push r28
+ 314               		.cfi_def_cfa_offset 11
+ 315               		.cfi_offset 28, -10
+ 316 00fc DF93      		push r29
+ 317               		.cfi_def_cfa_offset 12
+ 318               		.cfi_offset 29, -11
+ 319 00fe CDB7      		in r28,__SP_L__
+ 320 0100 DEB7      		in r29,__SP_H__
+ 321               		.cfi_def_cfa_register 28
+ 322 0102 2C97      		sbiw r28,12
+ 323               		.cfi_def_cfa_offset 24
+ 324 0104 CDBF      		out __SP_L__,r28
+ 325 0106 DEBF      		out __SP_H__,r29
+ 326               	/* prologue: function */
+ 327               	/* frame size = 12 */
+ 328               	/* stack size = 22 */
+ 329               	.L__stack_usage = 22
+ 330 0108 4F83      		std Y+7,r20
+ 331 010a 5887      		std Y+8,r21
+ 332 010c C601      		movw r24,r12
+ 333 010e 6A2D      		mov r22,r10
+ 334 0110 482D      		mov r20,r8
+ 335 0112 EF81      		ldd r30,Y+7
+ 336 0114 F885      		ldd r31,Y+8
+ 337               	.LVL18:
+  34:Src/driver/servo_driver.c ****   servo.reset_alarm->port = port;
+ 338               		.loc 1 34 3 is_stmt 1 view .LVU37
+ 339               		.loc 1 34 27 is_stmt 0 view .LVU38
+ 340 0116 C082      		st Z,r12
+ 341 0118 9183      		std Z+1,r25
+  35:Src/driver/servo_driver.c ****   servo.reset_alarm->pin = pin;
+ 342               		.loc 1 35 3 is_stmt 1 view .LVU39
+ 343               		.loc 1 35 26 is_stmt 0 view .LVU40
+ 344 011a A282      		std Z+2,r10
+  36:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 345               		.loc 1 36 3 is_stmt 1 view .LVU41
+ 346               	/* epilogue start */
+  37:Src/driver/servo_driver.c **** }
+ 347               		.loc 1 37 1 is_stmt 0 view .LVU42
+ 348 011c 2C96      		adiw r28,12
+ 349 011e CDBF      		out __SP_L__,r28
+ 350 0120 DEBF      		out __SP_H__,r29
+ 351 0122 DF91      		pop r29
+ 352 0124 CF91      		pop r28
+ 353 0126 1F91      		pop r17
+ 354 0128 0F91      		pop r16
+ 355 012a FF90      		pop r15
+ 356 012c EF90      		pop r14
+ 357 012e DF90      		pop r13
+ 358 0130 CF90      		pop r12
+ 359               	.LVL19:
+ 360               		.loc 1 37 1 view .LVU43
+ 361 0132 AF90      		pop r10
+ 362               	.LVL20:
+ 363               		.loc 1 37 1 view .LVU44
+ 364 0134 8F90      		pop r8
+ 365               	.LVL21:
+  36:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 366               		.loc 1 36 3 view .LVU45
+ 367 0136 0C94 0000 		jmp gpio_cfg_out_np
+ 368               	.LVL22:
+  36:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 369               		.loc 1 36 3 view .LVU46
+ 370               		.cfi_endproc
+ 371               	.LFE14:
+ 373               	.global	servo_cfg_speed_in
+ 375               	servo_cfg_speed_in:
+ 376               	.LVL23:
+ 377               	.LFB15:
+  38:Src/driver/servo_driver.c **** 
+  39:Src/driver/servo_driver.c **** void servo_cfg_speed_in(servo_motor_t servo, PORT_t *port, uint8_t pin)
+  40:Src/driver/servo_driver.c **** {
+ 378               		.loc 1 40 1 is_stmt 1 view -0
+ 379               		.cfi_startproc
+ 380               		.loc 1 40 1 is_stmt 0 view .LVU48
+ 381 013a AF92      		push r10
+ 382               		.cfi_def_cfa_offset 3
+ 383               		.cfi_offset 10, -2
+ 384 013c CF92      		push r12
+ 385               		.cfi_def_cfa_offset 4
+ 386               		.cfi_offset 12, -3
+ 387 013e DF92      		push r13
+ 388               		.cfi_def_cfa_offset 5
+ 389               		.cfi_offset 13, -4
+ 390 0140 EF92      		push r14
+ 391               		.cfi_def_cfa_offset 6
+ 392               		.cfi_offset 14, -5
+ 393 0142 FF92      		push r15
+ 394               		.cfi_def_cfa_offset 7
+ 395               		.cfi_offset 15, -6
+ 396 0144 0F93      		push r16
+ 397               		.cfi_def_cfa_offset 8
+ 398               		.cfi_offset 16, -7
+ 399 0146 1F93      		push r17
+ 400               		.cfi_def_cfa_offset 9
+ 401               		.cfi_offset 17, -8
+ 402 0148 CF93      		push r28
+ 403               		.cfi_def_cfa_offset 10
+ 404               		.cfi_offset 28, -9
+ 405 014a DF93      		push r29
+ 406               		.cfi_def_cfa_offset 11
+ 407               		.cfi_offset 29, -10
+ 408 014c CDB7      		in r28,__SP_L__
+ 409 014e DEB7      		in r29,__SP_H__
+ 410               		.cfi_def_cfa_register 28
+ 411 0150 2C97      		sbiw r28,12
+ 412               		.cfi_def_cfa_offset 23
+ 413 0152 CDBF      		out __SP_L__,r28
+ 414 0154 DEBF      		out __SP_H__,r29
+ 415               	/* prologue: function */
+ 416               	/* frame size = 12 */
+ 417               	/* stack size = 21 */
+ 418               	.L__stack_usage = 21
+ 419 0156 4F83      		std Y+7,r20
+ 420 0158 5887      		std Y+8,r21
+ 421 015a 6987      		std Y+9,r22
+ 422 015c 7A87      		std Y+10,r23
+ 423 015e C601      		movw r24,r12
+ 424 0160 6A2D      		mov r22,r10
+  41:Src/driver/servo_driver.c ****   servo.speed_feedback->port = port;
+ 425               		.loc 1 41 3 is_stmt 1 view .LVU49
+ 426               		.loc 1 41 30 is_stmt 0 view .LVU50
+ 427 0162 E985      		ldd r30,Y+9
+ 428 0164 FA85      		ldd r31,Y+10
+ 429 0166 C082      		st Z,r12
+ 430 0168 9183      		std Z+1,r25
+  42:Src/driver/servo_driver.c ****   servo.reset_alarm->pin = pin;
+ 431               		.loc 1 42 3 is_stmt 1 view .LVU51
+ 432               		.loc 1 42 26 is_stmt 0 view .LVU52
+ 433 016a EF81      		ldd r30,Y+7
+ 434 016c F885      		ldd r31,Y+8
+ 435 016e A282      		std Z+2,r10
+  43:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 436               		.loc 1 43 3 is_stmt 1 view .LVU53
+ 437               	/* epilogue start */
+  44:Src/driver/servo_driver.c **** }
+ 438               		.loc 1 44 1 is_stmt 0 view .LVU54
+ 439 0170 2C96      		adiw r28,12
+ 440 0172 CDBF      		out __SP_L__,r28
+ 441 0174 DEBF      		out __SP_H__,r29
+ 442 0176 DF91      		pop r29
+ 443 0178 CF91      		pop r28
+ 444 017a 1F91      		pop r17
+ 445 017c 0F91      		pop r16
+ 446 017e FF90      		pop r15
+ 447 0180 EF90      		pop r14
+ 448 0182 DF90      		pop r13
+ 449 0184 CF90      		pop r12
+ 450               	.LVL24:
+ 451               		.loc 1 44 1 view .LVU55
+ 452 0186 AF90      		pop r10
+ 453               	.LVL25:
+  43:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 454               		.loc 1 43 3 view .LVU56
+ 455 0188 0C94 0000 		jmp gpio_cfg_in_np
+ 456               	.LVL26:
+  43:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 457               		.loc 1 43 3 view .LVU57
+ 458               		.cfi_endproc
+ 459               	.LFE15:
+ 461               	.global	servo_cfg_speed_out
+ 463               	servo_cfg_speed_out:
+ 464               	.LVL27:
+ 465               	.LFB16:
+  45:Src/driver/servo_driver.c **** 
+  46:Src/driver/servo_driver.c **** void servo_cfg_speed_out(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value)
+  47:Src/driver/servo_driver.c **** {
+ 466               		.loc 1 47 1 is_stmt 1 view -0
+ 467               		.cfi_startproc
+ 468               		.loc 1 47 1 is_stmt 0 view .LVU59
+ 469 018c 8F92      		push r8
+ 470               		.cfi_def_cfa_offset 3
+ 471               		.cfi_offset 8, -2
+ 472 018e AF92      		push r10
+ 473               		.cfi_def_cfa_offset 4
+ 474               		.cfi_offset 10, -3
+ 475 0190 CF92      		push r12
+ 476               		.cfi_def_cfa_offset 5
+ 477               		.cfi_offset 12, -4
+ 478 0192 DF92      		push r13
+ 479               		.cfi_def_cfa_offset 6
+ 480               		.cfi_offset 13, -5
+ 481 0194 EF92      		push r14
+ 482               		.cfi_def_cfa_offset 7
+ 483               		.cfi_offset 14, -6
+ 484 0196 FF92      		push r15
+ 485               		.cfi_def_cfa_offset 8
+ 486               		.cfi_offset 15, -7
+ 487 0198 0F93      		push r16
+ 488               		.cfi_def_cfa_offset 9
+ 489               		.cfi_offset 16, -8
+ 490 019a 1F93      		push r17
+ 491               		.cfi_def_cfa_offset 10
+ 492               		.cfi_offset 17, -9
+ 493 019c CF93      		push r28
+ 494               		.cfi_def_cfa_offset 11
+ 495               		.cfi_offset 28, -10
+ 496 019e DF93      		push r29
+ 497               		.cfi_def_cfa_offset 12
+ 498               		.cfi_offset 29, -11
+ 499 01a0 CDB7      		in r28,__SP_L__
+ 500 01a2 DEB7      		in r29,__SP_H__
+ 501               		.cfi_def_cfa_register 28
+ 502 01a4 2C97      		sbiw r28,12
+ 503               		.cfi_def_cfa_offset 24
+ 504 01a6 CDBF      		out __SP_L__,r28
+ 505 01a8 DEBF      		out __SP_H__,r29
+ 506               	/* prologue: function */
+ 507               	/* frame size = 12 */
+ 508               	/* stack size = 22 */
+ 509               	.L__stack_usage = 22
+ 510 01aa 4F83      		std Y+7,r20
+ 511 01ac 5887      		std Y+8,r21
+ 512 01ae 6987      		std Y+9,r22
+ 513 01b0 7A87      		std Y+10,r23
+ 514 01b2 C601      		movw r24,r12
+ 515 01b4 6A2D      		mov r22,r10
+ 516 01b6 482D      		mov r20,r8
+  48:Src/driver/servo_driver.c ****   servo.speed_feedback->port = port;
+ 517               		.loc 1 48 3 is_stmt 1 view .LVU60
+ 518               		.loc 1 48 30 is_stmt 0 view .LVU61
+ 519 01b8 E985      		ldd r30,Y+9
+ 520 01ba FA85      		ldd r31,Y+10
+ 521 01bc C082      		st Z,r12
+ 522 01be 9183      		std Z+1,r25
+  49:Src/driver/servo_driver.c ****   servo.reset_alarm->pin = pin;
+ 523               		.loc 1 49 3 is_stmt 1 view .LVU62
+ 524               		.loc 1 49 26 is_stmt 0 view .LVU63
+ 525 01c0 EF81      		ldd r30,Y+7
+ 526 01c2 F885      		ldd r31,Y+8
+ 527 01c4 A282      		std Z+2,r10
+  50:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 528               		.loc 1 50 3 is_stmt 1 view .LVU64
+ 529               	/* epilogue start */
+  51:Src/driver/servo_driver.c **** }
+ 530               		.loc 1 51 1 is_stmt 0 view .LVU65
+ 531 01c6 2C96      		adiw r28,12
+ 532 01c8 CDBF      		out __SP_L__,r28
+ 533 01ca DEBF      		out __SP_H__,r29
+ 534 01cc DF91      		pop r29
+ 535 01ce CF91      		pop r28
+ 536 01d0 1F91      		pop r17
+ 537 01d2 0F91      		pop r16
+ 538 01d4 FF90      		pop r15
+ 539 01d6 EF90      		pop r14
+ 540 01d8 DF90      		pop r13
+ 541 01da CF90      		pop r12
+ 542               	.LVL28:
+ 543               		.loc 1 51 1 view .LVU66
+ 544 01dc AF90      		pop r10
+ 545               	.LVL29:
+ 546               		.loc 1 51 1 view .LVU67
+ 547 01de 8F90      		pop r8
+ 548               	.LVL30:
+  50:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 549               		.loc 1 50 3 view .LVU68
+ 550 01e0 0C94 0000 		jmp gpio_cfg_out_np
+ 551               	.LVL31:
+  50:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 552               		.loc 1 50 3 view .LVU69
+ 553               		.cfi_endproc
+ 554               	.LFE16:
+ 556               	.global	servo_start
+ 558               	servo_start:
+ 559               	.LFB17:
+  52:Src/driver/servo_driver.c **** 
+  53:Src/driver/servo_driver.c **** void servo_start(servo_motor_t servo)
+  54:Src/driver/servo_driver.c **** {
+ 560               		.loc 1 54 1 is_stmt 1 view -0
+ 561               		.cfi_startproc
+ 562 01e4 EF92      		push r14
+ 563               		.cfi_def_cfa_offset 3
+ 564               		.cfi_offset 14, -2
+ 565 01e6 FF92      		push r15
+ 566               		.cfi_def_cfa_offset 4
+ 567               		.cfi_offset 15, -3
+ 568 01e8 0F93      		push r16
+ 569               		.cfi_def_cfa_offset 5
+ 570               		.cfi_offset 16, -4
+ 571 01ea 1F93      		push r17
+ 572               		.cfi_def_cfa_offset 6
+ 573               		.cfi_offset 17, -5
+ 574 01ec CF93      		push r28
+ 575               		.cfi_def_cfa_offset 7
+ 576               		.cfi_offset 28, -6
+ 577 01ee DF93      		push r29
+ 578               		.cfi_def_cfa_offset 8
+ 579               		.cfi_offset 29, -7
+ 580 01f0 CDB7      		in r28,__SP_L__
+ 581 01f2 DEB7      		in r29,__SP_H__
+ 582               		.cfi_def_cfa_register 28
+ 583 01f4 2C97      		sbiw r28,12
+ 584               		.cfi_def_cfa_offset 20
+ 585 01f6 CDBF      		out __SP_L__,r28
+ 586 01f8 DEBF      		out __SP_H__,r29
+ 587               	/* prologue: function */
+ 588               	/* frame size = 12 */
+ 589               	/* stack size = 18 */
+ 590               	.L__stack_usage = 18
+ 591 01fa E982      		std Y+1,r14
+ 592 01fc FA82      		std Y+2,r15
+  55:Src/driver/servo_driver.c ****   gpio_clr(servo.start_stop);
+ 593               		.loc 1 55 3 view .LVU71
+ 594 01fe 8981      		ldd r24,Y+1
+ 595 0200 9A81      		ldd r25,Y+2
+ 596               	/* epilogue start */
+  56:Src/driver/servo_driver.c **** }
+ 597               		.loc 1 56 1 is_stmt 0 view .LVU72
+ 598 0202 2C96      		adiw r28,12
+ 599 0204 CDBF      		out __SP_L__,r28
+ 600 0206 DEBF      		out __SP_H__,r29
+ 601 0208 DF91      		pop r29
+ 602 020a CF91      		pop r28
+ 603 020c 1F91      		pop r17
+ 604 020e 0F91      		pop r16
+ 605 0210 FF90      		pop r15
+ 606 0212 EF90      		pop r14
+  55:Src/driver/servo_driver.c ****   gpio_clr(servo.start_stop);
+ 607               		.loc 1 55 3 view .LVU73
+ 608 0214 0C94 0000 		jmp gpio_clr
+ 609               	.LVL32:
+ 610               		.cfi_endproc
+ 611               	.LFE17:
+ 613               	.global	servo_stop
+ 615               	servo_stop:
+ 616               	.LFB18:
+  57:Src/driver/servo_driver.c **** 
+  58:Src/driver/servo_driver.c **** void servo_stop(servo_motor_t servo)
+  59:Src/driver/servo_driver.c **** {
+ 617               		.loc 1 59 1 is_stmt 1 view -0
+ 618               		.cfi_startproc
+ 619 0218 EF92      		push r14
+ 620               		.cfi_def_cfa_offset 3
+ 621               		.cfi_offset 14, -2
+ 622 021a FF92      		push r15
+ 623               		.cfi_def_cfa_offset 4
+ 624               		.cfi_offset 15, -3
+ 625 021c 0F93      		push r16
+ 626               		.cfi_def_cfa_offset 5
+ 627               		.cfi_offset 16, -4
+ 628 021e 1F93      		push r17
+ 629               		.cfi_def_cfa_offset 6
+ 630               		.cfi_offset 17, -5
+ 631 0220 CF93      		push r28
+ 632               		.cfi_def_cfa_offset 7
+ 633               		.cfi_offset 28, -6
+ 634 0222 DF93      		push r29
+ 635               		.cfi_def_cfa_offset 8
+ 636               		.cfi_offset 29, -7
+ 637 0224 CDB7      		in r28,__SP_L__
+ 638 0226 DEB7      		in r29,__SP_H__
+ 639               		.cfi_def_cfa_register 28
+ 640 0228 2C97      		sbiw r28,12
+ 641               		.cfi_def_cfa_offset 20
+ 642 022a CDBF      		out __SP_L__,r28
+ 643 022c DEBF      		out __SP_H__,r29
+ 644               	/* prologue: function */
+ 645               	/* frame size = 12 */
+ 646               	/* stack size = 18 */
+ 647               	.L__stack_usage = 18
+ 648 022e E982      		std Y+1,r14
+ 649 0230 FA82      		std Y+2,r15
+  60:Src/driver/servo_driver.c ****   gpio_set(servo.start_stop);
+ 650               		.loc 1 60 3 view .LVU75
+ 651 0232 8981      		ldd r24,Y+1
+ 652 0234 9A81      		ldd r25,Y+2
+ 653               	/* epilogue start */
+  61:Src/driver/servo_driver.c **** }
+ 654               		.loc 1 61 1 is_stmt 0 view .LVU76
+ 655 0236 2C96      		adiw r28,12
+ 656 0238 CDBF      		out __SP_L__,r28
+ 657 023a DEBF      		out __SP_H__,r29
+ 658 023c DF91      		pop r29
+ 659 023e CF91      		pop r28
+ 660 0240 1F91      		pop r17
+ 661 0242 0F91      		pop r16
+ 662 0244 FF90      		pop r15
+ 663 0246 EF90      		pop r14
+  60:Src/driver/servo_driver.c ****   gpio_set(servo.start_stop);
+ 664               		.loc 1 60 3 view .LVU77
+ 665 0248 0C94 0000 		jmp gpio_set
+ 666               	.LVL33:
+ 667               		.cfi_endproc
+ 668               	.LFE18:
+ 670               	.global	servo_brake
+ 672               	servo_brake:
+ 673               	.LFB19:
+  62:Src/driver/servo_driver.c **** 
+  63:Src/driver/servo_driver.c **** void servo_brake(servo_motor_t servo)
+  64:Src/driver/servo_driver.c **** {
+ 674               		.loc 1 64 1 is_stmt 1 view -0
+ 675               		.cfi_startproc
+ 676 024c EF92      		push r14
+ 677               		.cfi_def_cfa_offset 3
+ 678               		.cfi_offset 14, -2
+ 679 024e FF92      		push r15
+ 680               		.cfi_def_cfa_offset 4
+ 681               		.cfi_offset 15, -3
+ 682 0250 0F93      		push r16
+ 683               		.cfi_def_cfa_offset 5
+ 684               		.cfi_offset 16, -4
+ 685 0252 1F93      		push r17
+ 686               		.cfi_def_cfa_offset 6
+ 687               		.cfi_offset 17, -5
+ 688 0254 CF93      		push r28
+ 689               		.cfi_def_cfa_offset 7
+ 690               		.cfi_offset 28, -6
+ 691 0256 DF93      		push r29
+ 692               		.cfi_def_cfa_offset 8
+ 693               		.cfi_offset 29, -7
+ 694 0258 CDB7      		in r28,__SP_L__
+ 695 025a DEB7      		in r29,__SP_H__
+ 696               		.cfi_def_cfa_register 28
+ 697 025c 2C97      		sbiw r28,12
+ 698               		.cfi_def_cfa_offset 20
+ 699 025e CDBF      		out __SP_L__,r28
+ 700 0260 DEBF      		out __SP_H__,r29
+ 701               	/* prologue: function */
+ 702               	/* frame size = 12 */
+ 703               	/* stack size = 18 */
+ 704               	.L__stack_usage = 18
+ 705 0262 0B83      		std Y+3,r16
+ 706 0264 1C83      		std Y+4,r17
+  65:Src/driver/servo_driver.c ****   gpio_clr(servo.run_brake);
+ 707               		.loc 1 65 3 view .LVU79
+ 708 0266 8B81      		ldd r24,Y+3
+ 709 0268 9C81      		ldd r25,Y+4
+ 710               	/* epilogue start */
+  66:Src/driver/servo_driver.c **** }
+ 711               		.loc 1 66 1 is_stmt 0 view .LVU80
+ 712 026a 2C96      		adiw r28,12
+ 713 026c CDBF      		out __SP_L__,r28
+ 714 026e DEBF      		out __SP_H__,r29
+ 715 0270 DF91      		pop r29
+ 716 0272 CF91      		pop r28
+ 717 0274 1F91      		pop r17
+ 718 0276 0F91      		pop r16
+ 719 0278 FF90      		pop r15
+ 720 027a EF90      		pop r14
+  65:Src/driver/servo_driver.c ****   gpio_clr(servo.run_brake);
+ 721               		.loc 1 65 3 view .LVU81
+ 722 027c 0C94 0000 		jmp gpio_clr
+ 723               	.LVL34:
+ 724               		.cfi_endproc
+ 725               	.LFE19:
+ 727               	.global	servo_run
+ 729               	servo_run:
+ 730               	.LFB20:
+  67:Src/driver/servo_driver.c **** 
+  68:Src/driver/servo_driver.c **** void servo_run(servo_motor_t servo)
+  69:Src/driver/servo_driver.c **** {
+ 731               		.loc 1 69 1 is_stmt 1 view -0
+ 732               		.cfi_startproc
+ 733 0280 EF92      		push r14
+ 734               		.cfi_def_cfa_offset 3
+ 735               		.cfi_offset 14, -2
+ 736 0282 FF92      		push r15
+ 737               		.cfi_def_cfa_offset 4
+ 738               		.cfi_offset 15, -3
+ 739 0284 0F93      		push r16
+ 740               		.cfi_def_cfa_offset 5
+ 741               		.cfi_offset 16, -4
+ 742 0286 1F93      		push r17
+ 743               		.cfi_def_cfa_offset 6
+ 744               		.cfi_offset 17, -5
+ 745 0288 CF93      		push r28
+ 746               		.cfi_def_cfa_offset 7
+ 747               		.cfi_offset 28, -6
+ 748 028a DF93      		push r29
+ 749               		.cfi_def_cfa_offset 8
+ 750               		.cfi_offset 29, -7
+ 751 028c CDB7      		in r28,__SP_L__
+ 752 028e DEB7      		in r29,__SP_H__
+ 753               		.cfi_def_cfa_register 28
+ 754 0290 2C97      		sbiw r28,12
+ 755               		.cfi_def_cfa_offset 20
+ 756 0292 CDBF      		out __SP_L__,r28
+ 757 0294 DEBF      		out __SP_H__,r29
+ 758               	/* prologue: function */
+ 759               	/* frame size = 12 */
+ 760               	/* stack size = 18 */
+ 761               	.L__stack_usage = 18
+ 762 0296 0B83      		std Y+3,r16
+ 763 0298 1C83      		std Y+4,r17
+  70:Src/driver/servo_driver.c ****   gpio_set(servo.run_brake);
+ 764               		.loc 1 70 3 view .LVU83
+ 765 029a 8B81      		ldd r24,Y+3
+ 766 029c 9C81      		ldd r25,Y+4
+ 767               	/* epilogue start */
+  71:Src/driver/servo_driver.c **** }...
+ 768               		.loc 1 71 1 is_stmt 0 view .LVU84
+ 769 029e 2C96      		adiw r28,12
+ 770 02a0 CDBF      		out __SP_L__,r28
+ 771 02a2 DEBF      		out __SP_H__,r29
+ 772 02a4 DF91      		pop r29
+ 773 02a6 CF91      		pop r28
+ 774 02a8 1F91      		pop r17
+ 775 02aa 0F91      		pop r16
+ 776 02ac FF90      		pop r15
+ 777 02ae EF90      		pop r14
+  70:Src/driver/servo_driver.c ****   gpio_set(servo.run_brake);
+ 778               		.loc 1 70 3 view .LVU85
+ 779 02b0 0C94 0000 		jmp gpio_set
+ 780               	.LVL35:
+ 781               		.cfi_endproc
+ 782               	.LFE20:
+ 784               	.Letext0:
+ 785               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 786               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 787               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 788               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
+ 789               		.file 6 "Src/driver/../../Inc/driver/io.h"
+ 790               		.file 7 "Src/driver/../../Inc/driver/servo_driver.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 servo_driver.c
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:13     .text:0000000000000000 servo_cfg_start
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:106    .text:0000000000000050 servo_cfg_brake
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:198    .text:00000000000000a0 servo_cfg_alarm_in
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:283    .text:00000000000000ea servo_cfg_alarm_out
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:375    .text:000000000000013a servo_cfg_speed_in
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:463    .text:000000000000018c servo_cfg_speed_out
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:558    .text:00000000000001e4 servo_start
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:615    .text:0000000000000218 servo_stop
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:672    .text:000000000000024c servo_brake
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cciuY6JF.s:729    .text:0000000000000280 servo_run
+
+UNDEFINED SYMBOLS
+gpio_cfg_out_np
+gpio_cfg_in_np
+gpio_clr
+gpio_set

@@ -8,7 +8,7 @@
 
 #include "../../Inc/core/main.h"
 
-uint8_t T0_millis = 0;
+uint16_t T0_millis = 0;
 
 int main(void)
 {
@@ -16,13 +16,14 @@ int main(void)
   board_init();
   sei();
 
-  while (true)
+  while (1)
   {
-    if (T0_millis >= 5)
+    if (T0_millis >= 1000)
     {
       GPIO_TGL(LED);
       T0_millis = 0;
     }
+    for (int i = 0; i < 50; i++){}
   }
   return 0;
 }

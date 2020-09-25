@@ -16,6 +16,7 @@
 // Local Headers
 #include "../../config.h"
 #include "../driver/io.h"
+#include "../../Inc/driver/servo_driver.h"
 #include "../../TC_driver/TC_driver.h"
 
 // AVR headers.
@@ -23,6 +24,8 @@
 
 #ifndef BOARD_INIT_H_INCLUDED_
 #define BOARD_INIT_H_INCLUDED_
+
+extern servo_motor_t motor_disc;
 
 static inline void
 board_init(void)
@@ -44,30 +47,23 @@ board_init(void)
   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
 
   //***********************************************************************
-  //* TIMER E0                                                            *
-  //***********************************************************************
-  
-  // Setting the period/TOP of timer E1
-  // F_CPU/prescaler * period - 1 = ticks
-  // 32000000/256 * 0.001s - 1 = 125
-  TC_SetPeriod(&TCE0, 125); //TE0C->PER = 125
-
-  // Setting the clock of timer E0 (F_CPU/256)
-  TC0_ConfigClockSource(&TCE0, TC_CLKSEL_DIV256_gc); //tc->CTRLA[3:0] = xxx
-
-  // Setting timer E0 to the normal operating mode
-  TC0_ConfigWGM(&TCE0, TC_WGMODE_NORMAL_gc); //Normal Mode: TOP = PER, OVF = TOP
-
-  // Enabling low-priority overflow interruptions
-  TC0_SetOverflowIntLevel(&TCE0, TC_OVFINTLVL_LO_gc);
-
-  //***********************************************************************
   //* GPIO.                                                               *
   //***********************************************************************
 
   // Setup pins as IN/OUTputs
   GPIO_CFG_OUT(LED, false);
-  //GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
+  GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
+
+  SERVO_CFG_BRAKE(motor_disc, MOTOR_RUNBRAKE, true);
+  SERVO_CFG_START(motor_disc, MOTOR_STARTSTOP, true);
+
+  //***********************************************************************
+  //* GPIO/External Interrupt                                             *
+  //***********************************************************************
+  // External interrupt 0 on PC1, enable pullup, sence falling edge
+  //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
+  //PORTC.INT0MASK = (1 << BUTTON_PIN);
+  //PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
 
   //***********************************************************************
   //* Interrupt levels.                                                   *

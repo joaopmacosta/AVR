@@ -1,0 +1,323 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               		.section	.text.startup,"ax",@progbits
+  12               	.global	main
+  14               	main:
+  15               	.LFB18:
+  16               		.file 1 "Src/core/main.c"
+   1:Src/core/main.c **** //***************************************************************************
+   2:Src/core/main.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/main.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/main.c **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/main.c **** //***************************************************************************
+   6:Src/core/main.c **** // Author: João Costa                                                       *
+   7:Src/core/main.c **** //***************************************************************************
+   8:Src/core/main.c **** 
+   9:Src/core/main.c **** #include "../../Inc/core/main.h"
+  10:Src/core/main.c **** 
+  11:Src/core/main.c **** uint16_t T0_millis = 0;
+  12:Src/core/main.c **** 
+  13:Src/core/main.c **** int main(void)
+  14:Src/core/main.c **** {
+  17               		.loc 1 14 1 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  15:Src/core/main.c ****   cli();
+  23               		.loc 1 15 3 view .LVU1
+  24               	/* #APP */
+  25               	 ;  15 "Src/core/main.c" 1
+  26 0000 F894      		cli
+  27               	 ;  0 "" 2
+  16:Src/core/main.c ****   board_init();
+  28               		.loc 1 16 3 view .LVU2
+  29               	/* #NOAPP */
+  30               	.LBB5:
+  31               	.LBI5:
+  32               		.file 2 "Src/core/../../Inc/core/../../Inc/core/board_init.h"
+   1:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   2:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   6:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Author: Pedro Gonçalves                                                  *
+   7:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   8:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+   9:Src/core/../../Inc/core/../../Inc/core/board_init.h **** /// ISO C 99 headers.
+  10:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stddef.h>
+  11:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <inttypes.h>
+  12:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdio.h>
+  13:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdlib.h>
+  14:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <string.h>
+  15:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  16:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Local Headers
+  17:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../config.h"
+  18:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../driver/io.h"
+  19:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../TC_driver/TC_driver.h"
+  20:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  21:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // AVR headers.
+  22:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <avr/io.h>
+  23:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  24:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #ifndef BOARD_INIT_H_INCLUDED_
+  25:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #define BOARD_INIT_H_INCLUDED_
+  26:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  27:Src/core/../../Inc/core/../../Inc/core/board_init.h **** static inline void
+  28:Src/core/../../Inc/core/../../Inc/core/board_init.h **** board_init(void)
+  33               		.loc 2 28 1 view .LVU3
+  34               	.LBB6:
+  29:Src/core/../../Inc/core/../../Inc/core/board_init.h **** {
+  30:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  31:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // System Clock.                                                        *
+  32:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  33:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // ENABLE INTERNAL 32MHZ OSCILLATOR
+  34:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  35:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+  35               		.loc 2 35 3 view .LVU4
+  36               		.loc 2 35 7 is_stmt 0 view .LVU5
+  37 0002 88ED      		ldi r24,lo8(-40)
+  38 0004 84BF      		out __CCP__,r24
+  36:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  37:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   OSC.CTRL = OSC_RC32MEN_bm;
+  39               		.loc 2 37 3 is_stmt 1 view .LVU6
+  40               		.loc 2 37 12 is_stmt 0 view .LVU7
+  41 0006 82E0      		ldi r24,lo8(2)
+  42 0008 8093 5000 		sts 80,r24
+  38:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
+  43               		.loc 2 39 3 is_stmt 1 view .LVU8
+  44               	.L2:
+  40:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  45               		.loc 2 40 5 view .LVU9
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  46               		.loc 2 39 9 view .LVU10
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  47               		.loc 2 39 15 is_stmt 0 view .LVU11
+  48 000c 8091 5100 		lds r24,81
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  49               		.loc 2 39 9 view .LVU12
+  50 0010 81FF      		sbrs r24,1
+  51 0012 00C0      		rjmp .L2
+  41:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  42:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+  52               		.loc 2 42 3 is_stmt 1 view .LVU13
+  53               		.loc 2 42 7 is_stmt 0 view .LVU14
+  54 0014 88ED      		ldi r24,lo8(-40)
+  55 0016 84BF      		out __CCP__,r24
+  43:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  44:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
+  56               		.loc 2 44 3 is_stmt 1 view .LVU15
+  57               		.loc 2 44 12 is_stmt 0 view .LVU16
+  58 0018 81E0      		ldi r24,lo8(1)
+  59 001a 8093 4000 		sts 64,r24
+  45:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  46:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  47:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* TIMER E0                                                            *
+  48:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  49:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   
+  50:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setting the period/TOP of timer E1
+  51:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // F_CPU/prescaler * period - 1 = ticks
+  52:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // 32000000/256 * 0.001s - 1 = 125
+  53:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   TC_SetPeriod(&TCE0, 125); //TE0C->PER = 125
+  60               		.loc 2 53 3 is_stmt 1 view .LVU17
+  61 001e 8DE7      		ldi r24,lo8(125)
+  62 0020 90E0      		ldi r25,0
+  63 0022 8093 260A 		sts 2598,r24
+  64 0026 9093 270A 		sts 2598+1,r25
+  54:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  55:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setting the clock of timer E0 (F_CPU/256)
+  56:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   TC0_ConfigClockSource(&TCE0, TC_CLKSEL_DIV256_gc); //tc->CTRLA[3:0] = xxx
+  65               		.loc 2 56 3 view .LVU18
+  66 002a 66E0      		ldi r22,lo8(6)
+  67 002c 80E0      		ldi r24,0
+  68 002e 9AE0      		ldi r25,lo8(10)
+  69 0030 0E94 0000 		call TC0_ConfigClockSource
+  70               	.LVL0:
+  57:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  58:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setting timer E0 to the normal operating mode
+  59:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   TC0_ConfigWGM(&TCE0, TC_WGMODE_NORMAL_gc); //Normal Mode: TOP = PER, OVF = TOP
+  71               		.loc 2 59 3 view .LVU19
+  72 0034 60E0      		ldi r22,0
+  73 0036 80E0      		ldi r24,0
+  74 0038 9AE0      		ldi r25,lo8(10)
+  75 003a 0E94 0000 		call TC0_ConfigWGM
+  76               	.LVL1:
+  60:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  61:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Enabling low-priority overflow interruptions
+  62:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   TC0_SetOverflowIntLevel(&TCE0, TC_OVFINTLVL_LO_gc);
+  77               		.loc 2 62 3 view .LVU20
+  78 003e 61E0      		ldi r22,lo8(1)
+  79 0040 80E0      		ldi r24,0
+  80 0042 9AE0      		ldi r25,lo8(10)
+  81 0044 0E94 0000 		call TC0_SetOverflowIntLevel
+  82               	.LVL2:
+  63:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  64:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  65:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* GPIO.                                                               *
+  66:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  67:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  68:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setup pins as IN/OUTputs
+  69:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(LED, false);
+  83               		.loc 2 69 3 view .LVU21
+  84 0048 40E0      		ldi r20,0
+  85 004a 60E0      		ldi r22,0
+  86 004c 80E4      		ldi r24,lo8(64)
+  87 004e 96E0      		ldi r25,lo8(6)
+  88 0050 0E94 0000 		call gpio_cfg_out_np
+  89               	.LVL3:
+  70:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
+  71:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  72:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  73:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* Interrupt levels.                                                   *
+  74:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  75:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //Enables High, Medium and Low Level Interrupts
+  76:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PMIC.CTRL |= PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_LOLVLEN_bm;
+  90               		.loc 2 76 3 view .LVU22
+  91               		.loc 2 76 13 is_stmt 0 view .LVU23
+  92 0054 8091 A200 		lds r24,162
+  93 0058 8760      		ori r24,lo8(7)
+  94 005a 8093 A200 		sts 162,r24
+  95               	.LBE6:
+  96               	.LBE5:
+  17:Src/core/main.c ****   sei();
+  97               		.loc 1 17 3 is_stmt 1 view .LVU24
+  98               	/* #APP */
+  99               	 ;  17 "Src/core/main.c" 1
+ 100 005e 7894      		sei
+ 101               	 ;  0 "" 2
+ 102               	/* #NOAPP */
+ 103               	.L5:
+  18:Src/core/main.c **** 
+  19:Src/core/main.c ****   while (1)
+ 104               		.loc 1 19 3 view .LVU25
+  20:Src/core/main.c ****   {
+  21:Src/core/main.c ****     if (T0_millis >= 1000)
+ 105               		.loc 1 21 5 view .LVU26
+ 106               		.loc 1 21 8 is_stmt 0 view .LVU27
+ 107 0060 8091 0000 		lds r24,T0_millis
+ 108 0064 9091 0000 		lds r25,T0_millis+1
+ 109 0068 883E      		cpi r24,-24
+ 110 006a 9340      		sbci r25,3
+ 111 006c 00F0      		brlo .L3
+  22:Src/core/main.c ****     {
+  23:Src/core/main.c ****       GPIO_TGL(LED);
+ 112               		.loc 1 23 7 is_stmt 1 view .LVU28
+ 113 006e 60E0      		ldi r22,0
+ 114 0070 80E4      		ldi r24,lo8(64)
+ 115 0072 96E0      		ldi r25,lo8(6)
+ 116 0074 0E94 0000 		call gpio_tgl_np
+ 117               	.LVL4:
+  24:Src/core/main.c ****       T0_millis = 0;
+ 118               		.loc 1 24 7 view .LVU29
+ 119               		.loc 1 24 17 is_stmt 0 view .LVU30
+ 120 0078 1092 0000 		sts T0_millis,__zero_reg__
+ 121 007c 1092 0000 		sts T0_millis+1,__zero_reg__
+ 122               	.L3:
+  25:Src/core/main.c ****     }
+  26:Src/core/main.c ****     for (int i = 0; i < 50; i++){}
+ 123               		.loc 1 26 5 is_stmt 1 view .LVU31
+ 124               	.LBB7:
+ 125               		.loc 1 26 10 view .LVU32
+ 126               	.LVL5:
+ 127               		.loc 1 26 21 view .LVU33
+ 128               	.LBE7:
+  14:Src/core/main.c ****   cli();
+ 129               		.loc 1 14 1 is_stmt 0 view .LVU34
+ 130 0080 82E3      		ldi r24,lo8(50)
+ 131 0082 90E0      		ldi r25,0
+ 132               	.LVL6:
+ 133               	.L4:
+ 134               	.LBB8:
+ 135               		.loc 1 26 34 is_stmt 1 discriminator 3 view .LVU35
+ 136               		.loc 1 26 29 discriminator 3 view .LVU36
+ 137               		.loc 1 26 21 discriminator 3 view .LVU37
+ 138 0084 0197      		sbiw r24,1
+ 139               	.LVL7:
+ 140               		.loc 1 26 5 is_stmt 0 discriminator 3 view .LVU38
+ 141 0086 01F4      		brne .L4
+ 142 0088 00C0      		rjmp .L5
+ 143               	.LBE8:
+ 144               		.cfi_endproc
+ 145               	.LFE18:
+ 147               		.text
+ 148               	.global	__vector_47
+ 150               	__vector_47:
+ 151               	.LFB19:
+  27:Src/core/main.c ****   }
+  28:Src/core/main.c ****   return 0;
+  29:Src/core/main.c **** }
+  30:Src/core/main.c **** 
+  31:Src/core/main.c **** ISR(TCE0_OVF_vect)
+  32:Src/core/main.c **** {
+ 152               		.loc 1 32 1 is_stmt 1 view -0
+ 153               		.cfi_startproc
+ 154 0000 8F93 8FB7 		__gcc_isr 1
+ 154      8F93 
+ 155 0006 9F93      		push r25
+ 156               		.cfi_def_cfa_offset 3
+ 157               		.cfi_offset 25, -2
+ 158               	/* prologue: Signal */
+ 159               	/* frame size = 0 */
+ 160               	/* stack size = 1...5 */
+ 161               	.L__stack_usage = 1 + __gcc_isr.n_pushed
+  33:Src/core/main.c ****   T0_millis++;
+ 162               		.loc 1 33 3 view .LVU40
+ 163               		.loc 1 33 12 is_stmt 0 view .LVU41
+ 164 0008 8091 0000 		lds r24,T0_millis
+ 165 000c 9091 0000 		lds r25,T0_millis+1
+ 166 0010 0196      		adiw r24,1
+ 167 0012 8093 0000 		sts T0_millis,r24
+ 168 0016 9093 0000 		sts T0_millis+1,r25
+ 169               	/* epilogue start */
+  34:Src/core/main.c ****   //GPIO_TGL(LED);
+  35:Src/core/main.c **** }
+ 170               		.loc 1 35 1 view .LVU42
+ 171 001a 9F91      		pop r25
+ 172 001c 8F91 8FBF 		__gcc_isr 2
+ 172      8F91 
+ 173 0022 1895      		reti
+ 174               		__gcc_isr 0,r24
+ 175               		.cfi_endproc
+ 176               	.LFE19:
+ 178               	.global	T0_millis
+ 179               		.section .bss
+ 182               	T0_millis:
+ 183 0000 0000      		.zero	2
+ 184               		.text
+ 185               	.Letext0:
+ 186               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 187               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
+ 188               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 189               		.file 6 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdio.h"
+ 190               		.file 7 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 191               		.file 8 "Src/core/../../Inc/core/../../Inc/core/../../TC_driver/TC_driver.h"
+ 192               		.file 9 "Src/core/../../Inc/core/../../Inc/core/../driver/io.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:14     .text.startup:0000000000000000 main
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:182    .bss:0000000000000000 T0_millis
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:150    .text:0000000000000000 __vector_47
+                            *ABS*:0000000000000002 __gcc_isr.n_pushed.001
+
+UNDEFINED SYMBOLS
+TC0_ConfigClockSource
+TC0_ConfigWGM
+TC0_SetOverflowIntLevel
+gpio_cfg_out_np
+gpio_tgl_np
+__do_clear_bss
