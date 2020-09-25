@@ -33,10 +33,24 @@
 #define USART_RX_BUFFER_SIZE    (128)
 #define USART_TX_BUFFER_SIZE    (128)
 
-#define USART_CPU               (USARTC0)
-#define USART0_DRE_INT_LVL      (USART_DREINTLVL_LO_gc)
-#define USART0_RX_INT_LVL       (USART_RXCINTLVL_LO_gc)
-#define USART0_DATA_BITS        (USART_CHSIZE_8BIT_gc)
-#define USART0_PARITY_MODE      (USART_PMODE_DISABLED_gc)
+
+//! UART peripheral.                    //57600
+#define UART0                           (USARTC0)
+//! UART receive port.
+#define UART0_RX_PORT                   (PORTC)
+//! UART receive pin.
+#define UART0_RX_PIN                    (2)
+//! UART transmit port.
+#define UART0_TX_PORT                   (PORTC)
+//! UART transmit pin.
+#define UART0_TX_PIN                    (3)
+//! Medium interrupt priority.
+#define UART0_CTRLA                     (USART_RXCINTLVL_HI_gc)
+#define UART0_CTRLB                     (USART_TXEN_bm | USART_RXEN_bm)
+#define UART0_CTRLC                     (USART_CHSIZE_8BIT_gc)
+#define UART0_BAUDCTRLA                 (0x22)
+#define UART0_BAUDCTRLB                 (0)
+//! UART receive interrupt vector.
+#define DEBUG_RX_IVEC                   (USARTC0_RXC_vect)
 
 #endif /* CONFIG_H_INCLUDED_ */

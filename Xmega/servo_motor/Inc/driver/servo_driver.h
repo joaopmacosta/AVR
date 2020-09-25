@@ -26,10 +26,10 @@ typedef struct servo_motor
   gpio_t speed_pwm;
 } servo_motor_t;
 
-/*#define GPIO(name)                          \
+#define GPIO(name)                          \
   {                                         \
     .port = &name##_PORT, .pin = name##_PIN \
-  }*/
+  }
 #define SERVO_CFG_START(servo, name, val) servo_cfg_start(servo, &name##_PORT, name##_PIN, val)
 #define SERVO_CFG_BRAKE(servo, name, val) servo_cfg_brake(servo, &name##_PORT, name##_PIN, val)
 #define SERVO_CFG_ALARM_IN(servo, name) servo_cfg_alarm_in(servo, &name##_PORT, name##_PIN,)
@@ -40,6 +40,8 @@ typedef struct servo_motor
 #define SERVO_STOP(servo) servo_stop(servo)
 #define SERVO_BRAKE(servo) servo_brake(servo)
 #define SERVO_RUN(servo) servo_run(servo)
+#define SERVO_SET_ALARM_RESET(servo) servo_set_alarm_reset(servo)
+#define SERVO_CLR_ALARM_RESET(servo) servo_clr_alarm_reset(servo)
 
 void servo_cfg_start(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
 
@@ -60,5 +62,9 @@ void servo_stop(servo_motor_t servo);
 void servo_brake(servo_motor_t servo);
 
 void servo_run(servo_motor_t servo);
+
+void servo_set_alarm_reset(servo_motor_t servo);
+
+void servo_clr_alarm_reset(servo_motor_t servo);
 
 #endif //SERVO_DRIVER_H_

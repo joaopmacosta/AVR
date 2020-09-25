@@ -52,20 +52,30 @@ void servo_cfg_speed_out(servo_motor_t servo, PORT_t *port, uint8_t pin, bool va
 
 void servo_start(servo_motor_t servo)
 {
-  gpio_clr(servo.start_stop);
+  gpio_clr_np(servo.start_stop->port, servo.start_stop->pin);
 }
 
 void servo_stop(servo_motor_t servo)
 {
-  gpio_set(servo.start_stop);
+  gpio_set_np(servo.start_stop->port, servo.start_stop->pin);
 }
 
 void servo_brake(servo_motor_t servo)
 {
-  gpio_clr(servo.run_brake);
+  gpio_clr_np(servo.run_brake->port, servo.run_brake->pin);
 }
 
 void servo_run(servo_motor_t servo)
 {
-  gpio_set(servo.run_brake);
+  gpio_set_np(servo.run_brake->port, servo.run_brake->pin);
+}
+
+void servo_set_alarm_reset(servo_motor_t servo)
+{
+  gpio_set_np(servo.reset_alarm->port, servo.reset_alarm->pin);
+}
+
+void servo_clr_alarm_reset(servo_motor_t servo)
+{
+  gpio_clr_np(servo.reset_alarm->port, servo.reset_alarm->pin);
 }

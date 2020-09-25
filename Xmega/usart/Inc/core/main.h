@@ -21,7 +21,7 @@
 
 #include "../../Inc/core/board_init.h"
 #include "../../Inc/driver/io.h"
-#include "../../Inc/driver/usart_driver.h"
+#include "../../Inc/driver/uart.h"
 #include "../../TC_driver/avr_compiler.h"
 
 #endif

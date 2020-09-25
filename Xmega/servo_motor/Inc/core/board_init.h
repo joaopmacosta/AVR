@@ -52,10 +52,10 @@ board_init(void)
 
   // Setup pins as IN/OUTputs
   GPIO_CFG_OUT(LED, false);
-  GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
 
   SERVO_CFG_START(motor_disc, MOTOR_STARTSTOP, true);
   SERVO_CFG_BRAKE(motor_disc, MOTOR_RUNBRAKE, true);
+  SERVO_CFG_ALARM_OUT(motor_disc, MOTOR_RSTALARM, true);
 
   //***********************************************************************
   //* GPIO/External Interrupt                                             *

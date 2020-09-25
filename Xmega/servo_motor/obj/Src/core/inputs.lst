@@ -5,13 +5,11 @@
    5               	__CCP__ = 0x34
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
-   8               		.text
-   9               	.Ltext0:
-  10               		.cfi_sections	.debug_frame
-  11               	.global	read_end_stops
-  13               	read_end_stops:
-  14               	.LFB11:
-  15               		.file 1 "Src/core/inputs.c"
+  10               		.text
+  11               	.Ltext0:
+ 484               	.global	read_end_stops
+ 486               	read_end_stops:
+ 487               		.stabd	46,0,0
    1:Src/core/inputs.c **** #include "../../Inc/core/inputs.h"
    2:Src/core/inputs.c **** #include "../../Inc/driver/io.h"
    3:Src/core/inputs.c **** #include "../../TC_driver/avr_compiler.h"
@@ -26,12 +24,18 @@
   12:Src/core/inputs.c **** 
   13:Src/core/inputs.c **** void read_end_stops(void)
   14:Src/core/inputs.c **** {
-  16               		.loc 1 14 1 view -0
-  17               		.cfi_startproc
-  18               	/* prologue: function */
-  19               	/* frame size = 0 */
-  20               	/* stack size = 0 */
-  21               	.L__stack_usage = 0
+ 489               	.LM0:
+ 490               	.LFBB1:
+ 491               	/* prologue: function */
+ 492               	/* frame size = 0 */
+ 493               	/* stack size = 0 */
+ 494               	.L__stack_usage = 0
+ 495 0000 0895      		ret
+ 497               	.Lscope1:
+ 499               		.stabd	78,0,0
+ 501               	.global	__vector_2
+ 503               	__vector_2:
+ 504               		.stabd	46,0,0
   15:Src/core/inputs.c ****   /* NO INTERRUPTS MODE*/
   16:Src/core/inputs.c ****   /*// End Stop 1
   17:Src/core/inputs.c ****   last_switch1 = switch1;
@@ -41,126 +45,88 @@
   21:Src/core/inputs.c ****     end_stop1 = 1;
   22:Src/core/inputs.c ****   }*/
   23:Src/core/inputs.c **** }
-  22               		.loc 1 23 1 view .LVU1
-  23               	/* epilogue start */
-  24 0000 0895      		ret
-  25               		.cfi_endproc
-  26               	.LFE11:
-  28               	.global	__vector_2
-  30               	__vector_2:
-  31               	.LFB12:
   24:Src/core/inputs.c **** 
   25:Src/core/inputs.c **** ISR(PORTC_INT0_vect)
   26:Src/core/inputs.c **** {
-  32               		.loc 1 26 1 view -0
-  33               		.cfi_startproc
-  34 0002 1F92      		push r1
-  35               		.cfi_def_cfa_offset 3
-  36               		.cfi_offset 1, -2
-  37 0004 0F92      		push r0
-  38               		.cfi_def_cfa_offset 4
-  39               		.cfi_offset 0, -3
-  40 0006 0FB6      		in r0,__SREG__
-  41 0008 0F92      		push r0
-  42 000a 1124      		clr __zero_reg__
-  43 000c 2F93      		push r18
-  44               		.cfi_def_cfa_offset 5
-  45               		.cfi_offset 18, -4
-  46 000e 3F93      		push r19
-  47               		.cfi_def_cfa_offset 6
-  48               		.cfi_offset 19, -5
-  49 0010 4F93      		push r20
-  50               		.cfi_def_cfa_offset 7
-  51               		.cfi_offset 20, -6
-  52 0012 5F93      		push r21
-  53               		.cfi_def_cfa_offset 8
-  54               		.cfi_offset 21, -7
-  55 0014 6F93      		push r22
-  56               		.cfi_def_cfa_offset 9
-  57               		.cfi_offset 22, -8
-  58 0016 7F93      		push r23
-  59               		.cfi_def_cfa_offset 10
-  60               		.cfi_offset 23, -9
-  61 0018 8F93      		push r24
-  62               		.cfi_def_cfa_offset 11
-  63               		.cfi_offset 24, -10
-  64 001a 9F93      		push r25
-  65               		.cfi_def_cfa_offset 12
-  66               		.cfi_offset 25, -11
-  67 001c AF93      		push r26
-  68               		.cfi_def_cfa_offset 13
-  69               		.cfi_offset 26, -12
-  70 001e BF93      		push r27
-  71               		.cfi_def_cfa_offset 14
-  72               		.cfi_offset 27, -13
-  73 0020 EF93      		push r30
-  74               		.cfi_def_cfa_offset 15
-  75               		.cfi_offset 30, -14
-  76 0022 FF93      		push r31
-  77               		.cfi_def_cfa_offset 16
-  78               		.cfi_offset 31, -15
-  79               	/* prologue: Signal */
-  80               	/* frame size = 0 */
-  81               	/* stack size = 15 */
-  82               	.L__stack_usage = 15
+ 506               	.LM1:
+ 507               	.LFBB2:
+ 509               	.LM2:
+ 510 0002 1F92      		push r1
+ 511 0004 0F92      		push r0
+ 512 0006 0FB6      		in r0,__SREG__
+ 513 0008 0F92      		push r0
+ 514 000a 1124      		clr __zero_reg__
+ 515 000c 2F93      		push r18
+ 516 000e 3F93      		push r19
+ 517 0010 4F93      		push r20
+ 518 0012 5F93      		push r21
+ 519 0014 6F93      		push r22
+ 520 0016 7F93      		push r23
+ 521 0018 8F93      		push r24
+ 522 001a 9F93      		push r25
+ 523 001c AF93      		push r26
+ 524 001e BF93      		push r27
+ 525 0020 EF93      		push r30
+ 526 0022 FF93      		push r31
+ 527               	/* prologue: Signal */
+ 528               	/* frame size = 0 */
+ 529               	/* stack size = 15 */
+ 530               	.L__stack_usage = 15
   27:Src/core/inputs.c ****   GPIO_TGL(LED);
-  83               		.loc 1 27 3 view .LVU3
-  84 0024 60E0      		ldi r22,0
-  85 0026 80E4      		ldi r24,lo8(64)
-  86 0028 96E0      		ldi r25,lo8(6)
-  87 002a 0E94 0000 		call gpio_tgl_np
-  88               	.LVL0:
-  89               	/* epilogue start */
+ 532               	.LM3:
+ 533 0024 60E0      		ldi r22,0
+ 534 0026 80E4      		ldi r24,lo8(64)
+ 535 0028 96E0      		ldi r25,lo8(6)
+ 536 002a 0E94 0000 		call gpio_tgl_np
+ 537               	/* epilogue start */
   28:Src/core/inputs.c **** }...
-  90               		.loc 1 28 1 is_stmt 0 view .LVU4
-  91 002e FF91      		pop r31
-  92 0030 EF91      		pop r30
-  93 0032 BF91      		pop r27
-  94 0034 AF91      		pop r26
-  95 0036 9F91      		pop r25
-  96 0038 8F91      		pop r24
-  97 003a 7F91      		pop r23
-  98 003c 6F91      		pop r22
-  99 003e 5F91      		pop r21
- 100 0040 4F91      		pop r20
- 101 0042 3F91      		pop r19
- 102 0044 2F91      		pop r18
- 103 0046 0F90      		pop r0
- 104 0048 0FBE      		out __SREG__,r0
- 105 004a 0F90      		pop r0
- 106 004c 1F90      		pop r1
- 107 004e 1895      		reti
- 108               		.cfi_endproc
- 109               	.LFE12:
- 111               	.global	end_stop1
- 112               		.section .bss
- 115               	end_stop1:
- 116 0000 0000      		.zero	2
- 117               		.comm	last_switch1,2,1
- 118               	.global	switch1
- 119               		.data
- 122               	switch1:
- 123 0000 0100      		.word	1
- 124               		.text
- 125               	.Letext0:
- 126               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
- 127               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
- 128               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
- 129               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
- 130               		.file 6 "Src/core/../../Inc/driver/io.h"
+ 539               	.LM4:
+ 540 002e FF91      		pop r31
+ 541 0030 EF91      		pop r30
+ 542 0032 BF91      		pop r27
+ 543 0034 AF91      		pop r26
+ 544 0036 9F91      		pop r25
+ 545 0038 8F91      		pop r24
+ 546 003a 7F91      		pop r23
+ 547 003c 6F91      		pop r22
+ 548 003e 5F91      		pop r21
+ 549 0040 4F91      		pop r20
+ 550 0042 3F91      		pop r19
+ 551 0044 2F91      		pop r18
+ 552 0046 0F90      		pop r0
+ 553 0048 0FBE      		out __SREG__,r0
+ 554 004a 0F90      		pop r0
+ 555 004c 1F90      		pop r1
+ 556 004e 1895      		reti
+ 558               	.Lscope2:
+ 560               		.stabd	78,0,0
+ 561               	.global	end_stop1
+ 562               		.section .bss
+ 565               	end_stop1:
+ 566 0000 0000      		.zero	2
+ 567               		.comm	last_switch1,2,1
+ 568               	.global	switch1
+ 569               		.data
+ 572               	switch1:
+ 573 0000 0100      		.word	1
+ 577               		.text
+ 579               	.Letext0:
+ 580               		.ident	"GCC: (GNU) 5.4.0"
+ 581               	.global __do_copy_data
+ 582               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 inputs.c
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:5      *ABS*:0000000000000034 __CCP__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:6      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:7      *ABS*:0000000000000001 __zero_reg__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:13     .text:0000000000000000 read_end_stops
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:30     .text:0000000000000002 __vector_2
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:115    .bss:0000000000000000 end_stop1
+     /tmp/ccTpDjDq.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccTpDjDq.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccTpDjDq.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccTpDjDq.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccTpDjDq.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccTpDjDq.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccTpDjDq.s:486    .text:0000000000000000 read_end_stops
+     /tmp/ccTpDjDq.s:503    .text:0000000000000002 __vector_2
+     /tmp/ccTpDjDq.s:565    .bss:0000000000000000 end_stop1
                             *COM*:0000000000000002 last_switch1
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccW4XTlF.s:122    .data:0000000000000000 switch1
+     /tmp/ccTpDjDq.s:572    .data:0000000000000000 switch1
 
 UNDEFINED SYMBOLS
 gpio_tgl_np

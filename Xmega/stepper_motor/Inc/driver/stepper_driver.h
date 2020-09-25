@@ -20,6 +20,8 @@ typedef struct stepper_motor
   gpio_t b;
   // B'
   gpio_t b_;
+  // phase
+  int stp_ph;
 } stepper_motor_t;
 
 int step_phase[8][4]{
@@ -39,11 +41,7 @@ int microstep_phase[8][4]{
     {1, 0, 0, 1}};
 
 #define STEPPER_CFG_START(servo, name, val) servo_cfg_start(servo, &name##_PORT, name##_PIN, val)
-#define SERVO_CFG_BRAKE(servo, name, val) servo_cfg_brake(servo, &name##_PORT, name##_PIN, val)
-#define SERVO_CFG_ALARM_IN(servo, name) servo_cfg_alarm_in(servo, &name##_PORT, name##_PIN)
-#define SERVO_CFG_ALARM_OUT(servo, name, val) servo_cfg_alarm_out(servo, &name##_PORT, name##_PIN, val)
-#define SERVO_CFG_SPD_IN(servo, name) servo_cfg_speed_in(servo, &name##_PORT, name##_PIN)
-#define SERVO_CFG_SPD_OUT(servo, name, val) servo_cfg_speed_out(servo, &name##_PORT, name##_PIN, val)
+
 #define SERVO_START(servo) servo_start(servo)
 #define SERVO_STOP(servo) servo_stop(servo)
 #define SERVO_BRAKE(servo) servo_brake(servo)

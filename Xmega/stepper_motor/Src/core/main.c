@@ -20,31 +20,5 @@ int main(void)
 
   while (1)
   {
-    SERVO_START(motor_disc);
-    SERVO_BRAKE(motor_disc);
-    GPIO_SET(LED);
-    _delay_ms(1000);
-    SERVO_STOP(motor_disc);
-    SERVO_RUN(motor_disc);
-    GPIO_CLR(LED);
-    _delay_ms(1000);
-
-    /*
-    //! Motor Start/Stop select port/pin.
-    #define MOTOR_STARTSTOP_PORT            (PORTC)
-    #define MOTOR_STARTSTOP_PIN             (3)
-    //! Motor Run/Brake select port/pin.
-    #define MOTOR_RUNBRAKE_PORT             (PORTC)
-    #define MOTOR_RUNBRAKE_PIN              (4)
-    //! Motor Reset Alarm select port/pin.
-    #define MOTOR_RSTALARM_PORT             (PORTC)
-    #define MOTOR_RSTALARM_PIN              (5)
-    //! Motor Alarm select port/pin.
-    #define MOTOR_ALARM_PORT                (PORTC)
-    #define MOTOR_ALARM_PIN                 (6)
-    //! Motor Speed Feedback select port/pin.
-    #define MOTOR_SPEEDOUT_PORT             (PORTC)
-    #define MOTOR_SPEEDOUT_PIN              (7)
-    */
   }
 }

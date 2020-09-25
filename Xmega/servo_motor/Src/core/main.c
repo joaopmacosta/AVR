@@ -18,31 +18,19 @@ int main(void)
   board_init();
   sei();
 
+  _delay_ms(500);
   while (1)
   {
-    SERVO_START(motor_disc);
-    SERVO_BRAKE(motor_disc);
-    _delay_ms(1000);
-    SERVO_STOP(motor_disc);
-    SERVO_RUN(motor_disc);
-    _delay_ms(1000);
-
-    /*
-    //! Motor Start/Stop select port/pin.
-    #define MOTOR_STARTSTOP_PORT            (PORTC)
-    #define MOTOR_STARTSTOP_PIN             (3)
-    //! Motor Run/Brake select port/pin.
-    #define MOTOR_RUNBRAKE_PORT             (PORTC)
-    #define MOTOR_RUNBRAKE_PIN              (4)
-    //! Motor Reset Alarm select port/pin.
-    #define MOTOR_RSTALARM_PORT             (PORTC)
-    #define MOTOR_RSTALARM_PIN              (5)
-    //! Motor Alarm select port/pin.
-    #define MOTOR_ALARM_PORT                (PORTC)
-    #define MOTOR_ALARM_PIN                 (6)
-    //! Motor Speed Feedback select port/pin.
-    #define MOTOR_SPEEDOUT_PORT             (PORTC)
-    #define MOTOR_SPEEDOUT_PIN              (7)
-    */
+    
+    gpio_set_np(motor_disc.start_stop->port, 3);
+    //SERVO_START(motor_disc);
+    //SERVO_RUN(motor_disc);
+    //SERVO_SET_ALARM_RESET(motor_disc);
+    _delay_ms(500);
+    gpio_clr_np(motor_disc.start_stop->port, 3);
+    //SERVO_STOP(motor_disc);
+    //SERVO_BRAKE(motor_disc);
+    //SERVO_CLR_ALARM_RESET(motor_disc);
+    _delay_ms(500);
   }
 }
