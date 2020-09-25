@@ -51,10 +51,6 @@ board_init(void)
   // Setup pins as IN/OUTputs
   GPIO_CFG_OUT(LED, false);
 
-  //***********************************************************************
-  //* UART0.                                                              *
-  //***********************************************************************
-
   GPIO_CFG_OUT(UART0_TX, false);
   GPIO_CFG_IN(UART0_RX);
 

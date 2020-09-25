@@ -13,9 +13,8 @@ int main(void)
 
   cli();
   board_init();
-  sei();
-
   initUsart();
+  sei();
 
   while (1)
   {

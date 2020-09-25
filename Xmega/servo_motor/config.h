@@ -9,7 +9,6 @@
 #ifndef CONFIG_H_INCLUDED_
 #define CONFIG_H_INCLUDED_
 
-
 //***************************************************************************
 // GPIO.                                                                    *
 //***************************************************************************
@@ -34,14 +33,23 @@
 #define MOTOR_SPEEDOUT_PORT             (PORTC)
 #define MOTOR_SPEEDOUT_PIN              (7)
 
-//! Stepper 1 select port/pin.
-#define STEPPER1_A_PORT                  (PORTD)
-#define STEPPER1_A_PIN                   (0)
-#define STEPPER1_a_PORT                  (PORTD)
-#define STEPPER1_a_PIN                   (1)
-#define STEPPER1_B_PORT                  (PORTD)
-#define STEPPER1_B_PIN                   (4)
-#define STEPPER1_b_PORT                  (PORTD)
-#define STEPPER1_b_PIN                   (5)
+//! UART peripheral.                    //57600
+#define UART0                           (USARTD0)
+//! UART receive port.
+#define UART0_RX_PORT                   (PORTD)
+//! UART receive pin.
+#define UART0_RX_PIN                    (2)
+//! UART transmit port.
+#define UART0_TX_PORT                   (PORTD)
+//! UART transmit pin.
+#define UART0_TX_PIN                    (3)
+//! Medium interrupt priority.
+#define UART0_CTRLA                     (USART_RXCINTLVL_HI_gc)
+#define UART0_CTRLB                     (USART_TXEN_bm | USART_RXEN_bm)
+#define UART0_CTRLC                     (USART_CHSIZE_8BIT_gc)
+#define UART0_BAUDCTRLA                 (0x22)
+#define UART0_BAUDCTRLB                 (0)
+//! UART receive interrupt vector.
+#define DEBUG_RX_IVEC                   (USARTD0_RXC_vect)
 
 #endif /* CONFIG_H_INCLUDED_ */

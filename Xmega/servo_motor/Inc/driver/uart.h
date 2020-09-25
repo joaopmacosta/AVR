@@ -24,19 +24,16 @@ typedef enum
   DEBUG
 } uart_channel;
 
-void
-initUsart(void);
+void initUsart(void);
 
-void
-UART_sendChar(uart_channel usart, uint8_t data);
+void UART_sendChar(uart_channel usart, uint8_t data);
 
-void
-UART_sendString(uart_channel usart, char *str);
+void UART_sendString(uart_channel usart, char *str);
 
-void
-UART_sendInt(uart_channel usart, int value);
+void UART_sendInt(uart_channel usart, int value);
 
-void
-UART_sendLint(uart_channel usart, long int data);
+void UART_sendLint(uart_channel usart, long int data);
+
+void spew(const char *fmt, ...);
 
 #endif /* UART_H_ */

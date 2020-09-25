@@ -30,8 +30,8 @@ typedef struct servo_motor
   {                                         \
     .port = &name##_PORT, .pin = name##_PIN \
   }
-#define SERVO_CFG_START(servo, name, val) servo_cfg_start(servo, &name##_PORT, name##_PIN, val)
-#define SERVO_CFG_BRAKE(servo, name, val) servo_cfg_brake(servo, &name##_PORT, name##_PIN, val)
+#define SERVO_CFG_START(servo, name, val) servo_cfg_start(&servo, &name##_PORT, name##_PIN, val)
+#define SERVO_CFG_BRAKE(servo, name, val) servo_cfg_brake(&servo, &name##_PORT, name##_PIN, val)
 #define SERVO_CFG_ALARM_IN(servo, name) servo_cfg_alarm_in(servo, &name##_PORT, name##_PIN,)
 #define SERVO_CFG_ALARM_OUT(servo, name, val) servo_cfg_alarm_out(servo, &name##_PORT, name##_PIN, val)
 #define SERVO_CFG_SPD_IN(servo, name) servo_cfg_speed_in(servo, &name##_PORT, name##_PIN,)
@@ -43,9 +43,9 @@ typedef struct servo_motor
 #define SERVO_SET_ALARM_RESET(servo) servo_set_alarm_reset(servo)
 #define SERVO_CLR_ALARM_RESET(servo) servo_clr_alarm_reset(servo)
 
-void servo_cfg_start(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
+void servo_cfg_start(servo_motor_t *servo, PORT_t *port, uint8_t pin, bool value);
 
-void servo_cfg_brake(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
+void servo_cfg_brake(servo_motor_t *servo, PORT_t *port, uint8_t pin, bool value);
 
 void servo_cfg_alarm_in(servo_motor_t servo, PORT_t *port, uint8_t pin);
 

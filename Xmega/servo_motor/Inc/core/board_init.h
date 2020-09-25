@@ -17,6 +17,7 @@
 #include "../../config.h"
 #include "../driver/io.h"
 #include "../../Inc/driver/servo_driver.h"
+#include "../../Inc/driver/uart.h"
 #include "../../TC_driver/TC_driver.h"
 
 // AVR headers.
@@ -34,7 +35,6 @@ board_init(void)
   // System Clock.                                                        *
   //***********************************************************************
   // ENABLE INTERNAL 32MHZ OSCILLATOR
-
   CCP = CCP_IOREG_gc;
 
   OSC.CTRL = OSC_RC32MEN_bm;
@@ -49,21 +49,12 @@ board_init(void)
   //***********************************************************************
   //* GPIO.                                                               *
   //***********************************************************************
-
-  // Setup pins as IN/OUTputs
   GPIO_CFG_OUT(LED, false);
 
-  SERVO_CFG_START(motor_disc, MOTOR_STARTSTOP, true);
-  SERVO_CFG_BRAKE(motor_disc, MOTOR_RUNBRAKE, true);
-  SERVO_CFG_ALARM_OUT(motor_disc, MOTOR_RSTALARM, true);
 
-  //***********************************************************************
-  //* GPIO/External Interrupt                                             *
-  //***********************************************************************
-  // External interrupt 0 on PC1, enable pullup, sence falling edge
-  //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
-  //PORTC.INT0MASK = (1 << BUTTON_PIN);
-  //PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
+
+  GPIO_CFG_OUT(UART0_TX, false);
+  GPIO_CFG_IN(UART0_RX);
 
   //***********************************************************************
   //* Interrupt levels.                                                   *
