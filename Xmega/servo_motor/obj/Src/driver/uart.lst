@@ -840,22 +840,22 @@
  841               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 uart.c
-     /tmp/ccEDVHXY.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccEDVHXY.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccEDVHXY.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccEDVHXY.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccEDVHXY.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccEDVHXY.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccEDVHXY.s:500    .text:0000000000000000 initUsart
-     /tmp/ccEDVHXY.s:538    .text:000000000000001e UART_sendChar
-     /tmp/ccEDVHXY.s:575    .text:0000000000000030 UART_sendString
-     /tmp/ccEDVHXY.s:620    .text:0000000000000050 UART_sendInt
-     /tmp/ccEDVHXY.s:681    .text:0000000000000086 UART_sendLint
-     /tmp/ccEDVHXY.s:741    .text:00000000000000be __vector_88
-     /tmp/ccEDVHXY.s:831    .bss:0000000000000000 cnt_reset_stop_emerg
-     /tmp/ccEDVHXY.s:775    .text:00000000000000da spew
+     /tmp/cczBRfck.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cczBRfck.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cczBRfck.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cczBRfck.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cczBRfck.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cczBRfck.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cczBRfck.s:500    .text:0000000000000000 initUsart
+     /tmp/cczBRfck.s:538    .text:000000000000001e UART_sendChar
+     /tmp/cczBRfck.s:575    .text:0000000000000030 UART_sendString
+     /tmp/cczBRfck.s:620    .text:0000000000000050 UART_sendInt
+     /tmp/cczBRfck.s:681    .text:0000000000000086 UART_sendLint
+     /tmp/cczBRfck.s:741    .text:00000000000000be __vector_88
+     /tmp/cczBRfck.s:831    .bss:0000000000000000 cnt_reset_stop_emerg
+     /tmp/cczBRfck.s:775    .text:00000000000000da spew
                             *COM*:0000000000000100 debug_bfr
-     /tmp/ccEDVHXY.s:825    .data:0000000000000000 text_emerg
+     /tmp/cczBRfck.s:825    .data:0000000000000000 text_emerg
 
 UNDEFINED SYMBOLS
 __itoa_ncheck

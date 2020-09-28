@@ -10,33 +10,36 @@
 
 /*! Success variable, used to test driver. */
 extern int end_stop1;
-servo_motor_t motor_disc;
+extern servo_motor servo_motor_disc;
 
 int main(void)
 {
+  initUsart();
+
   cli();
   board_init();
   sei();
 
-  initUsart();
   spew("\n\nStart\n\n");
 
-  SERVO_CFG_START(motor_disc, MOTOR_STARTSTOP, true);
-  SERVO_CFG_BRAKE(motor_disc, MOTOR_RUNBRAKE, true);
   //SERVO_CFG_ALARM_OUT(motor_disc, MOTOR_RSTALARM, true);
-  int a = 10;
   while (1)
   {
 
     //UART_sendString(DEBUG, "hELLO\n"); //motor_disc.start_stop->pin);
-    //SERVO_START(motor_disc);
-    //SERVO_RUN(motor_disc);
-    //SERVO_SET_ALARM_RESET(motor_disc);
-    _delay_ms(500);
+    SERVO_START();
+    SERVO_RUN();
+    SERVO_SET_ALARM_RESET();
+    _delay_ms(2000);
     //gpio_clr_np(motor_disc.start_stop->port, 3);
-    //SERVO_STOP(motor_disc);
-    //SERVO_BRAKE(motor_disc);
-    //SERVO_CLR_ALARM_RESET(motor_disc);
-    spew("start-stop: %d / %d\n", motor_disc.start_stop.pino, motor_disc.run_brake.pino);
+    SERVO_STOP();
+    SERVO_BRAKE();
+    SERVO_CLR_ALARM_RESET();
+    _delay_ms(2000);
+    spew("START_STOP:  %d, %d\n", servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pino);
+    spew("RUN_BRAKE:  %d, %d\n", servo_motor_disc.run_brake.porta, servo_motor_disc.run_brake.pino);
+    spew("ALARM_IN:  %d, %d\n", servo_motor_disc.alarm.porta, servo_motor_disc.alarm.pino);
+    spew("ALARM_OUT:  %d, %d\n", servo_motor_disc.reset_alarm.porta, servo_motor_disc.reset_alarm.pino);
+    spew("SPEED_IN:  %d, %d\n\n", servo_motor_disc.speed_feedback.porta, servo_motor_disc.speed_feedback.pino);
   }
 }

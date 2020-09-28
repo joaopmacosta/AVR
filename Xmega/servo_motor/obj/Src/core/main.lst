@@ -1,0 +1,773 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  10               		.text
+  11               	.Ltext0:
+ 511               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 512               	.LC0:
+ 513 0000 0A0A 5374 		.string	"\n\nStart\n\n"
+ 513      6172 740A 
+ 513      0A00 
+ 514               	.LC1:
+ 515 000a 5354 4152 		.string	"START_STOP:  %d, %d\n"
+ 515      545F 5354 
+ 515      4F50 3A20 
+ 515      2025 642C 
+ 515      2025 640A 
+ 516               	.LC2:
+ 517 001f 5255 4E5F 		.string	"RUN_BRAKE:  %d, %d\n"
+ 517      4252 414B 
+ 517      453A 2020 
+ 517      2564 2C20 
+ 517      2564 0A00 
+ 518               	.LC3:
+ 519 0033 414C 4152 		.string	"ALARM_IN:  %d, %d\n"
+ 519      4D5F 494E 
+ 519      3A20 2025 
+ 519      642C 2025 
+ 519      640A 00
+ 520               	.LC4:
+ 521 0046 414C 4152 		.string	"ALARM_OUT:  %d, %d\n"
+ 521      4D5F 4F55 
+ 521      543A 2020 
+ 521      2564 2C20 
+ 521      2564 0A00 
+ 522               	.LC5:
+ 523 005a 5350 4545 		.string	"SPEED_IN:  %d, %d\n\n"
+ 523      445F 494E 
+ 523      3A20 2025 
+ 523      642C 2025 
+ 523      640A 0A00 
+ 524               		.section	.text.startup,"ax",@progbits
+ 526               	.global	main
+ 528               	main:
+ 529               		.stabd	46,0,0
+   1:Src/core/main.c **** //***************************************************************************
+   2:Src/core/main.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/main.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/main.c **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/main.c **** //***************************************************************************
+   6:Src/core/main.c **** // Author: João Costa                                                       *
+   7:Src/core/main.c **** //***************************************************************************
+   8:Src/core/main.c **** 
+   9:Src/core/main.c **** #include "../../Inc/core/main.h"
+  10:Src/core/main.c **** 
+  11:Src/core/main.c **** /*! Success variable, used to test driver. */
+  12:Src/core/main.c **** extern int end_stop1;
+  13:Src/core/main.c **** extern servo_motor servo_motor_disc;
+  14:Src/core/main.c **** 
+  15:Src/core/main.c **** int main(void)
+  16:Src/core/main.c **** {
+ 531               	.LM0:
+ 532               	.LFBB1:
+ 533               	/* prologue: function */
+ 534               	/* frame size = 0 */
+ 535               	/* stack size = 0 */
+ 536               	.L__stack_usage = 0
+  17:Src/core/main.c ****   initUsart();
+ 538               	.LM1:
+ 539 0000 0E94 0000 		call initUsart
+  18:Src/core/main.c **** 
+  19:Src/core/main.c ****   cli();
+ 541               	.LM2:
+ 542               	/* #APP */
+ 543               	 ;  19 "Src/core/main.c" 1
+ 544 0004 F894      		cli
+ 545               	 ;  0 "" 2
+ 546               	/* #NOAPP */
+ 547               	.LBB28:
+ 548               	.LBB29:
+ 550               	.Ltext1:
+   1:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   2:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   6:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Author: Pedro Gonçalves                                                  *
+   7:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   8:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+   9:Src/core/../../Inc/core/../../Inc/core/board_init.h **** /// ISO C 99 headers.
+  10:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stddef.h>
+  11:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <inttypes.h>
+  12:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdio.h>
+  13:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdlib.h>
+  14:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <string.h>
+  15:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  16:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Local Headers
+  17:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../config.h"
+  18:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../driver/io.h"
+  19:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../Inc/driver/servo_driver.h"
+  20:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../Inc/driver/uart.h"
+  21:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../TC_driver/TC_driver.h"
+  22:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  23:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // AVR headers.
+  24:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <avr/io.h>
+  25:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  26:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #ifndef BOARD_INIT_H_INCLUDED_
+  27:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #define BOARD_INIT_H_INCLUDED_
+  28:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  29:Src/core/../../Inc/core/../../Inc/core/board_init.h **** static inline void
+  30:Src/core/../../Inc/core/../../Inc/core/board_init.h **** board_init(void)
+  31:Src/core/../../Inc/core/../../Inc/core/board_init.h **** {
+  32:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  33:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // System Clock.                                                        *
+  34:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  35:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // ENABLE INTERNAL 32MHZ OSCILLATOR
+  36:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+ 552               	.LM3:
+ 553 0006 88ED      		ldi r24,lo8(-40)
+ 554 0008 84BF      		out __CCP__,r24
+  37:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  38:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   OSC.CTRL = OSC_RC32MEN_bm;
+ 556               	.LM4:
+ 557 000a 82E0      		ldi r24,lo8(2)
+ 558 000c 8093 5000 		sts 80,r24
+ 559               	.L2:
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  40:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
+ 561               	.LM5:
+ 562 0010 8091 5100 		lds r24,81
+ 563 0014 81FF      		sbrs r24,1
+ 564 0016 00C0      		rjmp .L2
+  41:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  42:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  43:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+ 566               	.LM6:
+ 567 0018 88ED      		ldi r24,lo8(-40)
+ 568 001a 84BF      		out __CCP__,r24
+  44:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  45:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
+ 570               	.LM7:
+ 571 001c 81E0      		ldi r24,lo8(1)
+ 572 001e 8093 4000 		sts 64,r24
+  46:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  47:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  48:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* GPIO.                                                               *
+  49:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  50:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Debug LED
+  51:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(LED, false);
+ 574               	.LM8:
+ 575 0022 40E0      		ldi r20,0
+ 576 0024 60E0      		ldi r22,0
+ 577 0026 80E4      		ldi r24,lo8(64)
+ 578 0028 96E0      		ldi r25,lo8(6)
+ 579 002a 0E94 0000 		call gpio_cfg_out_np
+  52:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  53:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // UART PPins Init
+  54:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(UART0_TX, false);
+ 581               	.LM9:
+ 582 002e 40E0      		ldi r20,0
+ 583 0030 63E0      		ldi r22,lo8(3)
+ 584 0032 80E6      		ldi r24,lo8(96)
+ 585 0034 96E0      		ldi r25,lo8(6)
+ 586 0036 0E94 0000 		call gpio_cfg_out_np
+  55:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_IN(UART0_RX);
+ 588               	.LM10:
+ 589 003a 62E0      		ldi r22,lo8(2)
+ 590 003c 80E6      		ldi r24,lo8(96)
+ 591 003e 96E0      		ldi r25,lo8(6)
+ 592 0040 0E94 0000 		call gpio_cfg_in_np
+  56:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  57:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Servo Motor Init
+  58:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   SERVO_CFG_START(/*servo_motor_disc,*/ MOTOR_STARTSTOP, false);
+ 594               	.LM11:
+ 595 0044 40E0      		ldi r20,0
+ 596 0046 63E0      		ldi r22,lo8(3)
+ 597 0048 80E4      		ldi r24,lo8(64)
+ 598 004a 96E0      		ldi r25,lo8(6)
+ 599 004c 0E94 0000 		call servo_cfg_start
+  59:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   SERVO_CFG_BRAKE(/*servo_motor_disc,*/ MOTOR_RUNBRAKE, false);
+ 601               	.LM12:
+ 602 0050 40E0      		ldi r20,0
+ 603 0052 64E0      		ldi r22,lo8(4)
+ 604 0054 80E4      		ldi r24,lo8(64)
+ 605 0056 96E0      		ldi r25,lo8(6)
+ 606 0058 0E94 0000 		call servo_cfg_brake
+  60:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   SERVO_CFG_ALARM_IN(/*servo_motor_disc,*/ MOTOR_ALARM);
+ 608               	.LM13:
+ 609 005c 65E0      		ldi r22,lo8(5)
+ 610 005e 80E4      		ldi r24,lo8(64)
+ 611 0060 96E0      		ldi r25,lo8(6)
+ 612 0062 0E94 0000 		call servo_cfg_alarm_in
+  61:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   SERVO_CFG_ALARM_OUT(/*servo_motor_disc,*/ MOTOR_RSTALARM, false);
+ 614               	.LM14:
+ 615 0066 40E0      		ldi r20,0
+ 616 0068 66E0      		ldi r22,lo8(6)
+ 617 006a 80E4      		ldi r24,lo8(64)
+ 618 006c 96E0      		ldi r25,lo8(6)
+ 619 006e 0E94 0000 		call servo_cfg_alarm_out
+  62:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   SERVO_CFG_SPD_IN(/*servo_motor_disc,*/ MOTOR_SPEEDOUT);
+ 621               	.LM15:
+ 622 0072 67E0      		ldi r22,lo8(7)
+ 623 0074 80E4      		ldi r24,lo8(64)
+ 624 0076 96E0      		ldi r25,lo8(6)
+ 625 0078 0E94 0000 		call servo_cfg_speed_in
+  63:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  64:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  65:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* Interrupt levels.                                                   *
+  66:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  67:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Enables High, Medium and Low Level Interrupts
+  68:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PMIC.CTRL |= PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_LOLVLEN_bm;
+ 627               	.LM16:
+ 628 007c 8091 A200 		lds r24,162
+ 629 0080 8760      		ori r24,lo8(7)
+ 630 0082 8093 A200 		sts 162,r24
+ 631               	.LBE29:
+ 632               	.LBE28:
+ 634               	.Ltext2:
+  20:Src/core/main.c ****   board_init();
+  21:Src/core/main.c ****   sei();
+ 636               	.LM17:
+ 637               	/* #APP */
+ 638               	 ;  21 "Src/core/main.c" 1
+ 639 0086 7894      		sei
+ 640               	 ;  0 "" 2
+  22:Src/core/main.c **** 
+  23:Src/core/main.c ****   spew("\n\nStart\n\n");
+ 642               	.LM18:
+ 643               	/* #NOAPP */
+ 644 0088 80E0      		ldi r24,lo8(.LC0)
+ 645 008a 90E0      		ldi r25,hi8(.LC0)
+ 646 008c 9F93      		push r25
+ 647 008e 8F93      		push r24
+ 648 0090 0E94 0000 		call spew
+ 649 0094 0F90      		pop __tmp_reg__
+ 650 0096 0F90      		pop __tmp_reg__
+ 651               	.LBB30:
+ 652               	.LBB31:
+ 653               	.LBB32:
+ 654               	.LBB33:
+ 656               	.Ltext3:
+   1:/usr/lib/avr/include/util/delay_basic.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/lib/avr/include/util/delay_basic.h ****    Copyright (c) 2007 Joerg Wunsch
+   3:/usr/lib/avr/include/util/delay_basic.h ****    All rights reserved.
+   4:/usr/lib/avr/include/util/delay_basic.h **** 
+   5:/usr/lib/avr/include/util/delay_basic.h ****    Redistribution and use in source and binary forms, with or without
+   6:/usr/lib/avr/include/util/delay_basic.h ****    modification, are permitted provided that the following conditions are met:
+   7:/usr/lib/avr/include/util/delay_basic.h **** 
+   8:/usr/lib/avr/include/util/delay_basic.h ****    * Redistributions of source code must retain the above copyright
+   9:/usr/lib/avr/include/util/delay_basic.h ****      notice, this list of conditions and the following disclaimer.
+  10:/usr/lib/avr/include/util/delay_basic.h **** 
+  11:/usr/lib/avr/include/util/delay_basic.h ****    * Redistributions in binary form must reproduce the above copyright
+  12:/usr/lib/avr/include/util/delay_basic.h ****      notice, this list of conditions and the following disclaimer in
+  13:/usr/lib/avr/include/util/delay_basic.h ****      the documentation and/or other materials provided with the
+  14:/usr/lib/avr/include/util/delay_basic.h ****      distribution.
+  15:/usr/lib/avr/include/util/delay_basic.h **** 
+  16:/usr/lib/avr/include/util/delay_basic.h ****    * Neither the name of the copyright holders nor the names of
+  17:/usr/lib/avr/include/util/delay_basic.h ****      contributors may be used to endorse or promote products derived
+  18:/usr/lib/avr/include/util/delay_basic.h ****      from this software without specific prior written permission.
+  19:/usr/lib/avr/include/util/delay_basic.h **** 
+  20:/usr/lib/avr/include/util/delay_basic.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  21:/usr/lib/avr/include/util/delay_basic.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  22:/usr/lib/avr/include/util/delay_basic.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  23:/usr/lib/avr/include/util/delay_basic.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  24:/usr/lib/avr/include/util/delay_basic.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  25:/usr/lib/avr/include/util/delay_basic.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  26:/usr/lib/avr/include/util/delay_basic.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  27:/usr/lib/avr/include/util/delay_basic.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  28:/usr/lib/avr/include/util/delay_basic.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  29:/usr/lib/avr/include/util/delay_basic.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  30:/usr/lib/avr/include/util/delay_basic.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  31:/usr/lib/avr/include/util/delay_basic.h **** 
+  32:/usr/lib/avr/include/util/delay_basic.h **** /* $Id$ */
+  33:/usr/lib/avr/include/util/delay_basic.h **** 
+  34:/usr/lib/avr/include/util/delay_basic.h **** #ifndef _UTIL_DELAY_BASIC_H_
+  35:/usr/lib/avr/include/util/delay_basic.h **** #define _UTIL_DELAY_BASIC_H_ 1
+  36:/usr/lib/avr/include/util/delay_basic.h **** 
+  37:/usr/lib/avr/include/util/delay_basic.h **** #include <inttypes.h>
+  38:/usr/lib/avr/include/util/delay_basic.h **** 
+  39:/usr/lib/avr/include/util/delay_basic.h **** #if !defined(__DOXYGEN__)
+  40:/usr/lib/avr/include/util/delay_basic.h **** static __inline__ void _delay_loop_1(uint8_t __count) __attribute__((__always_inline__));
+  41:/usr/lib/avr/include/util/delay_basic.h **** static __inline__ void _delay_loop_2(uint16_t __count) __attribute__((__always_inline__));
+  42:/usr/lib/avr/include/util/delay_basic.h **** #endif
+  43:/usr/lib/avr/include/util/delay_basic.h **** 
+  44:/usr/lib/avr/include/util/delay_basic.h **** /** \file */
+  45:/usr/lib/avr/include/util/delay_basic.h **** /** \defgroup util_delay_basic <util/delay_basic.h>: Basic busy-wait delay loops
+  46:/usr/lib/avr/include/util/delay_basic.h ****     \code
+  47:/usr/lib/avr/include/util/delay_basic.h ****     #include <util/delay_basic.h>
+  48:/usr/lib/avr/include/util/delay_basic.h ****     \endcode
+  49:/usr/lib/avr/include/util/delay_basic.h **** 
+  50:/usr/lib/avr/include/util/delay_basic.h ****     The functions in this header file implement simple delay loops
+  51:/usr/lib/avr/include/util/delay_basic.h ****     that perform a busy-waiting.  They are typically used to
+  52:/usr/lib/avr/include/util/delay_basic.h ****     facilitate short delays in the program execution.  They are
+  53:/usr/lib/avr/include/util/delay_basic.h ****     implemented as count-down loops with a well-known CPU cycle
+  54:/usr/lib/avr/include/util/delay_basic.h ****     count per loop iteration.  As such, no other processing can
+  55:/usr/lib/avr/include/util/delay_basic.h ****     occur simultaneously.  It should be kept in mind that the
+  56:/usr/lib/avr/include/util/delay_basic.h ****     functions described here do not disable interrupts.
+  57:/usr/lib/avr/include/util/delay_basic.h **** 
+  58:/usr/lib/avr/include/util/delay_basic.h ****     In general, for long delays, the use of hardware timers is
+  59:/usr/lib/avr/include/util/delay_basic.h ****     much preferrable, as they free the CPU, and allow for
+  60:/usr/lib/avr/include/util/delay_basic.h ****     concurrent processing of other events while the timer is
+  61:/usr/lib/avr/include/util/delay_basic.h ****     running.  However, in particular for very short delays, the
+  62:/usr/lib/avr/include/util/delay_basic.h ****     overhead of setting up a hardware timer is too much compared
+  63:/usr/lib/avr/include/util/delay_basic.h ****     to the overall delay time.
+  64:/usr/lib/avr/include/util/delay_basic.h **** 
+  65:/usr/lib/avr/include/util/delay_basic.h ****     Two inline functions are provided for the actual delay algorithms.
+  66:/usr/lib/avr/include/util/delay_basic.h **** 
+  67:/usr/lib/avr/include/util/delay_basic.h **** */
+  68:/usr/lib/avr/include/util/delay_basic.h **** 
+  69:/usr/lib/avr/include/util/delay_basic.h **** /** \ingroup util_delay_basic
+  70:/usr/lib/avr/include/util/delay_basic.h **** 
+  71:/usr/lib/avr/include/util/delay_basic.h ****     Delay loop using an 8-bit counter \c __count, so up to 256
+  72:/usr/lib/avr/include/util/delay_basic.h ****     iterations are possible.  (The value 256 would have to be passed
+  73:/usr/lib/avr/include/util/delay_basic.h ****     as 0.)  The loop executes three CPU cycles per iteration, not
+  74:/usr/lib/avr/include/util/delay_basic.h ****     including the overhead the compiler needs to setup the counter
+  75:/usr/lib/avr/include/util/delay_basic.h ****     register.
+  76:/usr/lib/avr/include/util/delay_basic.h **** 
+  77:/usr/lib/avr/include/util/delay_basic.h ****     Thus, at a CPU speed of 1 MHz, delays of up to 768 microseconds
+  78:/usr/lib/avr/include/util/delay_basic.h ****     can be achieved.
+  79:/usr/lib/avr/include/util/delay_basic.h **** */
+  80:/usr/lib/avr/include/util/delay_basic.h **** void
+  81:/usr/lib/avr/include/util/delay_basic.h **** _delay_loop_1(uint8_t __count)
+  82:/usr/lib/avr/include/util/delay_basic.h **** {
+  83:/usr/lib/avr/include/util/delay_basic.h **** 	__asm__ volatile (
+  84:/usr/lib/avr/include/util/delay_basic.h **** 		"1: dec %0" "\n\t"
+  85:/usr/lib/avr/include/util/delay_basic.h **** 		"brne 1b"
+  86:/usr/lib/avr/include/util/delay_basic.h **** 		: "=r" (__count)
+  87:/usr/lib/avr/include/util/delay_basic.h **** 		: "0" (__count)
+  88:/usr/lib/avr/include/util/delay_basic.h **** 	);
+  89:/usr/lib/avr/include/util/delay_basic.h **** }
+  90:/usr/lib/avr/include/util/delay_basic.h **** 
+  91:/usr/lib/avr/include/util/delay_basic.h **** /** \ingroup util_delay_basic
+  92:/usr/lib/avr/include/util/delay_basic.h **** 
+  93:/usr/lib/avr/include/util/delay_basic.h ****     Delay loop using a 16-bit counter \c __count, so up to 65536
+  94:/usr/lib/avr/include/util/delay_basic.h ****     iterations are possible.  (The value 65536 would have to be
+  95:/usr/lib/avr/include/util/delay_basic.h ****     passed as 0.)  The loop executes four CPU cycles per iteration,
+  96:/usr/lib/avr/include/util/delay_basic.h ****     not including the overhead the compiler requires to setup the
+  97:/usr/lib/avr/include/util/delay_basic.h ****     counter register pair.
+  98:/usr/lib/avr/include/util/delay_basic.h **** 
+  99:/usr/lib/avr/include/util/delay_basic.h ****     Thus, at a CPU speed of 1 MHz, delays of up to about 262.1
+ 100:/usr/lib/avr/include/util/delay_basic.h ****     milliseconds can be achieved.
+ 101:/usr/lib/avr/include/util/delay_basic.h ****  */
+ 102:/usr/lib/avr/include/util/delay_basic.h **** void
+ 103:/usr/lib/avr/include/util/delay_basic.h **** _delay_loop_2(uint16_t __count)
+ 104:/usr/lib/avr/include/util/delay_basic.h **** {
+ 105:/usr/lib/avr/include/util/delay_basic.h **** 	__asm__ volatile (
+ 658               	.LM19:
+ 659 0098 80E2      		ldi r24,lo8(32)
+ 660 009a A82E      		mov r10,r24
+ 661 009c 83E0      		ldi r24,lo8(3)
+ 662 009e B82E      		mov r11,r24
+ 663               	.LBE33:
+ 664               	.LBE32:
+ 665               	.LBE31:
+ 666               	.LBE30:
+ 668               	.Ltext4:
+  24:Src/core/main.c **** 
+  25:Src/core/main.c ****   //SERVO_CFG_ALARM_OUT(motor_disc, MOTOR_RSTALARM, true);
+  26:Src/core/main.c ****   while (1)
+  27:Src/core/main.c ****   {
+  28:Src/core/main.c **** 
+  29:Src/core/main.c ****     //UART_sendString(DEBUG, "hELLO\n"); //motor_disc.start_stop->pin);
+  30:Src/core/main.c ****     SERVO_START();
+  31:Src/core/main.c ****     SERVO_RUN();
+  32:Src/core/main.c ****     SERVO_SET_ALARM_RESET();
+  33:Src/core/main.c ****     _delay_ms(2000);
+  34:Src/core/main.c ****     //gpio_clr_np(motor_disc.start_stop->port, 3);
+  35:Src/core/main.c ****     SERVO_STOP();
+  36:Src/core/main.c ****     SERVO_BRAKE();
+  37:Src/core/main.c ****     SERVO_CLR_ALARM_RESET();
+  38:Src/core/main.c ****     _delay_ms(2000);
+  39:Src/core/main.c ****     spew("START_STOP:  %d, %d\n", servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pi
+ 670               	.LM20:
+ 671 00a0 90E0      		ldi r25,lo8(.LC1)
+ 672 00a2 C92E      		mov r12,r25
+ 673 00a4 90E0      		ldi r25,hi8(.LC1)
+ 674 00a6 D92E      		mov r13,r25
+  40:Src/core/main.c ****     spew("RUN_BRAKE:  %d, %d\n", servo_motor_disc.run_brake.porta, servo_motor_disc.run_brake.pino)
+ 676               	.LM21:
+ 677 00a8 20E0      		ldi r18,lo8(.LC2)
+ 678 00aa E22E      		mov r14,r18
+ 679 00ac 20E0      		ldi r18,hi8(.LC2)
+ 680 00ae F22E      		mov r15,r18
+  41:Src/core/main.c ****     spew("ALARM_IN:  %d, %d\n", servo_motor_disc.alarm.porta, servo_motor_disc.alarm.pino);
+ 682               	.LM22:
+ 683 00b0 00E0      		ldi r16,lo8(.LC3)
+ 684 00b2 10E0      		ldi r17,hi8(.LC3)
+  42:Src/core/main.c ****     spew("ALARM_OUT:  %d, %d\n", servo_motor_disc.reset_alarm.porta, servo_motor_disc.reset_alarm.p
+ 686               	.LM23:
+ 687 00b4 C0E0      		ldi r28,lo8(.LC4)
+ 688 00b6 D0E0      		ldi r29,hi8(.LC4)
+  43:Src/core/main.c ****     spew("SPEED_IN:  %d, %d\n\n", servo_motor_disc.speed_feedback.porta, servo_motor_disc.speed_fee
+ 690               	.LM24:
+ 691 00b8 30E0      		ldi r19,lo8(.LC5)
+ 692 00ba 832E      		mov r8,r19
+ 693 00bc 30E0      		ldi r19,hi8(.LC5)
+ 694 00be 932E      		mov r9,r19
+ 695               	.L5:
+  30:Src/core/main.c ****     SERVO_RUN();
+ 697               	.LM25:
+ 698 00c0 0E94 0000 		call servo_start
+  31:Src/core/main.c ****     SERVO_SET_ALARM_RESET();
+ 700               	.LM26:
+ 701 00c4 0E94 0000 		call servo_run
+  32:Src/core/main.c ****     _delay_ms(2000);
+ 703               	.LM27:
+ 704 00c8 0E94 0000 		call servo_set_alarm_reset
+ 705 00cc 80E2      		ldi r24,lo8(32)
+ 706 00ce 9EE4      		ldi r25,lo8(78)
+ 707               	.L3:
+ 708               	.LBB37:
+ 709               	.LBB36:
+ 710               	.LBB35:
+ 711               	.LBB34:
+ 713               	.Ltext5:
+ 715               	.LM28:
+ 716 00d0 F501      		movw r30,r10
+ 717               	/* #APP */
+ 718               	 ;  105 "/usr/lib/avr/include/util/delay_basic.h" 1
+ 719 00d2 3197      		1: sbiw r30,1
+ 720 00d4 01F4      		brne 1b
+ 721               	 ;  0 "" 2
+ 722               	/* #NOAPP */
+ 723 00d6 0197      		sbiw r24,1
+ 724               	.LBE34:
+ 725               	.LBE35:
+ 727               	.Ltext6:
+   1:/usr/lib/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/lib/avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/lib/avr/include/util/delay.h **** 
+   6:/usr/lib/avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/lib/avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/lib/avr/include/util/delay.h **** 
+   9:/usr/lib/avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/lib/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/lib/avr/include/util/delay.h **** 
+  12:/usr/lib/avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/lib/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/lib/avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/lib/avr/include/util/delay.h ****      distribution.
+  16:/usr/lib/avr/include/util/delay.h **** 
+  17:/usr/lib/avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/lib/avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/lib/avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/lib/avr/include/util/delay.h **** 
+  21:/usr/lib/avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/lib/avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/lib/avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/lib/avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/lib/avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/lib/avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/lib/avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/lib/avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/lib/avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/lib/avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/lib/avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/lib/avr/include/util/delay.h **** 
+  33:/usr/lib/avr/include/util/delay.h **** /* $Id$ */
+  34:/usr/lib/avr/include/util/delay.h **** 
+  35:/usr/lib/avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/lib/avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/lib/avr/include/util/delay.h **** 
+  38:/usr/lib/avr/include/util/delay.h **** #ifndef __DOXYGEN__
+  39:/usr/lib/avr/include/util/delay.h **** #  ifndef __HAS_DELAY_CYCLES
+  40:/usr/lib/avr/include/util/delay.h **** #    define __HAS_DELAY_CYCLES 1
+  41:/usr/lib/avr/include/util/delay.h **** #  endif
+  42:/usr/lib/avr/include/util/delay.h **** #endif  /* __DOXYGEN__ */
+  43:/usr/lib/avr/include/util/delay.h **** 
+  44:/usr/lib/avr/include/util/delay.h **** #include <inttypes.h>
+  45:/usr/lib/avr/include/util/delay.h **** #include <util/delay_basic.h>
+  46:/usr/lib/avr/include/util/delay.h **** #include <math.h>
+  47:/usr/lib/avr/include/util/delay.h **** 
+  48:/usr/lib/avr/include/util/delay.h **** /** \file */
+  49:/usr/lib/avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  50:/usr/lib/avr/include/util/delay.h ****     \code
+  51:/usr/lib/avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  52:/usr/lib/avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  53:/usr/lib/avr/include/util/delay.h ****     #include <util/delay.h>
+  54:/usr/lib/avr/include/util/delay.h ****     \endcode
+  55:/usr/lib/avr/include/util/delay.h **** 
+  56:/usr/lib/avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  57:/usr/lib/avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  58:/usr/lib/avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  59:/usr/lib/avr/include/util/delay.h ****     used.
+  60:/usr/lib/avr/include/util/delay.h **** 
+  61:/usr/lib/avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  62:/usr/lib/avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  63:/usr/lib/avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  64:/usr/lib/avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  65:/usr/lib/avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  66:/usr/lib/avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  67:/usr/lib/avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  68:/usr/lib/avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  69:/usr/lib/avr/include/util/delay.h **** 
+  70:/usr/lib/avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  71:/usr/lib/avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  72:/usr/lib/avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  73:/usr/lib/avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  74:/usr/lib/avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  75:/usr/lib/avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  76:/usr/lib/avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  77:/usr/lib/avr/include/util/delay.h ****     routines linked into the application.
+  78:/usr/lib/avr/include/util/delay.h **** 
+  79:/usr/lib/avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  80:/usr/lib/avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  81:/usr/lib/avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  82:/usr/lib/avr/include/util/delay.h **** 
+  83:/usr/lib/avr/include/util/delay.h **** */
+  84:/usr/lib/avr/include/util/delay.h **** 
+  85:/usr/lib/avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  86:/usr/lib/avr/include/util/delay.h **** static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+  87:/usr/lib/avr/include/util/delay.h **** static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+  88:/usr/lib/avr/include/util/delay.h **** #endif
+  89:/usr/lib/avr/include/util/delay.h **** 
+  90:/usr/lib/avr/include/util/delay.h **** #ifndef F_CPU
+  91:/usr/lib/avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  92:/usr/lib/avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  93:/usr/lib/avr/include/util/delay.h **** /** \ingroup util_delay
+  94:/usr/lib/avr/include/util/delay.h ****     \def F_CPU
+  95:/usr/lib/avr/include/util/delay.h ****     \brief CPU frequency in Hz
+  96:/usr/lib/avr/include/util/delay.h **** 
+  97:/usr/lib/avr/include/util/delay.h ****     The macro F_CPU specifies the CPU frequency to be considered by
+  98:/usr/lib/avr/include/util/delay.h ****     the delay macros.  This macro is normally supplied by the
+  99:/usr/lib/avr/include/util/delay.h ****     environment (e.g. from within a project header, or the project's
+ 100:/usr/lib/avr/include/util/delay.h ****     Makefile).  The value 1 MHz here is only provided as a "vanilla"
+ 101:/usr/lib/avr/include/util/delay.h ****     fallback if no such user-provided definition could be found.
+ 102:/usr/lib/avr/include/util/delay.h **** 
+ 103:/usr/lib/avr/include/util/delay.h ****     In terms of the delay functions, the CPU frequency can be given as
+ 104:/usr/lib/avr/include/util/delay.h ****     a floating-point constant (e.g. 3.6864E6 for 3.6864 MHz).
+ 105:/usr/lib/avr/include/util/delay.h ****     However, the macros in <util/setbaud.h> require it to be an
+ 106:/usr/lib/avr/include/util/delay.h ****     integer value.
+ 107:/usr/lib/avr/include/util/delay.h ****  */
+ 108:/usr/lib/avr/include/util/delay.h **** # define F_CPU 1000000UL
+ 109:/usr/lib/avr/include/util/delay.h **** #endif
+ 110:/usr/lib/avr/include/util/delay.h **** 
+ 111:/usr/lib/avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+ 112:/usr/lib/avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+ 113:/usr/lib/avr/include/util/delay.h **** #endif
+ 114:/usr/lib/avr/include/util/delay.h **** 
+ 115:/usr/lib/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 116:/usr/lib/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 117:/usr/lib/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 118:/usr/lib/avr/include/util/delay.h **** #  include <math.h>
+ 119:/usr/lib/avr/include/util/delay.h **** #endif
+ 120:/usr/lib/avr/include/util/delay.h **** 
+ 121:/usr/lib/avr/include/util/delay.h **** /**
+ 122:/usr/lib/avr/include/util/delay.h ****    \ingroup util_delay
+ 123:/usr/lib/avr/include/util/delay.h **** 
+ 124:/usr/lib/avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 125:/usr/lib/avr/include/util/delay.h **** 
+ 126:/usr/lib/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 127:/usr/lib/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 128:/usr/lib/avr/include/util/delay.h **** 
+ 129:/usr/lib/avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 130:/usr/lib/avr/include/util/delay.h **** 
+ 131:/usr/lib/avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 132:/usr/lib/avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 133:/usr/lib/avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 134:/usr/lib/avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 135:/usr/lib/avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 136:/usr/lib/avr/include/util/delay.h **** 
+ 137:/usr/lib/avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 138:/usr/lib/avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 139:/usr/lib/avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 140:/usr/lib/avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 141:/usr/lib/avr/include/util/delay.h **** 
+ 142:/usr/lib/avr/include/util/delay.h ****    Conversion of \c __ms into clock cycles may not always result in
+ 143:/usr/lib/avr/include/util/delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 144:/usr/lib/avr/include/util/delay.h ****    integer. This ensures that the user gets at least \c __ms
+ 145:/usr/lib/avr/include/util/delay.h ****    microseconds of delay.
+ 146:/usr/lib/avr/include/util/delay.h **** 
+ 147:/usr/lib/avr/include/util/delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 148:/usr/lib/avr/include/util/delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 149:/usr/lib/avr/include/util/delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 150:/usr/lib/avr/include/util/delay.h ****    respectively.
+ 151:/usr/lib/avr/include/util/delay.h **** 
+ 152:/usr/lib/avr/include/util/delay.h ****    \note
+ 153:/usr/lib/avr/include/util/delay.h **** 
+ 154:/usr/lib/avr/include/util/delay.h ****    The implementation of _delay_ms() based on
+ 155:/usr/lib/avr/include/util/delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 156:/usr/lib/avr/include/util/delay.h ****    implementations.  In order to get functionality backward compatible
+ 157:/usr/lib/avr/include/util/delay.h ****    with previous versions, the macro \c "__DELAY_BACKWARD_COMPATIBLE__"
+ 158:/usr/lib/avr/include/util/delay.h ****    must be defined before including this header file. Also, the
+ 159:/usr/lib/avr/include/util/delay.h ****    backward compatible algorithm will be chosen if the code is
+ 160:/usr/lib/avr/include/util/delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 161:/usr/lib/avr/include/util/delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 162:/usr/lib/avr/include/util/delay.h ****    not available to the compiler then.
+ 163:/usr/lib/avr/include/util/delay.h **** 
+ 164:/usr/lib/avr/include/util/delay.h ****  */
+ 165:/usr/lib/avr/include/util/delay.h **** void
+ 166:/usr/lib/avr/include/util/delay.h **** _delay_ms(double __ms)
+ 167:/usr/lib/avr/include/util/delay.h **** {
+ 168:/usr/lib/avr/include/util/delay.h **** 	double __tmp ;
+ 169:/usr/lib/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 170:/usr/lib/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 171:/usr/lib/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 172:/usr/lib/avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 173:/usr/lib/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 174:/usr/lib/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 175:/usr/lib/avr/include/util/delay.h **** 
+ 176:/usr/lib/avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 177:/usr/lib/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 178:/usr/lib/avr/include/util/delay.h **** 
+ 179:/usr/lib/avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 180:/usr/lib/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 181:/usr/lib/avr/include/util/delay.h **** 
+ 182:/usr/lib/avr/include/util/delay.h **** 	#else
+ 183:/usr/lib/avr/include/util/delay.h **** 		//round up by default
+ 184:/usr/lib/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 185:/usr/lib/avr/include/util/delay.h **** 	#endif
+ 186:/usr/lib/avr/include/util/delay.h **** 
+ 187:/usr/lib/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 188:/usr/lib/avr/include/util/delay.h **** 
+ 189:/usr/lib/avr/include/util/delay.h **** #else
+ 190:/usr/lib/avr/include/util/delay.h **** 	uint16_t __ticks;
+ 191:/usr/lib/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
+ 192:/usr/lib/avr/include/util/delay.h **** 	if (__tmp < 1.0)
+ 193:/usr/lib/avr/include/util/delay.h **** 		__ticks = 1;
+ 194:/usr/lib/avr/include/util/delay.h **** 	else if (__tmp > 65535)
+ 195:/usr/lib/avr/include/util/delay.h **** 	{
+ 196:/usr/lib/avr/include/util/delay.h **** 		//	__ticks = requested delay in 1/10 ms
+ 197:/usr/lib/avr/include/util/delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
+ 198:/usr/lib/avr/include/util/delay.h **** 		while(__ticks)
+ 729               	.LM29:
+ 730 00d8 01F4      		brne .L3
+ 731               	.LBE36:
+ 732               	.LBE37:
+ 734               	.Ltext7:
+  35:Src/core/main.c ****     SERVO_BRAKE();
+ 736               	.LM30:
+ 737 00da 0E94 0000 		call servo_stop
+  36:Src/core/main.c ****     SERVO_CLR_ALARM_RESET();
+ 739               	.LM31:
+ 740 00de 0E94 0000 		call servo_brake
+  37:Src/core/main.c ****     _delay_ms(2000);
+ 742               	.LM32:
+ 743 00e2 0E94 0000 		call servo_clr_alarm_reset
+ 744 00e6 80E2      		ldi r24,lo8(32)
+ 745 00e8 9EE4      		ldi r25,lo8(78)
+ 746               	.L4:
+ 747               	.LBB38:
+ 748               	.LBB39:
+ 749               	.LBB40:
+ 750               	.LBB41:
+ 752               	.Ltext8:
+ 754               	.LM33:
+ 755 00ea F501      		movw r30,r10
+ 756               	/* #APP */
+ 757               	 ;  105 "/usr/lib/avr/include/util/delay_basic.h" 1
+ 758 00ec 3197      		1: sbiw r30,1
+ 759 00ee 01F4      		brne 1b
+ 760               	 ;  0 "" 2
+ 761               	/* #NOAPP */
+ 762 00f0 0197      		sbiw r24,1
+ 763               	.LBE41:
+ 764               	.LBE40:
+ 766               	.Ltext9:
+ 768               	.LM34:
+ 769 00f2 01F4      		brne .L4
+ 770               	.LBE39:
+ 771               	.LBE38:
+ 773               	.Ltext10:
+  39:Src/core/main.c ****     spew("RUN_BRAKE:  %d, %d\n", servo_motor_disc.run_brake.porta, servo_motor_disc.run_brake.pino)
+ 775               	.LM35:
+ 776 00f4 8091 0000 		lds r24,servo_motor_disc+2
+ 777 00f8 1F92      		push __zero_reg__
+ 778 00fa 8F93      		push r24
+ 779 00fc 8091 0000 		lds r24,servo_motor_disc+1
+ 780 0100 8F93      		push r24
+ 781 0102 8091 0000 		lds r24,servo_motor_disc
+ 782 0106 8F93      		push r24
+ 783 0108 DF92      		push r13
+ 784 010a CF92      		push r12
+ 785 010c 0E94 0000 		call spew
+  40:Src/core/main.c ****     spew("ALARM_IN:  %d, %d\n", servo_motor_disc.alarm.porta, servo_motor_disc.alarm.pino);
+ 787               	.LM36:
+ 788 0110 8091 0000 		lds r24,servo_motor_disc+5
+ 789 0114 1F92      		push __zero_reg__
+ 790 0116 8F93      		push r24
+ 791 0118 8091 0000 		lds r24,servo_motor_disc+4
+ 792 011c 8F93      		push r24
+ 793 011e 8091 0000 		lds r24,servo_motor_disc+3
+ 794 0122 8F93      		push r24
+ 795 0124 FF92      		push r15
+ 796 0126 EF92      		push r14
+ 797 0128 0E94 0000 		call spew
+  41:Src/core/main.c ****     spew("ALARM_OUT:  %d, %d\n", servo_motor_disc.reset_alarm.porta, servo_motor_disc.reset_alarm.p
+ 799               	.LM37:
+ 800 012c 8091 0000 		lds r24,servo_motor_disc+8
+ 801 0130 1F92      		push __zero_reg__
+ 802 0132 8F93      		push r24
+ 803 0134 8091 0000 		lds r24,servo_motor_disc+7
+ 804 0138 8F93      		push r24
+ 805 013a 8091 0000 		lds r24,servo_motor_disc+6
+ 806 013e 8F93      		push r24
+ 807 0140 1F93      		push r17
+ 808 0142 0F93      		push r16
+ 809 0144 0E94 0000 		call spew
+  42:Src/core/main.c ****     spew("SPEED_IN:  %d, %d\n\n", servo_motor_disc.speed_feedback.porta, servo_motor_disc.speed_fee
+ 811               	.LM38:
+ 812 0148 8091 0000 		lds r24,servo_motor_disc+11
+ 813 014c 1F92      		push __zero_reg__
+ 814 014e 8F93      		push r24
+ 815 0150 8091 0000 		lds r24,servo_motor_disc+10
+ 816 0154 8F93      		push r24
+ 817 0156 8091 0000 		lds r24,servo_motor_disc+9
+ 818 015a 8F93      		push r24
+ 819 015c DF93      		push r29
+ 820 015e CF93      		push r28
+ 821 0160 0E94 0000 		call spew
+ 823               	.LM39:
+ 824 0164 8091 0000 		lds r24,servo_motor_disc+14
+ 825 0168 1F92      		push __zero_reg__
+ 826 016a 8F93      		push r24
+ 827 016c 8091 0000 		lds r24,servo_motor_disc+13
+ 828 0170 8F93      		push r24
+ 829 0172 8091 0000 		lds r24,servo_motor_disc+12
+ 830 0176 8F93      		push r24
+ 831 0178 9F92      		push r9
+ 832 017a 8F92      		push r8
+ 833 017c 0E94 0000 		call spew
+  44:Src/core/main.c ****   }
+ 835               	.LM40:
+ 836 0180 8DB7      		in r24,__SP_L__
+ 837 0182 9EB7      		in r25,__SP_H__
+ 838 0184 4E96      		adiw r24,30
+ 839 0186 8DBF      		out __SP_L__,r24
+ 840 0188 9EBF      		out __SP_H__,r25
+ 841 018a 00C0      		rjmp .L5
+ 843               	.Lscope1:
+ 845               		.stabd	78,0,0
+ 846               		.comm	servo_motor_disc,18,1
+ 847               		.comm	motor_pin_t,3,1
+ 850               		.text
+ 852               	.Letext0:
+ 853               		.ident	"GCC: (GNU) 5.4.0"
+ 854               	.global __do_copy_data
+ 855               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/cc6d2FQi.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc6d2FQi.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc6d2FQi.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc6d2FQi.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cc6d2FQi.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc6d2FQi.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc6d2FQi.s:528    .text.startup:0000000000000000 main
+                            *COM*:0000000000000012 servo_motor_disc
+                            *COM*:0000000000000003 motor_pin_t
+
+UNDEFINED SYMBOLS
+initUsart
+gpio_cfg_out_np
+gpio_cfg_in_np
+servo_cfg_start
+servo_cfg_brake
+servo_cfg_alarm_in
+servo_cfg_alarm_out
+servo_cfg_speed_in
+spew
+servo_start
+servo_run
+servo_set_alarm_reset
+servo_stop
+servo_brake
+servo_clr_alarm_reset
+__do_copy_data
+__do_clear_bss

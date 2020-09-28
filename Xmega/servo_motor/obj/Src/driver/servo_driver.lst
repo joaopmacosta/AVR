@@ -1,0 +1,364 @@
+   1               		.file	"servo_driver.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  10               		.text
+  11               	.Ltext0:
+ 505               	.global	servo_cfg_start
+ 507               	servo_cfg_start:
+ 508               		.stabd	46,0,0
+   1:Src/driver/servo_driver.c **** #include <stdlib.h>
+   2:Src/driver/servo_driver.c **** #include <avr/io.h>
+   3:Src/driver/servo_driver.c **** #include <avr/interrupt.h>
+   4:Src/driver/servo_driver.c **** #include <util/delay.h>
+   5:Src/driver/servo_driver.c **** #include <avr/pgmspace.h>
+   6:Src/driver/servo_driver.c **** #include <stdbool.h>
+   7:Src/driver/servo_driver.c **** 
+   8:Src/driver/servo_driver.c **** #include "../../Inc/driver/io.h"
+   9:Src/driver/servo_driver.c **** #include "../../Inc/driver/servo_driver.h"
+  10:Src/driver/servo_driver.c **** #include "../../Inc/driver/uart.h"
+  11:Src/driver/servo_driver.c **** 
+  12:Src/driver/servo_driver.c **** void servo_cfg_start(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool value)
+  13:Src/driver/servo_driver.c **** {
+ 510               	.LM0:
+ 511               	.LFBB1:
+ 512               	/* prologue: function */
+ 513               	/* frame size = 0 */
+ 514               	/* stack size = 0 */
+ 515               	.L__stack_usage = 0
+  14:Src/driver/servo_driver.c ****   servo_motor_disc.start_stop.porta = port;
+ 517               	.LM1:
+ 518 0000 E0E0      		ldi r30,lo8(servo_motor_disc)
+ 519 0002 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 520 0004 8083      		st Z,r24
+ 521 0006 9183      		std Z+1,r25
+  15:Src/driver/servo_driver.c ****   servo_motor_disc.start_stop.pino = pin;
+ 523               	.LM2:
+ 524 0008 6283      		std Z+2,r22
+  16:Src/driver/servo_driver.c ****   //spew("arguments:  %d, %d\n", port, pin);
+  17:Src/driver/servo_driver.c ****   //spew("start_stop:  %d, %d\n", servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pi
+  18:Src/driver/servo_driver.c ****   gpio_cfg_out_np((PORT_t *)port, pin, value);
+ 526               	.LM3:
+ 527 000a 0C94 0000 		jmp gpio_cfg_out_np
+ 529               	.Lscope1:
+ 531               		.stabd	78,0,0
+ 536               	.global	servo_cfg_brake
+ 538               	servo_cfg_brake:
+ 539               		.stabd	46,0,0
+  19:Src/driver/servo_driver.c **** }
+  20:Src/driver/servo_driver.c **** 
+  21:Src/driver/servo_driver.c **** void servo_cfg_brake(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool value)
+  22:Src/driver/servo_driver.c **** {
+ 541               	.LM4:
+ 542               	.LFBB2:
+ 543               	/* prologue: function */
+ 544               	/* frame size = 0 */
+ 545               	/* stack size = 0 */
+ 546               	.L__stack_usage = 0
+  23:Src/driver/servo_driver.c ****   servo_motor_disc.run_brake.porta = port;
+ 548               	.LM5:
+ 549 000e E0E0      		ldi r30,lo8(servo_motor_disc)
+ 550 0010 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 551 0012 8383      		std Z+3,r24
+ 552 0014 9483      		std Z+4,r25
+  24:Src/driver/servo_driver.c ****   servo_motor_disc.run_brake.pino = pin;
+ 554               	.LM6:
+ 555 0016 6583      		std Z+5,r22
+  25:Src/driver/servo_driver.c ****   //spew("arguments:  %d, %d\n", port, pin);
+  26:Src/driver/servo_driver.c ****   //spew("run_brake:  %d, %d\n", servo_motor_disc.run_brake.porta, servo_motor_disc.run_brake.pino)
+  27:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 557               	.LM7:
+ 558 0018 0C94 0000 		jmp gpio_cfg_out_np
+ 560               	.Lscope2:
+ 562               		.stabd	78,0,0
+ 566               	.global	servo_cfg_alarm_in
+ 568               	servo_cfg_alarm_in:
+ 569               		.stabd	46,0,0
+  28:Src/driver/servo_driver.c **** }
+  29:Src/driver/servo_driver.c **** 
+  30:Src/driver/servo_driver.c **** void servo_cfg_alarm_in(/*servo_motor servo,*/ PORT_t *port, uint8_t pin)
+  31:Src/driver/servo_driver.c **** {
+ 571               	.LM8:
+ 572               	.LFBB3:
+ 573               	/* prologue: function */
+ 574               	/* frame size = 0 */
+ 575               	/* stack size = 0 */
+ 576               	.L__stack_usage = 0
+  32:Src/driver/servo_driver.c ****   servo_motor_disc.alarm.porta = port;
+ 578               	.LM9:
+ 579 001c E0E0      		ldi r30,lo8(servo_motor_disc)
+ 580 001e F0E0      		ldi r31,hi8(servo_motor_disc)
+ 581 0020 8683      		std Z+6,r24
+ 582 0022 9783      		std Z+7,r25
+  33:Src/driver/servo_driver.c ****   servo_motor_disc.alarm.pino = pin;
+ 584               	.LM10:
+ 585 0024 6087      		std Z+8,r22
+  34:Src/driver/servo_driver.c ****   //spew("arguments:  %d, %d\n", port, pin);
+  35:Src/driver/servo_driver.c ****   //spew("alarm_in:  %d, %d\n", servo_motor_disc.alarm.porta, servo_motor_disc.alarm.pino);
+  36:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 587               	.LM11:
+ 588 0026 0C94 0000 		jmp gpio_cfg_in_np
+ 590               	.Lscope3:
+ 592               		.stabd	78,0,0
+ 597               	.global	servo_cfg_alarm_out
+ 599               	servo_cfg_alarm_out:
+ 600               		.stabd	46,0,0
+  37:Src/driver/servo_driver.c **** }
+  38:Src/driver/servo_driver.c **** 
+  39:Src/driver/servo_driver.c **** void servo_cfg_alarm_out(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool value)
+  40:Src/driver/servo_driver.c **** {
+ 602               	.LM12:
+ 603               	.LFBB4:
+ 604               	/* prologue: function */
+ 605               	/* frame size = 0 */
+ 606               	/* stack size = 0 */
+ 607               	.L__stack_usage = 0
+  41:Src/driver/servo_driver.c ****   servo_motor_disc.reset_alarm.porta = port;
+ 609               	.LM13:
+ 610 002a E0E0      		ldi r30,lo8(servo_motor_disc)
+ 611 002c F0E0      		ldi r31,hi8(servo_motor_disc)
+ 612 002e 8187      		std Z+9,r24
+ 613 0030 9287      		std Z+10,r25
+  42:Src/driver/servo_driver.c ****   servo_motor_disc.reset_alarm.pino = pin;
+ 615               	.LM14:
+ 616 0032 6387      		std Z+11,r22
+  43:Src/driver/servo_driver.c ****   //spew("arguments:  %d, %d\n", port, pin);
+  44:Src/driver/servo_driver.c ****   //spew("alarm_reset:  %d, %d\n", servo_motor_disc.reset_alarm.porta, servo_motor_disc.reset_alarm
+  45:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 618               	.LM15:
+ 619 0034 0C94 0000 		jmp gpio_cfg_out_np
+ 621               	.Lscope4:
+ 623               		.stabd	78,0,0
+ 627               	.global	servo_cfg_speed_in
+ 629               	servo_cfg_speed_in:
+ 630               		.stabd	46,0,0
+  46:Src/driver/servo_driver.c **** }
+  47:Src/driver/servo_driver.c **** 
+  48:Src/driver/servo_driver.c **** void servo_cfg_speed_in(/*servo_motor servo,*/ PORT_t *port, uint8_t pin)
+  49:Src/driver/servo_driver.c **** {
+ 632               	.LM16:
+ 633               	.LFBB5:
+ 634               	/* prologue: function */
+ 635               	/* frame size = 0 */
+ 636               	/* stack size = 0 */
+ 637               	.L__stack_usage = 0
+  50:Src/driver/servo_driver.c ****   servo_motor_disc.speed_feedback.porta = port;
+ 639               	.LM17:
+ 640 0038 E0E0      		ldi r30,lo8(servo_motor_disc)
+ 641 003a F0E0      		ldi r31,hi8(servo_motor_disc)
+ 642 003c 8487      		std Z+12,r24
+ 643 003e 9587      		std Z+13,r25
+  51:Src/driver/servo_driver.c ****   servo_motor_disc.speed_feedback.pino = pin;
+ 645               	.LM18:
+ 646 0040 6687      		std Z+14,r22
+  52:Src/driver/servo_driver.c ****   //spew("arguments:  %d, %d\n", port, pin);
+  53:Src/driver/servo_driver.c ****   //spew("speed_in:  %d, %d\n", servo_motor_disc.speed_feedback.porta, servo_motor_disc.speed_feedb
+  54:Src/driver/servo_driver.c ****   gpio_cfg_in_np(port, pin);
+ 648               	.LM19:
+ 649 0042 0C94 0000 		jmp gpio_cfg_in_np
+ 651               	.Lscope5:
+ 653               		.stabd	78,0,0
+ 658               	.global	servo_cfg_speed_out
+ 660               	servo_cfg_speed_out:
+ 661               		.stabd	46,0,0
+  55:Src/driver/servo_driver.c **** }
+  56:Src/driver/servo_driver.c **** 
+  57:Src/driver/servo_driver.c **** void servo_cfg_speed_out(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool value)
+  58:Src/driver/servo_driver.c **** {
+ 663               	.LM20:
+ 664               	.LFBB6:
+ 665               	/* prologue: function */
+ 666               	/* frame size = 0 */
+ 667               	/* stack size = 0 */
+ 668               	.L__stack_usage = 0
+  59:Src/driver/servo_driver.c ****   servo_motor_disc.speed_pwm.porta = port;
+ 670               	.LM21:
+ 671 0046 E0E0      		ldi r30,lo8(servo_motor_disc)
+ 672 0048 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 673 004a 8787      		std Z+15,r24
+ 674 004c 908B      		std Z+16,r25
+  60:Src/driver/servo_driver.c ****   servo_motor_disc.speed_pwm.pino = pin;
+ 676               	.LM22:
+ 677 004e 618B      		std Z+17,r22
+  61:Src/driver/servo_driver.c ****   //spew("arguments:  %d, %d\n", port, pin);
+  62:Src/driver/servo_driver.c ****   //spew("speed_out:  %d, %d\n", servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pin
+  63:Src/driver/servo_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 679               	.LM23:
+ 680 0050 0C94 0000 		jmp gpio_cfg_out_np
+ 682               	.Lscope6:
+ 684               		.stabd	78,0,0
+ 686               	.global	servo_start
+ 688               	servo_start:
+ 689               		.stabd	46,0,0
+  64:Src/driver/servo_driver.c **** } 
+  65:Src/driver/servo_driver.c **** 
+  66:Src/driver/servo_driver.c **** void servo_start(/*servo_motor servo*/ void)
+  67:Src/driver/servo_driver.c **** {
+ 691               	.LM24:
+ 692               	.LFBB7:
+ 693               	/* prologue: function */
+ 694               	/* frame size = 0 */
+ 695               	/* stack size = 0 */
+ 696               	.L__stack_usage = 0
+  68:Src/driver/servo_driver.c ****   gpio_clr_np(servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pino);
+ 698               	.LM25:
+ 699 0054 E0E0      		ldi r30,lo8(servo_motor_disc)
+ 700 0056 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 701 0058 6281      		ldd r22,Z+2
+ 702 005a 8081      		ld r24,Z
+ 703 005c 9181      		ldd r25,Z+1
+ 704 005e 0C94 0000 		jmp gpio_clr_np
+ 706               	.Lscope7:
+ 708               		.stabd	78,0,0
+ 710               	.global	servo_stop
+ 712               	servo_stop:
+ 713               		.stabd	46,0,0
+  69:Src/driver/servo_driver.c **** }
+  70:Src/driver/servo_driver.c **** 
+  71:Src/driver/servo_driver.c **** void servo_stop(/*servo_motor servo*/ void)
+  72:Src/driver/servo_driver.c **** {
+ 715               	.LM26:
+ 716               	.LFBB8:
+ 717               	/* prologue: function */
+ 718               	/* frame size = 0 */
+ 719               	/* stack size = 0 */
+ 720               	.L__stack_usage = 0
+  73:Src/driver/servo_driver.c ****   gpio_set_np(servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pino);
+ 722               	.LM27:
+ 723 0062 E0E0      		ldi r30,lo8(servo_motor_disc)
+ 724 0064 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 725 0066 6281      		ldd r22,Z+2
+ 726 0068 8081      		ld r24,Z
+ 727 006a 9181      		ldd r25,Z+1
+ 728 006c 0C94 0000 		jmp gpio_set_np
+ 730               	.Lscope8:
+ 732               		.stabd	78,0,0
+ 734               	.global	servo_brake
+ 736               	servo_brake:
+ 737               		.stabd	46,0,0
+  74:Src/driver/servo_driver.c **** }
+  75:Src/driver/servo_driver.c **** 
+  76:Src/driver/servo_driver.c **** void servo_brake(/*servo_motor servo*/ void)
+  77:Src/driver/servo_driver.c **** {
+ 739               	.LM28:
+ 740               	.LFBB9:
+ 741               	/* prologue: function */
+ 742               	/* frame size = 0 */
+ 743               	/* stack size = 0 */
+ 744               	.L__stack_usage = 0
+  78:Src/driver/servo_driver.c ****   gpio_clr_np(servo_motor_disc.run_brake.porta, servo_motor_disc.run_brake.pino);
+ 746               	.LM29:
+ 747 0070 E0E0      		ldi r30,lo8(servo_motor_disc)
+ 748 0072 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 749 0074 6581      		ldd r22,Z+5
+ 750 0076 8381      		ldd r24,Z+3
+ 751 0078 9481      		ldd r25,Z+4
+ 752 007a 0C94 0000 		jmp gpio_clr_np
+ 754               	.Lscope9:
+ 756               		.stabd	78,0,0
+ 758               	.global	servo_run
+ 760               	servo_run:
+ 761               		.stabd	46,0,0
+  79:Src/driver/servo_driver.c **** }
+  80:Src/driver/servo_driver.c **** 
+  81:Src/driver/servo_driver.c **** void servo_run(/*servo_motor servo*/ void)
+  82:Src/driver/servo_driver.c **** {
+ 763               	.LM30:
+ 764               	.LFBB10:
+ 765               	/* prologue: function */
+ 766               	/* frame size = 0 */
+ 767               	/* stack size = 0 */
+ 768               	.L__stack_usage = 0
+  83:Src/driver/servo_driver.c ****   gpio_set_np(servo_motor_disc.run_brake.porta, servo_motor_disc.run_brake.pino);
+ 770               	.LM31:
+ 771 007e E0E0      		ldi r30,lo8(servo_motor_disc)
+ 772 0080 F0E0      		ldi r31,hi8(servo_motor_disc)
+ 773 0082 6581      		ldd r22,Z+5
+ 774 0084 8381      		ldd r24,Z+3
+ 775 0086 9481      		ldd r25,Z+4
+ 776 0088 0C94 0000 		jmp gpio_set_np
+ 778               	.Lscope10:
+ 780               		.stabd	78,0,0
+ 782               	.global	servo_set_alarm_reset
+ 784               	servo_set_alarm_reset:
+ 785               		.stabd	46,0,0
+  84:Src/driver/servo_driver.c **** }
+  85:Src/driver/servo_driver.c **** 
+  86:Src/driver/servo_driver.c **** void servo_set_alarm_reset(/*servo_motor servo*/ void)
+  87:Src/driver/servo_driver.c **** {
+ 787               	.LM32:
+ 788               	.LFBB11:
+ 789               	/* prologue: function */
+ 790               	/* frame size = 0 */
+ 791               	/* stack size = 0 */
+ 792               	.L__stack_usage = 0
+  88:Src/driver/servo_driver.c ****   gpio_set_np(servo_motor_disc.reset_alarm.porta, servo_motor_disc.reset_alarm.pino);
+ 794               	.LM33:
+ 795 008c E0E0      		ldi r30,lo8(servo_motor_disc)
+ 796 008e F0E0      		ldi r31,hi8(servo_motor_disc)
+ 797 0090 6385      		ldd r22,Z+11
+ 798 0092 8185      		ldd r24,Z+9
+ 799 0094 9285      		ldd r25,Z+10
+ 800 0096 0C94 0000 		jmp gpio_set_np
+ 802               	.Lscope11:
+ 804               		.stabd	78,0,0
+ 806               	.global	servo_clr_alarm_reset
+ 808               	servo_clr_alarm_reset:
+ 809               		.stabd	46,0,0
+  89:Src/driver/servo_driver.c **** }
+  90:Src/driver/servo_driver.c **** 
+  91:Src/driver/servo_driver.c **** void servo_clr_alarm_reset(/*servo_motor servo*/ void)
+  92:Src/driver/servo_driver.c **** {
+ 811               	.LM34:
+ 812               	.LFBB12:
+ 813               	/* prologue: function */
+ 814               	/* frame size = 0 */
+ 815               	/* stack size = 0 */
+ 816               	.L__stack_usage = 0
+  93:Src/driver/servo_driver.c ****   gpio_clr_np(servo_motor_disc.reset_alarm.porta, servo_motor_disc.reset_alarm.pino);
+ 818               	.LM35:
+ 819 009a E0E0      		ldi r30,lo8(servo_motor_disc)
+ 820 009c F0E0      		ldi r31,hi8(servo_motor_disc)
+ 821 009e 6385      		ldd r22,Z+11
+ 822 00a0 8185      		ldd r24,Z+9
+ 823 00a2 9285      		ldd r25,Z+10
+ 824 00a4 0C94 0000 		jmp gpio_clr_np
+ 826               	.Lscope12:
+ 828               		.stabd	78,0,0
+ 829               		.comm	servo_motor_disc,18,1
+ 830               		.comm	motor_pin_t,3,1
+ 834               	.Letext0:
+ 835               		.ident	"GCC: (GNU) 5.4.0"
+ 836               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 servo_driver.c
+     /tmp/ccz30e8p.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccz30e8p.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccz30e8p.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccz30e8p.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccz30e8p.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccz30e8p.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccz30e8p.s:507    .text:0000000000000000 servo_cfg_start
+                            *COM*:0000000000000012 servo_motor_disc
+     /tmp/ccz30e8p.s:538    .text:000000000000000e servo_cfg_brake
+     /tmp/ccz30e8p.s:568    .text:000000000000001c servo_cfg_alarm_in
+     /tmp/ccz30e8p.s:599    .text:000000000000002a servo_cfg_alarm_out
+     /tmp/ccz30e8p.s:629    .text:0000000000000038 servo_cfg_speed_in
+     /tmp/ccz30e8p.s:660    .text:0000000000000046 servo_cfg_speed_out
+     /tmp/ccz30e8p.s:688    .text:0000000000000054 servo_start
+     /tmp/ccz30e8p.s:712    .text:0000000000000062 servo_stop
+     /tmp/ccz30e8p.s:736    .text:0000000000000070 servo_brake
+     /tmp/ccz30e8p.s:760    .text:000000000000007e servo_run
+     /tmp/ccz30e8p.s:784    .text:000000000000008c servo_set_alarm_reset
+     /tmp/ccz30e8p.s:808    .text:000000000000009a servo_clr_alarm_reset
+                            *COM*:0000000000000003 motor_pin_t
+
+UNDEFINED SYMBOLS
+gpio_cfg_out_np
+gpio_cfg_in_np
+gpio_clr_np
+gpio_set_np
+__do_clear_bss

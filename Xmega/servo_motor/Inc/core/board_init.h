@@ -26,8 +26,6 @@
 #ifndef BOARD_INIT_H_INCLUDED_
 #define BOARD_INIT_H_INCLUDED_
 
-extern servo_motor_t motor_disc;
-
 static inline void
 board_init(void)
 {
@@ -49,17 +47,24 @@ board_init(void)
   //***********************************************************************
   //* GPIO.                                                               *
   //***********************************************************************
+  // Debug LED
   GPIO_CFG_OUT(LED, false);
 
-
-
+  // UART PPins Init
   GPIO_CFG_OUT(UART0_TX, false);
   GPIO_CFG_IN(UART0_RX);
+
+  // Servo Motor Init
+  SERVO_CFG_START(/*servo_motor_disc,*/ MOTOR_STARTSTOP, false);
+  SERVO_CFG_BRAKE(/*servo_motor_disc,*/ MOTOR_RUNBRAKE, false);
+  SERVO_CFG_ALARM_IN(/*servo_motor_disc,*/ MOTOR_ALARM);
+  SERVO_CFG_ALARM_OUT(/*servo_motor_disc,*/ MOTOR_RSTALARM, false);
+  SERVO_CFG_SPD_IN(/*servo_motor_disc,*/ MOTOR_SPEEDOUT);
 
   //***********************************************************************
   //* Interrupt levels.                                                   *
   //***********************************************************************
-  //Enables High, Medium and Low Level Interrupts
+  // Enables High, Medium and Low Level Interrupts
   PMIC.CTRL |= PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_LOLVLEN_bm;
 }
 

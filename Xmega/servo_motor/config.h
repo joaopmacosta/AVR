@@ -23,12 +23,12 @@
 //! Motor Run/Brake select port/pin.
 #define MOTOR_RUNBRAKE_PORT             (PORTC)
 #define MOTOR_RUNBRAKE_PIN              (4)
-//! Motor Reset Alarm select port/pin.
-#define MOTOR_RSTALARM_PORT             (PORTC)
-#define MOTOR_RSTALARM_PIN              (5)
 //! Motor Alarm select port/pin.
 #define MOTOR_ALARM_PORT                (PORTC)
-#define MOTOR_ALARM_PIN                 (6)
+#define MOTOR_ALARM_PIN                 (5)
+//! Motor Reset Alarm select port/pin.
+#define MOTOR_RSTALARM_PORT             (PORTC)
+#define MOTOR_RSTALARM_PIN              (6)
 //! Motor Speed Feedback select port/pin.
 #define MOTOR_SPEEDOUT_PORT             (PORTC)
 #define MOTOR_SPEEDOUT_PIN              (7)
