@@ -17,18 +17,6 @@
 #define LED_PORT                (PORTC)
 #define LED_PIN                 (0)
 
-//! USARTD0 (WEATHER STATION) select port/pin
-#define UART0_RX_PORT           (PORTC)
-#define UART0_RX_PIN            (2)
-#define UART0_TX_PORT           (PORTC)
-#define UART0_TX_PIN            (3)
-
-//! USARTD1 (DUNE) select port/pin
-#define UART1_RX_PORT           (PORTD)
-#define UART1_RX_PIN            (6)
-#define UART1_TX_PORT           (PORTD)
-#define UART1_TX_PIN            (7)
-
 // Serial parameters
 #define USART_RX_BUFFER_SIZE    (128)
 #define USART_TX_BUFFER_SIZE    (128)

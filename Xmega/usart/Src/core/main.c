@@ -18,7 +18,8 @@ int main(void)
 
   while (1)
   {
-    _delay_ms(1000);
-    UART_sendString(DEBUG, "Hello\n");
+    _delay_ms(5000);
+    UART_sendString(DEBUG, "Ping...\n");
+    GPIO_TGL(LED);
   }
 }

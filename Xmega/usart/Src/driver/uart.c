@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include "../../Inc/driver/uart.h"
 #include "../../Inc/driver/io.h"
+#include "../../Inc/driver/cpu_parser.h"
 #include "../../config.h"
 
 //#include "../motor_parser.h"
@@ -69,6 +70,21 @@ void UART_sendLint(uint8_t usart, long int data)
 //DEBUG
 ISR(DEBUG_RX_IVEC)
 {
-  //cpu_praser(USARTC0_DATA);
+  spew("RX data received\n");
+  cpu_parser(USARTC0_DATA);
   cnt_reset_stop_emerg = 0;
+}
+
+char debug_bfr[256];
+
+void spew(const char *fmt, ...)
+{
+  va_list args;
+  va_start(args, fmt);
+
+  vsprintf(debug_bfr, fmt, args);
+  va_end(args);
+
+  UART_sendString(DEBUG, debug_bfr);
+  /* HAL_Delay(2); */
 }

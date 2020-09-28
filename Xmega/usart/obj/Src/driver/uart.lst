@@ -7,9 +7,9 @@
    7               	__zero_reg__ = 1
   10               		.text
   11               	.Ltext0:
- 498               	.global	initUsart
- 500               	initUsart:
- 501               		.stabd	46,0,0
+ 505               	.global	initUsart
+ 507               	initUsart:
+ 508               		.stabd	46,0,0
    1:Src/driver/uart.c **** //***************************************************************************
    2:Src/driver/uart.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
    3:Src/driver/uart.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
@@ -26,152 +26,153 @@
   14:Src/driver/uart.c **** #include <stdbool.h>
   15:Src/driver/uart.c **** #include "../../Inc/driver/uart.h"
   16:Src/driver/uart.c **** #include "../../Inc/driver/io.h"
-  17:Src/driver/uart.c **** #include "../../config.h"
-  18:Src/driver/uart.c **** 
-  19:Src/driver/uart.c **** //#include "../motor_parser.h"
-  20:Src/driver/uart.c **** //#include "../cpu_parser.h"
-  21:Src/driver/uart.c **** 
-  22:Src/driver/uart.c **** int cnt_reset_stop_emerg = 0;
-  23:Src/driver/uart.c **** char *text_emerg = "$S,0*";
-  24:Src/driver/uart.c **** 
-  25:Src/driver/uart.c **** void initUsart(void)
-  26:Src/driver/uart.c **** {
- 503               	.LM0:
- 504               	.LFBB1:
- 505               	/* prologue: function */
- 506               	/* frame size = 0 */
- 507               	/* stack size = 0 */
- 508               	.L__stack_usage = 0
-  27:Src/driver/uart.c ****   //DEBUG
-  28:Src/driver/uart.c ****   USARTC0_BAUDCTRLB = UART0_BAUDCTRLB;
- 510               	.LM1:
- 511 0000 1092 A708 		sts 2215,__zero_reg__
-  29:Src/driver/uart.c ****   USARTC0_BAUDCTRLA = UART0_BAUDCTRLA;
- 513               	.LM2:
- 514 0004 82E2      		ldi r24,lo8(34)
- 515 0006 8093 A608 		sts 2214,r24
-  30:Src/driver/uart.c ****   USARTC0_CTRLA = UART0_CTRLA;
- 517               	.LM3:
- 518 000a 80E3      		ldi r24,lo8(48)
- 519 000c 8093 A308 		sts 2211,r24
-  31:Src/driver/uart.c ****   USARTC0_CTRLB = UART0_CTRLB;
- 521               	.LM4:
- 522 0010 88E1      		ldi r24,lo8(24)
- 523 0012 8093 A408 		sts 2212,r24
-  32:Src/driver/uart.c ****   USARTC0_CTRLC = UART0_CTRLC;
- 525               	.LM5:
- 526 0016 83E0      		ldi r24,lo8(3)
- 527 0018 8093 A508 		sts 2213,r24
- 528 001c 0895      		ret
- 530               	.Lscope1:
- 532               		.stabd	78,0,0
- 536               	.global	UART_sendChar
- 538               	UART_sendChar:
- 539               		.stabd	46,0,0
-  33:Src/driver/uart.c **** }
-  34:Src/driver/uart.c **** 
-  35:Src/driver/uart.c **** void UART_sendChar(uint8_t usart, uint8_t data)
-  36:Src/driver/uart.c **** {
- 541               	.LM6:
- 542               	.LFBB2:
- 543               	/* prologue: function */
- 544               	/* frame size = 0 */
- 545               	/* stack size = 0 */
- 546               	.L__stack_usage = 0
-  37:Src/driver/uart.c ****   switch (usart)
- 548               	.LM7:
- 549 001e 8430      		cpi r24,lo8(4)
- 550 0020 01F4      		brne .L2
- 551               	.L7:
- 552               	.LBB12:
- 553               	.LBB13:
-  38:Src/driver/uart.c ****   {
-  39:Src/driver/uart.c ****   case DEBUG:
-  40:Src/driver/uart.c ****     while (!(USARTC0_STATUS & USART_DREIF_bm))
- 555               	.LM8:
- 556 0022 8091 A108 		lds r24,2209
- 557 0026 85FF      		sbrs r24,5
- 558 0028 00C0      		rjmp .L7
-  41:Src/driver/uart.c ****       ;
-  42:Src/driver/uart.c ****     USARTC0_DATA = data;
- 560               	.LM9:
- 561 002a 6093 A008 		sts 2208,r22
- 562               	.L2:
- 563 002e 0895      		ret
- 564               	.LBE13:
- 565               	.LBE12:
- 567               	.Lscope2:
- 569               		.stabd	78,0,0
- 573               	.global	UART_sendString
- 575               	UART_sendString:
- 576               		.stabd	46,0,0
-  43:Src/driver/uart.c ****     break;
-  44:Src/driver/uart.c **** 
-  45:Src/driver/uart.c ****   default:
-  46:Src/driver/uart.c ****     break;
-  47:Src/driver/uart.c ****   }
-  48:Src/driver/uart.c **** }
-  49:Src/driver/uart.c **** 
-  50:Src/driver/uart.c **** void UART_sendString(uint8_t usart, char *str)
-  51:Src/driver/uart.c **** {
- 578               	.LM10:
- 579               	.LFBB3:
- 580 0030 1F93      		push r17
- 581 0032 CF93      		push r28
- 582 0034 DF93      		push r29
- 583               	/* prologue: function */
- 584               	/* frame size = 0 */
- 585               	/* stack size = 3 */
- 586               	.L__stack_usage = 3
- 587 0036 182F      		mov r17,r24
- 588 0038 EB01      		movw r28,r22
- 589               	.L12:
-  52:Src/driver/uart.c ****   register char c;
-  53:Src/driver/uart.c ****   while ((c = *str++))
- 591               	.LM11:
- 592 003a 6991      		ld r22,Y+
- 593 003c 6623      		tst r22
- 594 003e 01F0      		breq .L14
-  54:Src/driver/uart.c ****     UART_sendChar(usart, c);
- 596               	.LM12:
- 597 0040 812F      		mov r24,r17
- 598 0042 0E94 0000 		call UART_sendChar
- 599 0046 00C0      		rjmp .L12
- 600               	.L14:
- 601               	/* epilogue start */
-  55:Src/driver/uart.c **** }
- 603               	.LM13:
- 604 0048 DF91      		pop r29
- 605 004a CF91      		pop r28
- 606 004c 1F91      		pop r17
- 607 004e 0895      		ret
- 612               	.Lscope3:
- 614               		.stabd	78,0,0
- 618               	.global	UART_sendInt
- 620               	UART_sendInt:
- 621               		.stabd	46,0,0
-  56:Src/driver/uart.c **** 
-  57:Src/driver/uart.c **** void UART_sendInt(uint8_t usart, int value)
-  58:Src/driver/uart.c **** {
- 623               	.LM14:
- 624               	.LFBB4:
- 625 0050 1F93      		push r17
- 626 0052 CF93      		push r28
- 627 0054 DF93      		push r29
- 628 0056 CDB7      		in r28,__SP_L__
- 629 0058 DEB7      		in r29,__SP_H__
- 630 005a 6197      		sbiw r28,17
- 631 005c CDBF      		out __SP_L__,r28
- 632 005e DEBF      		out __SP_H__,r29
- 633               	/* prologue: function */
- 634               	/* frame size = 17 */
- 635               	/* stack size = 20 */
- 636               	.L__stack_usage = 20
- 637 0060 182F      		mov r17,r24
- 638 0062 CB01      		movw r24,r22
- 639               	.LBB14:
- 640               	.LBB15:
- 642               	.Ltext1:
+  17:Src/driver/uart.c **** #include "../../Inc/driver/cpu_parser.h"
+  18:Src/driver/uart.c **** #include "../../config.h"
+  19:Src/driver/uart.c **** 
+  20:Src/driver/uart.c **** //#include "../motor_parser.h"
+  21:Src/driver/uart.c **** //#include "../cpu_parser.h"
+  22:Src/driver/uart.c **** 
+  23:Src/driver/uart.c **** int cnt_reset_stop_emerg = 0;
+  24:Src/driver/uart.c **** char *text_emerg = "$S,0*";
+  25:Src/driver/uart.c **** 
+  26:Src/driver/uart.c **** void initUsart(void)
+  27:Src/driver/uart.c **** {
+ 510               	.LM0:
+ 511               	.LFBB1:
+ 512               	/* prologue: function */
+ 513               	/* frame size = 0 */
+ 514               	/* stack size = 0 */
+ 515               	.L__stack_usage = 0
+  28:Src/driver/uart.c ****   //DEBUG
+  29:Src/driver/uart.c ****   USARTC0_BAUDCTRLB = UART0_BAUDCTRLB;
+ 517               	.LM1:
+ 518 0000 1092 A708 		sts 2215,__zero_reg__
+  30:Src/driver/uart.c ****   USARTC0_BAUDCTRLA = UART0_BAUDCTRLA;
+ 520               	.LM2:
+ 521 0004 82E2      		ldi r24,lo8(34)
+ 522 0006 8093 A608 		sts 2214,r24
+  31:Src/driver/uart.c ****   USARTC0_CTRLA = UART0_CTRLA;
+ 524               	.LM3:
+ 525 000a 80E3      		ldi r24,lo8(48)
+ 526 000c 8093 A308 		sts 2211,r24
+  32:Src/driver/uart.c ****   USARTC0_CTRLB = UART0_CTRLB;
+ 528               	.LM4:
+ 529 0010 88E1      		ldi r24,lo8(24)
+ 530 0012 8093 A408 		sts 2212,r24
+  33:Src/driver/uart.c ****   USARTC0_CTRLC = UART0_CTRLC;
+ 532               	.LM5:
+ 533 0016 83E0      		ldi r24,lo8(3)
+ 534 0018 8093 A508 		sts 2213,r24
+ 535 001c 0895      		ret
+ 537               	.Lscope1:
+ 539               		.stabd	78,0,0
+ 543               	.global	UART_sendChar
+ 545               	UART_sendChar:
+ 546               		.stabd	46,0,0
+  34:Src/driver/uart.c **** }
+  35:Src/driver/uart.c **** 
+  36:Src/driver/uart.c **** void UART_sendChar(uint8_t usart, uint8_t data)
+  37:Src/driver/uart.c **** {
+ 548               	.LM6:
+ 549               	.LFBB2:
+ 550               	/* prologue: function */
+ 551               	/* frame size = 0 */
+ 552               	/* stack size = 0 */
+ 553               	.L__stack_usage = 0
+  38:Src/driver/uart.c ****   switch (usart)
+ 555               	.LM7:
+ 556 001e 8111      		cpse r24,__zero_reg__
+ 557 0020 00C0      		rjmp .L2
+ 558               	.L7:
+ 559               	.LBB12:
+ 560               	.LBB13:
+  39:Src/driver/uart.c ****   {
+  40:Src/driver/uart.c ****   case DEBUG:
+  41:Src/driver/uart.c ****     while (!(USARTC0_STATUS & USART_DREIF_bm))
+ 562               	.LM8:
+ 563 0022 8091 A108 		lds r24,2209
+ 564 0026 85FF      		sbrs r24,5
+ 565 0028 00C0      		rjmp .L7
+  42:Src/driver/uart.c ****       ;
+  43:Src/driver/uart.c ****     USARTC0_DATA = data;
+ 567               	.LM9:
+ 568 002a 6093 A008 		sts 2208,r22
+ 569               	.L2:
+ 570 002e 0895      		ret
+ 571               	.LBE13:
+ 572               	.LBE12:
+ 574               	.Lscope2:
+ 576               		.stabd	78,0,0
+ 580               	.global	UART_sendString
+ 582               	UART_sendString:
+ 583               		.stabd	46,0,0
+  44:Src/driver/uart.c ****     break;
+  45:Src/driver/uart.c **** 
+  46:Src/driver/uart.c ****   default:
+  47:Src/driver/uart.c ****     break;
+  48:Src/driver/uart.c ****   }
+  49:Src/driver/uart.c **** }
+  50:Src/driver/uart.c **** 
+  51:Src/driver/uart.c **** void UART_sendString(uint8_t usart, char *str)
+  52:Src/driver/uart.c **** {
+ 585               	.LM10:
+ 586               	.LFBB3:
+ 587 0030 1F93      		push r17
+ 588 0032 CF93      		push r28
+ 589 0034 DF93      		push r29
+ 590               	/* prologue: function */
+ 591               	/* frame size = 0 */
+ 592               	/* stack size = 3 */
+ 593               	.L__stack_usage = 3
+ 594 0036 182F      		mov r17,r24
+ 595 0038 EB01      		movw r28,r22
+ 596               	.L12:
+  53:Src/driver/uart.c ****   register char c;
+  54:Src/driver/uart.c ****   while ((c = *str++))
+ 598               	.LM11:
+ 599 003a 6991      		ld r22,Y+
+ 600 003c 6623      		tst r22
+ 601 003e 01F0      		breq .L14
+  55:Src/driver/uart.c ****     UART_sendChar(usart, c);
+ 603               	.LM12:
+ 604 0040 812F      		mov r24,r17
+ 605 0042 0E94 0000 		call UART_sendChar
+ 606 0046 00C0      		rjmp .L12
+ 607               	.L14:
+ 608               	/* epilogue start */
+  56:Src/driver/uart.c **** }
+ 610               	.LM13:
+ 611 0048 DF91      		pop r29
+ 612 004a CF91      		pop r28
+ 613 004c 1F91      		pop r17
+ 614 004e 0895      		ret
+ 619               	.Lscope3:
+ 621               		.stabd	78,0,0
+ 625               	.global	UART_sendInt
+ 627               	UART_sendInt:
+ 628               		.stabd	46,0,0
+  57:Src/driver/uart.c **** 
+  58:Src/driver/uart.c **** void UART_sendInt(uint8_t usart, int value)
+  59:Src/driver/uart.c **** {
+ 630               	.LM14:
+ 631               	.LFBB4:
+ 632 0050 1F93      		push r17
+ 633 0052 CF93      		push r28
+ 634 0054 DF93      		push r29
+ 635 0056 CDB7      		in r28,__SP_L__
+ 636 0058 DEB7      		in r29,__SP_H__
+ 637 005a 6197      		sbiw r28,17
+ 638 005c CDBF      		out __SP_L__,r28
+ 639 005e DEBF      		out __SP_H__,r29
+ 640               	/* prologue: function */
+ 641               	/* frame size = 17 */
+ 642               	/* stack size = 20 */
+ 643               	.L__stack_usage = 20
+ 644 0060 182F      		mov r17,r24
+ 645 0062 CB01      		movw r24,r22
+ 646               	.LBB14:
+ 647               	.LBB15:
+ 649               	.Ltext1:
    1:/usr/lib/avr/include/stdlib.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/lib/avr/include/stdlib.h ****    Copyright (c) 2004,2007 Joerg Wunsch
    3:/usr/lib/avr/include/stdlib.h **** 
@@ -611,59 +612,59 @@
  437:/usr/lib/avr/include/stdlib.h ****     } else {
  438:/usr/lib/avr/include/stdlib.h **** 	extern char *__itoa_ncheck (int, char *, unsigned char);
  439:/usr/lib/avr/include/stdlib.h **** 	return __itoa_ncheck (__val, __s, __radix);
- 644               	.LM15:
- 645 0064 4AE0      		ldi r20,lo8(10)
- 646 0066 BE01      		movw r22,r28
- 647 0068 6F5F      		subi r22,-1
- 648 006a 7F4F      		sbci r23,-1
- 649 006c 0E94 0000 		call __itoa_ncheck
- 650               	.LBE15:
- 651               	.LBE14:
- 653               	.Ltext2:
-  59:Src/driver/uart.c ****   char string[17];
-  60:Src/driver/uart.c ****   UART_sendString(usart, itoa(value, string, 10)); // base 10
- 655               	.LM16:
- 656 0070 BC01      		movw r22,r24
- 657 0072 812F      		mov r24,r17
- 658 0074 0E94 0000 		call UART_sendString
- 659               	/* epilogue start */
-  61:Src/driver/uart.c **** }
- 661               	.LM17:
- 662 0078 6196      		adiw r28,17
- 663 007a CDBF      		out __SP_L__,r28
- 664 007c DEBF      		out __SP_H__,r29
- 665 007e DF91      		pop r29
- 666 0080 CF91      		pop r28
- 667 0082 1F91      		pop r17
- 668 0084 0895      		ret
- 673               	.Lscope4:
- 675               		.stabd	78,0,0
- 679               	.global	UART_sendLint
- 681               	UART_sendLint:
- 682               		.stabd	46,0,0
-  62:Src/driver/uart.c **** 
-  63:Src/driver/uart.c **** void UART_sendLint(uint8_t usart, long int data)
-  64:Src/driver/uart.c **** {
- 684               	.LM18:
- 685               	.LFBB5:
- 686 0086 1F93      		push r17
- 687 0088 CF93      		push r28
- 688 008a DF93      		push r29
- 689 008c CDB7      		in r28,__SP_L__
- 690 008e DEB7      		in r29,__SP_H__
- 691 0090 A197      		sbiw r28,33
- 692 0092 CDBF      		out __SP_L__,r28
- 693 0094 DEBF      		out __SP_H__,r29
- 694               	/* prologue: function */
- 695               	/* frame size = 33 */
- 696               	/* stack size = 36 */
- 697               	.L__stack_usage = 36
- 698 0096 182F      		mov r17,r24
- 699 0098 CB01      		movw r24,r22
- 700 009a BA01      		movw r22,r20
- 701               	.LBB16:
- 702               	.LBB17:
- 704               	.Ltext3:
+ 651               	.LM15:
+ 652 0064 4AE0      		ldi r20,lo8(10)
+ 653 0066 BE01      		movw r22,r28
+ 654 0068 6F5F      		subi r22,-1
+ 655 006a 7F4F      		sbci r23,-1
+ 656 006c 0E94 0000 		call __itoa_ncheck
+ 657               	.LBE15:
+ 658               	.LBE14:
+ 660               	.Ltext2:
+  60:Src/driver/uart.c ****   char string[17];
+  61:Src/driver/uart.c ****   UART_sendString(usart, itoa(value, string, 10)); // base 10
+ 662               	.LM16:
+ 663 0070 BC01      		movw r22,r24
+ 664 0072 812F      		mov r24,r17
+ 665 0074 0E94 0000 		call UART_sendString
+ 666               	/* epilogue start */
+  62:Src/driver/uart.c **** }
+ 668               	.LM17:
+ 669 0078 6196      		adiw r28,17
+ 670 007a CDBF      		out __SP_L__,r28
+ 671 007c DEBF      		out __SP_H__,r29
+ 672 007e DF91      		pop r29
+ 673 0080 CF91      		pop r28
+ 674 0082 1F91      		pop r17
+ 675 0084 0895      		ret
+ 680               	.Lscope4:
+ 682               		.stabd	78,0,0
+ 686               	.global	UART_sendLint
+ 688               	UART_sendLint:
+ 689               		.stabd	46,0,0
+  63:Src/driver/uart.c **** 
+  64:Src/driver/uart.c **** void UART_sendLint(uint8_t usart, long int data)
+  65:Src/driver/uart.c **** {
+ 691               	.LM18:
+ 692               	.LFBB5:
+ 693 0086 1F93      		push r17
+ 694 0088 CF93      		push r28
+ 695 008a DF93      		push r29
+ 696 008c CDB7      		in r28,__SP_L__
+ 697 008e DEB7      		in r29,__SP_H__
+ 698 0090 A197      		sbiw r28,33
+ 699 0092 CDBF      		out __SP_L__,r28
+ 700 0094 DEBF      		out __SP_H__,r29
+ 701               	/* prologue: function */
+ 702               	/* frame size = 33 */
+ 703               	/* stack size = 36 */
+ 704               	.L__stack_usage = 36
+ 705 0096 182F      		mov r17,r24
+ 706 0098 CB01      		movw r24,r22
+ 707 009a BA01      		movw r22,r20
+ 708               	.LBB16:
+ 709               	.LBB17:
+ 711               	.Ltext3:
  440:/usr/lib/avr/include/stdlib.h ****     }
  441:/usr/lib/avr/include/stdlib.h **** }
  442:/usr/lib/avr/include/stdlib.h **** #endif
@@ -709,102 +710,208 @@
  482:/usr/lib/avr/include/stdlib.h ****     } else {
  483:/usr/lib/avr/include/stdlib.h **** 	extern char *__ltoa_ncheck (long, char *, unsigned char);
  484:/usr/lib/avr/include/stdlib.h **** 	return __ltoa_ncheck (__val, __s, __radix);
- 706               	.LM19:
- 707 009c 2AE0      		ldi r18,lo8(10)
- 708 009e AE01      		movw r20,r28
- 709 00a0 4F5F      		subi r20,-1
- 710 00a2 5F4F      		sbci r21,-1
- 711 00a4 0E94 0000 		call __ltoa_ncheck
- 712               	.LBE17:
- 713               	.LBE16:
- 715               	.Ltext4:
-  65:Src/driver/uart.c ****   char buf[33];
-  66:Src/driver/uart.c ****   UART_sendString(usart, ltoa(data, buf, 10));
- 717               	.LM20:
- 718 00a8 BC01      		movw r22,r24
- 719 00aa 812F      		mov r24,r17
- 720 00ac 0E94 0000 		call UART_sendString
- 721               	/* epilogue start */
-  67:Src/driver/uart.c **** }
- 723               	.LM21:
- 724 00b0 A196      		adiw r28,33
- 725 00b2 CDBF      		out __SP_L__,r28
- 726 00b4 DEBF      		out __SP_H__,r29
- 727 00b6 DF91      		pop r29
- 728 00b8 CF91      		pop r28
- 729 00ba 1F91      		pop r17
- 730 00bc 0895      		ret
- 735               	.Lscope5:
- 737               		.stabd	78,0,0
- 739               	.global	__vector_25
- 741               	__vector_25:
- 742               		.stabd	46,0,0
-  68:Src/driver/uart.c **** 
-  69:Src/driver/uart.c **** //DEBUG
-  70:Src/driver/uart.c **** ISR(DEBUG_RX_IVEC)
-  71:Src/driver/uart.c **** {
- 744               	.LM22:
- 745               	.LFBB6:
- 746 00be 1F92      		push r1
- 747 00c0 0F92      		push r0
- 748 00c2 0FB6      		in r0,__SREG__
- 749 00c4 0F92      		push r0
- 750 00c6 1124      		clr __zero_reg__
- 751               	/* prologue: Signal */
- 752               	/* frame size = 0 */
- 753               	/* stack size = 3 */
- 754               	.L__stack_usage = 3
-  72:Src/driver/uart.c ****   //cpu_praser(USARTC0_DATA);
-  73:Src/driver/uart.c ****   cnt_reset_stop_emerg = 0;
- 756               	.LM23:
- 757 00c8 1092 0000 		sts cnt_reset_stop_emerg,__zero_reg__
- 758 00cc 1092 0000 		sts cnt_reset_stop_emerg+1,__zero_reg__
- 759               	/* epilogue start */
-  74:Src/driver/uart.c **** }
- 761               	.LM24:
- 762 00d0 0F90      		pop r0
- 763 00d2 0FBE      		out __SREG__,r0
- 764 00d4 0F90      		pop r0
- 765 00d6 1F90      		pop r1
- 766 00d8 1895      		reti
- 768               	.Lscope6:
- 770               		.stabd	78,0,0
- 771               	.global	text_emerg
- 772               		.section	.rodata.str1.1,"aMS",@progbits,1
- 773               	.LC0:
- 774 0000 2453 2C30 		.string	"$S,0*"
- 774      2A00 
- 775               		.data
- 778               	text_emerg:
- 779 0000 0000      		.word	.LC0
- 780               	.global	cnt_reset_stop_emerg
- 781               		.section .bss
- 784               	cnt_reset_stop_emerg:
- 785 0000 0000      		.zero	2
- 788               		.text
- 790               	.Letext0:
- 791               		.ident	"GCC: (GNU) 5.4.0"
- 792               	.global __do_copy_data
- 793               	.global __do_clear_bss
+ 713               	.LM19:
+ 714 009c 2AE0      		ldi r18,lo8(10)
+ 715 009e AE01      		movw r20,r28
+ 716 00a0 4F5F      		subi r20,-1
+ 717 00a2 5F4F      		sbci r21,-1
+ 718 00a4 0E94 0000 		call __ltoa_ncheck
+ 719               	.LBE17:
+ 720               	.LBE16:
+ 722               	.Ltext4:
+  66:Src/driver/uart.c ****   char buf[33];
+  67:Src/driver/uart.c ****   UART_sendString(usart, ltoa(data, buf, 10));
+ 724               	.LM20:
+ 725 00a8 BC01      		movw r22,r24
+ 726 00aa 812F      		mov r24,r17
+ 727 00ac 0E94 0000 		call UART_sendString
+ 728               	/* epilogue start */
+  68:Src/driver/uart.c **** }
+ 730               	.LM21:
+ 731 00b0 A196      		adiw r28,33
+ 732 00b2 CDBF      		out __SP_L__,r28
+ 733 00b4 DEBF      		out __SP_H__,r29
+ 734 00b6 DF91      		pop r29
+ 735 00b8 CF91      		pop r28
+ 736 00ba 1F91      		pop r17
+ 737 00bc 0895      		ret
+ 742               	.Lscope5:
+ 744               		.stabd	78,0,0
+ 747               	.global	spew
+ 749               	spew:
+ 750               		.stabd	46,0,0
+  69:Src/driver/uart.c **** 
+  70:Src/driver/uart.c **** //DEBUG
+  71:Src/driver/uart.c **** ISR(DEBUG_RX_IVEC)
+  72:Src/driver/uart.c **** {
+  73:Src/driver/uart.c ****   spew("RX data received\n");
+  74:Src/driver/uart.c ****   cpu_parser(USARTC0_DATA);
+  75:Src/driver/uart.c ****   cnt_reset_stop_emerg = 0;
+  76:Src/driver/uart.c **** }
+  77:Src/driver/uart.c **** 
+  78:Src/driver/uart.c **** char debug_bfr[256];
+  79:Src/driver/uart.c **** 
+  80:Src/driver/uart.c **** void spew(const char *fmt, ...)
+  81:Src/driver/uart.c **** {
+ 752               	.LM22:
+ 753               	.LFBB6:
+ 754 00be CF93      		push r28
+ 755 00c0 DF93      		push r29
+ 756 00c2 CDB7      		in r28,__SP_L__
+ 757 00c4 DEB7      		in r29,__SP_H__
+ 758               	/* prologue: function */
+ 759               	/* frame size = 0 */
+ 760               	/* stack size = 2 */
+ 761               	.L__stack_usage = 2
+ 762 00c6 AE01      		movw r20,r28
+ 763 00c8 4B5F      		subi r20,-5
+ 764 00ca 5F4F      		sbci r21,-1
+ 765 00cc FA01      		movw r30,r20
+ 766 00ce 6191      		ld r22,Z+
+ 767 00d0 7191      		ld r23,Z+
+ 768 00d2 AF01      		movw r20,r30
+  82:Src/driver/uart.c ****   va_list args;
+  83:Src/driver/uart.c ****   va_start(args, fmt);
+  84:Src/driver/uart.c **** 
+  85:Src/driver/uart.c ****   vsprintf(debug_bfr, fmt, args);
+ 770               	.LM23:
+ 771 00d4 80E0      		ldi r24,lo8(debug_bfr)
+ 772 00d6 90E0      		ldi r25,hi8(debug_bfr)
+ 773 00d8 0E94 0000 		call vsprintf
+  86:Src/driver/uart.c ****   va_end(args);
+  87:Src/driver/uart.c **** 
+  88:Src/driver/uart.c ****   UART_sendString(DEBUG, debug_bfr);
+ 775               	.LM24:
+ 776 00dc 60E0      		ldi r22,lo8(debug_bfr)
+ 777 00de 70E0      		ldi r23,hi8(debug_bfr)
+ 778 00e0 80E0      		ldi r24,0
+ 779 00e2 0E94 0000 		call UART_sendString
+ 780               	/* epilogue start */
+  89:Src/driver/uart.c ****   /* HAL_Delay(2); */
+  90:Src/driver/uart.c **** }
+ 782               	.LM25:
+ 783 00e6 DF91      		pop r29
+ 784 00e8 CF91      		pop r28
+ 785 00ea 0895      		ret
+ 788               	.Lscope6:
+ 790               		.stabd	78,0,0
+ 791               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 792               	.LC0:
+ 793 0000 5258 2064 		.string	"RX data received\n"
+ 793      6174 6120 
+ 793      7265 6365 
+ 793      6976 6564 
+ 793      0A00 
+ 794               		.text
+ 796               	.global	__vector_25
+ 798               	__vector_25:
+ 799               		.stabd	46,0,0
+  72:Src/driver/uart.c ****   spew("RX data received\n");
+ 801               	.LM26:
+ 802               	.LFBB7:
+ 803 00ec 1F92      		push r1
+ 804 00ee 0F92      		push r0
+ 805 00f0 0FB6      		in r0,__SREG__
+ 806 00f2 0F92      		push r0
+ 807 00f4 1124      		clr __zero_reg__
+ 808 00f6 2F93      		push r18
+ 809 00f8 3F93      		push r19
+ 810 00fa 4F93      		push r20
+ 811 00fc 5F93      		push r21
+ 812 00fe 6F93      		push r22
+ 813 0100 7F93      		push r23
+ 814 0102 8F93      		push r24
+ 815 0104 9F93      		push r25
+ 816 0106 AF93      		push r26
+ 817 0108 BF93      		push r27
+ 818 010a EF93      		push r30
+ 819 010c FF93      		push r31
+ 820               	/* prologue: Signal */
+ 821               	/* frame size = 0 */
+ 822               	/* stack size = 15 */
+ 823               	.L__stack_usage = 15
+  73:Src/driver/uart.c ****   cpu_parser(USARTC0_DATA);
+ 825               	.LM27:
+ 826 010e 80E0      		ldi r24,lo8(.LC0)
+ 827 0110 90E0      		ldi r25,hi8(.LC0)
+ 828 0112 9F93      		push r25
+ 829 0114 8F93      		push r24
+ 830 0116 0E94 0000 		call spew
+  74:Src/driver/uart.c ****   cnt_reset_stop_emerg = 0;
+ 832               	.LM28:
+ 833 011a 8091 A008 		lds r24,2208
+ 834 011e 0E94 0000 		call cpu_parser
+  75:Src/driver/uart.c **** }
+ 836               	.LM29:
+ 837 0122 1092 0000 		sts cnt_reset_stop_emerg,__zero_reg__
+ 838 0126 1092 0000 		sts cnt_reset_stop_emerg+1,__zero_reg__
+  76:Src/driver/uart.c **** 
+ 840               	.LM30:
+ 841 012a 0F90      		pop __tmp_reg__
+ 842 012c 0F90      		pop __tmp_reg__
+ 843               	/* epilogue start */
+ 844 012e FF91      		pop r31
+ 845 0130 EF91      		pop r30
+ 846 0132 BF91      		pop r27
+ 847 0134 AF91      		pop r26
+ 848 0136 9F91      		pop r25
+ 849 0138 8F91      		pop r24
+ 850 013a 7F91      		pop r23
+ 851 013c 6F91      		pop r22
+ 852 013e 5F91      		pop r21
+ 853 0140 4F91      		pop r20
+ 854 0142 3F91      		pop r19
+ 855 0144 2F91      		pop r18
+ 856 0146 0F90      		pop r0
+ 857 0148 0FBE      		out __SREG__,r0
+ 858 014a 0F90      		pop r0
+ 859 014c 1F90      		pop r1
+ 860 014e 1895      		reti
+ 862               	.Lscope7:
+ 864               		.stabd	78,0,0
+ 865               		.comm	debug_bfr,256,1
+ 866               	.global	text_emerg
+ 867               		.section	.rodata.str1.1
+ 868               	.LC1:
+ 869 0012 2453 2C30 		.string	"$S,0*"
+ 869      2A00 
+ 870               		.data
+ 873               	text_emerg:
+ 874 0000 0000      		.word	.LC1
+ 875               	.global	cnt_reset_stop_emerg
+ 876               		.section .bss
+ 879               	cnt_reset_stop_emerg:
+ 880 0000 0000      		.zero	2
+ 881               		.comm	_cpuData,4,1
+ 886               		.text
+ 888               	.Letext0:
+ 889               		.ident	"GCC: (GNU) 5.4.0"
+ 890               	.global __do_copy_data
+ 891               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 uart.c
-     /tmp/ccKgwmHQ.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccKgwmHQ.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccKgwmHQ.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccKgwmHQ.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccKgwmHQ.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccKgwmHQ.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccKgwmHQ.s:500    .text:0000000000000000 initUsart
-     /tmp/ccKgwmHQ.s:538    .text:000000000000001e UART_sendChar
-     /tmp/ccKgwmHQ.s:575    .text:0000000000000030 UART_sendString
-     /tmp/ccKgwmHQ.s:620    .text:0000000000000050 UART_sendInt
-     /tmp/ccKgwmHQ.s:681    .text:0000000000000086 UART_sendLint
-     /tmp/ccKgwmHQ.s:741    .text:00000000000000be __vector_25
-     /tmp/ccKgwmHQ.s:784    .bss:0000000000000000 cnt_reset_stop_emerg
-     /tmp/ccKgwmHQ.s:778    .data:0000000000000000 text_emerg
+     /tmp/cc8767PE.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc8767PE.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc8767PE.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc8767PE.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cc8767PE.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc8767PE.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc8767PE.s:507    .text:0000000000000000 initUsart
+     /tmp/cc8767PE.s:545    .text:000000000000001e UART_sendChar
+     /tmp/cc8767PE.s:582    .text:0000000000000030 UART_sendString
+     /tmp/cc8767PE.s:627    .text:0000000000000050 UART_sendInt
+     /tmp/cc8767PE.s:688    .text:0000000000000086 UART_sendLint
+     /tmp/cc8767PE.s:749    .text:00000000000000be spew
+                            *COM*:0000000000000100 debug_bfr
+     /tmp/cc8767PE.s:798    .text:00000000000000ec __vector_25
+     /tmp/cc8767PE.s:879    .bss:0000000000000000 cnt_reset_stop_emerg
+     /tmp/cc8767PE.s:873    .data:0000000000000000 text_emerg
+                            *COM*:0000000000000004 _cpuData
 
 UNDEFINED SYMBOLS
 __itoa_ncheck
 __ltoa_ncheck
+vsprintf
+cpu_parser
 __do_copy_data
 __do_clear_bss
