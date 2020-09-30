@@ -7,4 +7,6 @@ Src/core/main.o: Src/core/main.c Src/core/../../Inc/core/main.h \
  Src/core/../../Inc/core/../../Inc/core/../../TC_driver/avr_compiler.h \
  Src/core/../../Inc/core/../../Inc/driver/io.h \
  Src/core/../../Inc/core/../../Inc/driver/uart.h \
- Src/core/../../Inc/core/../../TC_driver/avr_compiler.h
+ Src/core/../../Inc/core/../../TC_driver/avr_compiler.h \
+ Src/core/../../Inc/core/../../Inc/driver/cpu_parser.h \
+ Src/core/../../Inc/core/../../Inc/driver/../../config.h

@@ -70,7 +70,6 @@ void UART_sendLint(uint8_t usart, long int data)
 //DEBUG
 ISR(DEBUG_RX_IVEC)
 {
-  spew("RX data received\n");
   cpu_parser(USARTC0_DATA);
   cnt_reset_stop_emerg = 0;
 }

@@ -28,8 +28,17 @@ uint8_t csum_cpu;
 uint8_t parser_mode = PARSER;
 
 char data_cpu_rx[UART_RX_BUF_SIZE];
+char data_cpu_cmd[UART_RX_BUF_SIZE];
 
 uint8_t cnt_cpu = 0;
+
+bool new_command = false;
+
+enum
+{
+    START = 'S',
+    STOP = 'P'
+};
 
 uint8_t CRC8_CPU(unsigned char *data)
 {
@@ -50,6 +59,7 @@ void cpu_parser(uint8_t data)
     {
         if (data == '@')
         {
+            cnt_cpu = 0;
             memset(&data_cpu_rx, '\0', sizeof(data_cpu_rx));
             data_cpu_rx[cnt_cpu] = data;
             cnt_cpu++;
@@ -59,11 +69,12 @@ void cpu_parser(uint8_t data)
     }
     else if (parser_mode == DATA)
     {
+        //spew("DATA\n", data);
         if (data == '*')
         {
             parser_mode = CSUM;
             data_cpu_rx[cnt_cpu] = data;
-            cnt_cpu = 0;
+            //verifica cnt_cpu < buf
         }
         else
         {
@@ -74,28 +85,31 @@ void cpu_parser(uint8_t data)
     }
     else if (parser_mode == CSUM)
     {
-        if (csum_cpu == data)
-        {
-            parse_cpu_data_rx(data_cpu_rx);
-        }
-
+        //if (csum_cpu == data)
+        //{
+        data_cpu_rx[cnt_cpu] = '\0';
+        sprintf(data_cpu_cmd, "%s", data_cpu_rx);
+        new_command = true;
+        //}
         parser_mode = PARSER;
     }
 }
 
 void parse_cpu_data_rx(char *data_rx)
 {
+    spew("parse_cpu_data_rx: %s\n", data_rx);
     char *word = strtok(data_rx, ",");
     char pre_mode[2];
     sprintf(pre_mode, "%s", word);
 
-    if (pre_mode[1] == 'S')
+    switch (pre_mode[1])
     {
+    case START:
         word = strtok(NULL, ",");
         pre_mode[0] = word[0];
         pre_mode[1] = '\0';
         _cpuData.arg1 = atoi(pre_mode);
-        spew("1 - %s\n", _cpuData.arg1);
+        spew("1 - %d\n", _cpuData.arg1);
 
         word = strtok(NULL, ",");
         char rx_arg2[16];
@@ -103,8 +117,47 @@ void parse_cpu_data_rx(char *data_rx)
         rx_arg2[strlen(rx_arg2)] = '\0';
 
         _cpuData.arg2 = atoi(rx_arg2);
-        spew("2 - %s\n", _cpuData.arg2);
+        spew("2 - %d\n", _cpuData.arg2);
 
-        //arg2(_cpuData.arg1);
+        word = strtok(NULL, ",");
+        char rx_arg3[16];
+        sprintf(rx_arg3, "%s", word);
+        rx_arg3[strlen(rx_arg3)] = '\0';
+
+        _cpuData.arg3 = atoi(rx_arg3);
+        spew("3 - %d\n", _cpuData.arg3);
+
+        //DO STUFF!
+        GPIO_SET(LED);
+        break;
+
+    case STOP:
+        GPIO_CLR(LED);
+        break;
+
+    default:
+        break;
     }
+}
+
+bool check_new_command(void)
+{
+    if (new_command)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+char* get_cpu_cmd() // NOT WORKING... :(
+{
+    return data_cpu_cmd;
+}
+
+void new_command_read()
+{
+    new_command = false;
 }

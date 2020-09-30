@@ -29,6 +29,7 @@ struct cpuData
 {
   int arg1;
   int arg2;
+  int arg3;
 };
 
 struct cpuData _cpuData;
@@ -45,5 +46,12 @@ typedef enum
 void cpu_parser(uint8_t data);
 
 void parse_cpu_data_rx(char *data_rx);
+
+bool check_new_command(void);
+
+char* get_cpu_cmd(void);
+
+void new_command_read(void);
+
 
 #endif /* CPU_PARSER_H_ */

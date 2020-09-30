@@ -737,181 +737,159 @@
  737 00bc 0895      		ret
  742               	.Lscope5:
  744               		.stabd	78,0,0
- 747               	.global	spew
- 749               	spew:
- 750               		.stabd	46,0,0
+ 746               	.global	__vector_25
+ 748               	__vector_25:
+ 749               		.stabd	46,0,0
   69:Src/driver/uart.c **** 
   70:Src/driver/uart.c **** //DEBUG
   71:Src/driver/uart.c **** ISR(DEBUG_RX_IVEC)
   72:Src/driver/uart.c **** {
-  73:Src/driver/uart.c ****   spew("RX data received\n");
-  74:Src/driver/uart.c ****   cpu_parser(USARTC0_DATA);
-  75:Src/driver/uart.c ****   cnt_reset_stop_emerg = 0;
-  76:Src/driver/uart.c **** }
-  77:Src/driver/uart.c **** 
-  78:Src/driver/uart.c **** char debug_bfr[256];
-  79:Src/driver/uart.c **** 
-  80:Src/driver/uart.c **** void spew(const char *fmt, ...)
-  81:Src/driver/uart.c **** {
- 752               	.LM22:
- 753               	.LFBB6:
- 754 00be CF93      		push r28
- 755 00c0 DF93      		push r29
- 756 00c2 CDB7      		in r28,__SP_L__
- 757 00c4 DEB7      		in r29,__SP_H__
- 758               	/* prologue: function */
- 759               	/* frame size = 0 */
- 760               	/* stack size = 2 */
- 761               	.L__stack_usage = 2
- 762 00c6 AE01      		movw r20,r28
- 763 00c8 4B5F      		subi r20,-5
- 764 00ca 5F4F      		sbci r21,-1
- 765 00cc FA01      		movw r30,r20
- 766 00ce 6191      		ld r22,Z+
- 767 00d0 7191      		ld r23,Z+
- 768 00d2 AF01      		movw r20,r30
-  82:Src/driver/uart.c ****   va_list args;
-  83:Src/driver/uart.c ****   va_start(args, fmt);
-  84:Src/driver/uart.c **** 
-  85:Src/driver/uart.c ****   vsprintf(debug_bfr, fmt, args);
- 770               	.LM23:
- 771 00d4 80E0      		ldi r24,lo8(debug_bfr)
- 772 00d6 90E0      		ldi r25,hi8(debug_bfr)
- 773 00d8 0E94 0000 		call vsprintf
-  86:Src/driver/uart.c ****   va_end(args);
-  87:Src/driver/uart.c **** 
-  88:Src/driver/uart.c ****   UART_sendString(DEBUG, debug_bfr);
- 775               	.LM24:
- 776 00dc 60E0      		ldi r22,lo8(debug_bfr)
- 777 00de 70E0      		ldi r23,hi8(debug_bfr)
- 778 00e0 80E0      		ldi r24,0
- 779 00e2 0E94 0000 		call UART_sendString
- 780               	/* epilogue start */
-  89:Src/driver/uart.c ****   /* HAL_Delay(2); */
-  90:Src/driver/uart.c **** }
- 782               	.LM25:
- 783 00e6 DF91      		pop r29
- 784 00e8 CF91      		pop r28
- 785 00ea 0895      		ret
- 788               	.Lscope6:
- 790               		.stabd	78,0,0
- 791               		.section	.rodata.str1.1,"aMS",@progbits,1
- 792               	.LC0:
- 793 0000 5258 2064 		.string	"RX data received\n"
- 793      6174 6120 
- 793      7265 6365 
- 793      6976 6564 
- 793      0A00 
- 794               		.text
- 796               	.global	__vector_25
- 798               	__vector_25:
- 799               		.stabd	46,0,0
-  72:Src/driver/uart.c ****   spew("RX data received\n");
- 801               	.LM26:
- 802               	.LFBB7:
- 803 00ec 1F92      		push r1
- 804 00ee 0F92      		push r0
- 805 00f0 0FB6      		in r0,__SREG__
- 806 00f2 0F92      		push r0
- 807 00f4 1124      		clr __zero_reg__
- 808 00f6 2F93      		push r18
- 809 00f8 3F93      		push r19
- 810 00fa 4F93      		push r20
- 811 00fc 5F93      		push r21
- 812 00fe 6F93      		push r22
- 813 0100 7F93      		push r23
- 814 0102 8F93      		push r24
- 815 0104 9F93      		push r25
- 816 0106 AF93      		push r26
- 817 0108 BF93      		push r27
- 818 010a EF93      		push r30
- 819 010c FF93      		push r31
- 820               	/* prologue: Signal */
- 821               	/* frame size = 0 */
- 822               	/* stack size = 15 */
- 823               	.L__stack_usage = 15
+ 751               	.LM22:
+ 752               	.LFBB6:
+ 753 00be 1F92      		push r1
+ 754 00c0 0F92      		push r0
+ 755 00c2 0FB6      		in r0,__SREG__
+ 756 00c4 0F92      		push r0
+ 757 00c6 1124      		clr __zero_reg__
+ 758 00c8 2F93      		push r18
+ 759 00ca 3F93      		push r19
+ 760 00cc 4F93      		push r20
+ 761 00ce 5F93      		push r21
+ 762 00d0 6F93      		push r22
+ 763 00d2 7F93      		push r23
+ 764 00d4 8F93      		push r24
+ 765 00d6 9F93      		push r25
+ 766 00d8 AF93      		push r26
+ 767 00da BF93      		push r27
+ 768 00dc EF93      		push r30
+ 769 00de FF93      		push r31
+ 770               	/* prologue: Signal */
+ 771               	/* frame size = 0 */
+ 772               	/* stack size = 15 */
+ 773               	.L__stack_usage = 15
   73:Src/driver/uart.c ****   cpu_parser(USARTC0_DATA);
- 825               	.LM27:
- 826 010e 80E0      		ldi r24,lo8(.LC0)
- 827 0110 90E0      		ldi r25,hi8(.LC0)
- 828 0112 9F93      		push r25
- 829 0114 8F93      		push r24
- 830 0116 0E94 0000 		call spew
+ 775               	.LM23:
+ 776 00e0 8091 A008 		lds r24,2208
+ 777 00e4 0E94 0000 		call cpu_parser
   74:Src/driver/uart.c ****   cnt_reset_stop_emerg = 0;
- 832               	.LM28:
- 833 011a 8091 A008 		lds r24,2208
- 834 011e 0E94 0000 		call cpu_parser
+ 779               	.LM24:
+ 780 00e8 1092 0000 		sts cnt_reset_stop_emerg,__zero_reg__
+ 781 00ec 1092 0000 		sts cnt_reset_stop_emerg+1,__zero_reg__
+ 782               	/* epilogue start */
   75:Src/driver/uart.c **** }
- 836               	.LM29:
- 837 0122 1092 0000 		sts cnt_reset_stop_emerg,__zero_reg__
- 838 0126 1092 0000 		sts cnt_reset_stop_emerg+1,__zero_reg__
+ 784               	.LM25:
+ 785 00f0 FF91      		pop r31
+ 786 00f2 EF91      		pop r30
+ 787 00f4 BF91      		pop r27
+ 788 00f6 AF91      		pop r26
+ 789 00f8 9F91      		pop r25
+ 790 00fa 8F91      		pop r24
+ 791 00fc 7F91      		pop r23
+ 792 00fe 6F91      		pop r22
+ 793 0100 5F91      		pop r21
+ 794 0102 4F91      		pop r20
+ 795 0104 3F91      		pop r19
+ 796 0106 2F91      		pop r18
+ 797 0108 0F90      		pop r0
+ 798 010a 0FBE      		out __SREG__,r0
+ 799 010c 0F90      		pop r0
+ 800 010e 1F90      		pop r1
+ 801 0110 1895      		reti
+ 803               	.Lscope6:
+ 805               		.stabd	78,0,0
+ 808               	.global	spew
+ 810               	spew:
+ 811               		.stabd	46,0,0
   76:Src/driver/uart.c **** 
- 840               	.LM30:
- 841 012a 0F90      		pop __tmp_reg__
- 842 012c 0F90      		pop __tmp_reg__
- 843               	/* epilogue start */
- 844 012e FF91      		pop r31
- 845 0130 EF91      		pop r30
- 846 0132 BF91      		pop r27
- 847 0134 AF91      		pop r26
- 848 0136 9F91      		pop r25
- 849 0138 8F91      		pop r24
- 850 013a 7F91      		pop r23
- 851 013c 6F91      		pop r22
- 852 013e 5F91      		pop r21
- 853 0140 4F91      		pop r20
- 854 0142 3F91      		pop r19
- 855 0144 2F91      		pop r18
- 856 0146 0F90      		pop r0
- 857 0148 0FBE      		out __SREG__,r0
- 858 014a 0F90      		pop r0
- 859 014c 1F90      		pop r1
- 860 014e 1895      		reti
- 862               	.Lscope7:
- 864               		.stabd	78,0,0
- 865               		.comm	debug_bfr,256,1
- 866               	.global	text_emerg
- 867               		.section	.rodata.str1.1
- 868               	.LC1:
- 869 0012 2453 2C30 		.string	"$S,0*"
- 869      2A00 
- 870               		.data
- 873               	text_emerg:
- 874 0000 0000      		.word	.LC1
- 875               	.global	cnt_reset_stop_emerg
- 876               		.section .bss
- 879               	cnt_reset_stop_emerg:
- 880 0000 0000      		.zero	2
- 881               		.comm	_cpuData,4,1
- 886               		.text
- 888               	.Letext0:
- 889               		.ident	"GCC: (GNU) 5.4.0"
- 890               	.global __do_copy_data
- 891               	.global __do_clear_bss
+  77:Src/driver/uart.c **** char debug_bfr[256];
+  78:Src/driver/uart.c **** 
+  79:Src/driver/uart.c **** void spew(const char *fmt, ...)
+  80:Src/driver/uart.c **** {
+ 813               	.LM26:
+ 814               	.LFBB7:
+ 815 0112 CF93      		push r28
+ 816 0114 DF93      		push r29
+ 817 0116 CDB7      		in r28,__SP_L__
+ 818 0118 DEB7      		in r29,__SP_H__
+ 819               	/* prologue: function */
+ 820               	/* frame size = 0 */
+ 821               	/* stack size = 2 */
+ 822               	.L__stack_usage = 2
+ 823 011a AE01      		movw r20,r28
+ 824 011c 4B5F      		subi r20,-5
+ 825 011e 5F4F      		sbci r21,-1
+ 826 0120 FA01      		movw r30,r20
+ 827 0122 6191      		ld r22,Z+
+ 828 0124 7191      		ld r23,Z+
+ 829 0126 AF01      		movw r20,r30
+  81:Src/driver/uart.c ****   va_list args;
+  82:Src/driver/uart.c ****   va_start(args, fmt);
+  83:Src/driver/uart.c **** 
+  84:Src/driver/uart.c ****   vsprintf(debug_bfr, fmt, args);
+ 831               	.LM27:
+ 832 0128 80E0      		ldi r24,lo8(debug_bfr)
+ 833 012a 90E0      		ldi r25,hi8(debug_bfr)
+ 834 012c 0E94 0000 		call vsprintf
+  85:Src/driver/uart.c ****   va_end(args);
+  86:Src/driver/uart.c **** 
+  87:Src/driver/uart.c ****   UART_sendString(DEBUG, debug_bfr);
+ 836               	.LM28:
+ 837 0130 60E0      		ldi r22,lo8(debug_bfr)
+ 838 0132 70E0      		ldi r23,hi8(debug_bfr)
+ 839 0134 80E0      		ldi r24,0
+ 840 0136 0E94 0000 		call UART_sendString
+ 841               	/* epilogue start */
+  88:Src/driver/uart.c ****   /* HAL_Delay(2); */
+  89:Src/driver/uart.c **** }
+ 843               	.LM29:
+ 844 013a DF91      		pop r29
+ 845 013c CF91      		pop r28
+ 846 013e 0895      		ret
+ 849               	.Lscope7:
+ 851               		.stabd	78,0,0
+ 852               		.comm	debug_bfr,256,1
+ 853               	.global	text_emerg
+ 854               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 855               	.LC0:
+ 856 0000 2453 2C30 		.string	"$S,0*"
+ 856      2A00 
+ 857               		.data
+ 860               	text_emerg:
+ 861 0000 0000      		.word	.LC0
+ 862               	.global	cnt_reset_stop_emerg
+ 863               		.section .bss
+ 866               	cnt_reset_stop_emerg:
+ 867 0000 0000      		.zero	2
+ 868               		.comm	_cpuData,6,1
+ 873               		.text
+ 875               	.Letext0:
+ 876               		.ident	"GCC: (GNU) 5.4.0"
+ 877               	.global __do_copy_data
+ 878               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 uart.c
-     /tmp/cc8767PE.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cc8767PE.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cc8767PE.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cc8767PE.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/cc8767PE.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cc8767PE.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cc8767PE.s:507    .text:0000000000000000 initUsart
-     /tmp/cc8767PE.s:545    .text:000000000000001e UART_sendChar
-     /tmp/cc8767PE.s:582    .text:0000000000000030 UART_sendString
-     /tmp/cc8767PE.s:627    .text:0000000000000050 UART_sendInt
-     /tmp/cc8767PE.s:688    .text:0000000000000086 UART_sendLint
-     /tmp/cc8767PE.s:749    .text:00000000000000be spew
+     /tmp/ccNbWc3H.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccNbWc3H.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccNbWc3H.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccNbWc3H.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccNbWc3H.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccNbWc3H.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccNbWc3H.s:507    .text:0000000000000000 initUsart
+     /tmp/ccNbWc3H.s:545    .text:000000000000001e UART_sendChar
+     /tmp/ccNbWc3H.s:582    .text:0000000000000030 UART_sendString
+     /tmp/ccNbWc3H.s:627    .text:0000000000000050 UART_sendInt
+     /tmp/ccNbWc3H.s:688    .text:0000000000000086 UART_sendLint
+     /tmp/ccNbWc3H.s:748    .text:00000000000000be __vector_25
+     /tmp/ccNbWc3H.s:866    .bss:0000000000000000 cnt_reset_stop_emerg
+     /tmp/ccNbWc3H.s:810    .text:0000000000000112 spew
                             *COM*:0000000000000100 debug_bfr
-     /tmp/cc8767PE.s:798    .text:00000000000000ec __vector_25
-     /tmp/cc8767PE.s:879    .bss:0000000000000000 cnt_reset_stop_emerg
-     /tmp/cc8767PE.s:873    .data:0000000000000000 text_emerg
-                            *COM*:0000000000000004 _cpuData
+     /tmp/ccNbWc3H.s:860    .data:0000000000000000 text_emerg
+                            *COM*:0000000000000006 _cpuData
 
 UNDEFINED SYMBOLS
 __itoa_ncheck
 __ltoa_ncheck
-vsprintf
 cpu_parser
+vsprintf
 __do_copy_data
 __do_clear_bss

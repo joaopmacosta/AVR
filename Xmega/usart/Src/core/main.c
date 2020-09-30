@@ -8,6 +8,7 @@
 
 #include "../../Inc/core/main.h"
 
+
 int main(void)
 {
 
@@ -16,10 +17,19 @@ int main(void)
   initUsart();
   sei();
 
+  spew("START\n");
+  spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
   while (1)
   {
-    _delay_ms(5000);
-    UART_sendString(DEBUG, "Ping...\n");
-    GPIO_TGL(LED);
+    _delay_ms(1000);
+
+    if (check_new_command())
+    {
+      parse_cpu_data_rx(get_cpu_cmd());
+      spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
+      new_command_read();
+    }
+
+    //GPIO_TGL(LED);
   }
 }

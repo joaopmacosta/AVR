@@ -7,15 +7,20 @@
    7               	__zero_reg__ = 1
   10               		.text
   11               	.Ltext0:
- 507               		.section	.rodata.str1.1,"aMS",@progbits,1
- 508               	.LC0:
- 509 0000 5069 6E67 		.string	"Ping...\n"
- 509      2E2E 2E0A 
- 509      00
- 510               		.section	.text.startup,"ax",@progbits
- 512               	.global	main
- 514               	main:
- 515               		.stabd	46,0,0
+ 514               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 515               	.LC0:
+ 516 0000 5354 4152 		.string	"START\n"
+ 516      540A 00
+ 517               	.LC1:
+ 518 0007 636D 643A 		.string	"cmd: %d, %d, %d\n"
+ 518      2025 642C 
+ 518      2025 642C 
+ 518      2025 640A 
+ 518      00
+ 519               		.section	.text.startup,"ax",@progbits
+ 521               	.global	main
+ 523               	main:
+ 524               		.stabd	46,0,0
    1:Src/core/main.c **** //***************************************************************************
    2:Src/core/main.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
    3:Src/core/main.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
@@ -26,25 +31,26 @@
    8:Src/core/main.c **** 
    9:Src/core/main.c **** #include "../../Inc/core/main.h"
   10:Src/core/main.c **** 
-  11:Src/core/main.c **** int main(void)
-  12:Src/core/main.c **** {
- 517               	.LM0:
- 518               	.LFBB1:
- 519               	/* prologue: function */
- 520               	/* frame size = 0 */
- 521               	/* stack size = 0 */
- 522               	.L__stack_usage = 0
-  13:Src/core/main.c **** 
-  14:Src/core/main.c ****   cli();
- 524               	.LM1:
- 525               	/* #APP */
- 526               	 ;  14 "Src/core/main.c" 1
- 527 0000 F894      		cli
- 528               	 ;  0 "" 2
- 529               	/* #NOAPP */
- 530               	.LBB18:
- 531               	.LBB19:
- 533               	.Ltext1:
+  11:Src/core/main.c **** 
+  12:Src/core/main.c **** int main(void)
+  13:Src/core/main.c **** {
+ 526               	.LM0:
+ 527               	.LFBB1:
+ 528               	/* prologue: function */
+ 529               	/* frame size = 0 */
+ 530               	/* stack size = 0 */
+ 531               	.L__stack_usage = 0
+  14:Src/core/main.c **** 
+  15:Src/core/main.c ****   cli();
+ 533               	.LM1:
+ 534               	/* #APP */
+ 535               	 ;  15 "Src/core/main.c" 1
+ 536 0000 F894      		cli
+ 537               	 ;  0 "" 2
+ 538               	/* #NOAPP */
+ 539               	.LBB18:
+ 540               	.LBB19:
+ 542               	.Ltext1:
    1:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
    2:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
    3:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
@@ -81,32 +87,32 @@
   34:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // ENABLE INTERNAL 32MHZ OSCILLATOR
   35:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   36:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
- 535               	.LM2:
- 536 0002 88ED      		ldi r24,lo8(-40)
- 537 0004 84BF      		out __CCP__,r24
+ 544               	.LM2:
+ 545 0002 88ED      		ldi r24,lo8(-40)
+ 546 0004 84BF      		out __CCP__,r24
   37:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   38:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   OSC.CTRL = OSC_RC32MEN_bm;
- 539               	.LM3:
- 540 0006 82E0      		ldi r24,lo8(2)
- 541 0008 8093 5000 		sts 80,r24
- 542               	.L2:
+ 548               	.LM3:
+ 549 0006 82E0      		ldi r24,lo8(2)
+ 550 0008 8093 5000 		sts 80,r24
+ 551               	.L2:
   39:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   40:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
- 544               	.LM4:
- 545 000c 8091 5100 		lds r24,81
- 546 0010 81FF      		sbrs r24,1
- 547 0012 00C0      		rjmp .L2
+ 553               	.LM4:
+ 554 000c 8091 5100 		lds r24,81
+ 555 0010 81FF      		sbrs r24,1
+ 556 0012 00C0      		rjmp .L2
   41:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
   42:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   43:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
- 549               	.LM5:
- 550 0014 88ED      		ldi r24,lo8(-40)
- 551 0016 84BF      		out __CCP__,r24
+ 558               	.LM5:
+ 559 0014 88ED      		ldi r24,lo8(-40)
+ 560 0016 84BF      		out __CCP__,r24
   44:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   45:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
- 553               	.LM6:
- 554 0018 81E0      		ldi r24,lo8(1)
- 555 001a 8093 4000 		sts 64,r24
+ 562               	.LM6:
+ 563 0018 81E0      		ldi r24,lo8(1)
+ 564 001a 8093 4000 		sts 64,r24
   46:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   47:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
   48:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* GPIO.                                                               *
@@ -114,55 +120,87 @@
   50:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   51:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setup pins as IN/OUTputs
   52:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(LED, false);
- 557               	.LM7:
- 558 001e 40E0      		ldi r20,0
- 559 0020 60E0      		ldi r22,0
- 560 0022 80E4      		ldi r24,lo8(64)
- 561 0024 96E0      		ldi r25,lo8(6)
- 562 0026 0E94 0000 		call gpio_cfg_out_np
+ 566               	.LM7:
+ 567 001e 40E0      		ldi r20,0
+ 568 0020 60E0      		ldi r22,0
+ 569 0022 80E4      		ldi r24,lo8(64)
+ 570 0024 96E0      		ldi r25,lo8(6)
+ 571 0026 0E94 0000 		call gpio_cfg_out_np
   53:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   54:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(UART0_TX, false);
- 564               	.LM8:
- 565 002a 40E0      		ldi r20,0
- 566 002c 63E0      		ldi r22,lo8(3)
- 567 002e 80E4      		ldi r24,lo8(64)
- 568 0030 96E0      		ldi r25,lo8(6)
- 569 0032 0E94 0000 		call gpio_cfg_out_np
+ 573               	.LM8:
+ 574 002a 40E0      		ldi r20,0
+ 575 002c 63E0      		ldi r22,lo8(3)
+ 576 002e 80E4      		ldi r24,lo8(64)
+ 577 0030 96E0      		ldi r25,lo8(6)
+ 578 0032 0E94 0000 		call gpio_cfg_out_np
   55:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_IN(UART0_RX);
- 571               	.LM9:
- 572 0036 62E0      		ldi r22,lo8(2)
- 573 0038 80E4      		ldi r24,lo8(64)
- 574 003a 96E0      		ldi r25,lo8(6)
- 575 003c 0E94 0000 		call gpio_cfg_in_np
+ 580               	.LM9:
+ 581 0036 62E0      		ldi r22,lo8(2)
+ 582 0038 80E4      		ldi r24,lo8(64)
+ 583 003a 96E0      		ldi r25,lo8(6)
+ 584 003c 0E94 0000 		call gpio_cfg_in_np
   56:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
   57:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
   58:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* Interrupt levels.                                                   *
   59:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
   60:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //Enables High, Medium and Low Level Interrupts
   61:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PMIC.CTRL |= PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_LOLVLEN_bm;
- 577               	.LM10:
- 578 0040 8091 A200 		lds r24,162
- 579 0044 8760      		ori r24,lo8(7)
- 580 0046 8093 A200 		sts 162,r24
- 581               	.LBE19:
- 582               	.LBE18:
- 584               	.Ltext2:
-  15:Src/core/main.c ****   board_init();
-  16:Src/core/main.c ****   initUsart();
- 586               	.LM11:
- 587 004a 0E94 0000 		call initUsart
-  17:Src/core/main.c ****   sei();
- 589               	.LM12:
- 590               	/* #APP */
- 591               	 ;  17 "Src/core/main.c" 1
- 592 004e 7894      		sei
- 593               	 ;  0 "" 2
- 594               	/* #NOAPP */
- 595               	.LBB20:
- 596               	.LBB21:
- 597               	.LBB22:
- 598               	.LBB23:
- 600               	.Ltext3:
+ 586               	.LM10:
+ 587 0040 8091 A200 		lds r24,162
+ 588 0044 8760      		ori r24,lo8(7)
+ 589 0046 8093 A200 		sts 162,r24
+ 590               	.LBE19:
+ 591               	.LBE18:
+ 593               	.Ltext2:
+  16:Src/core/main.c ****   board_init();
+  17:Src/core/main.c ****   initUsart();
+ 595               	.LM11:
+ 596 004a 0E94 0000 		call initUsart
+  18:Src/core/main.c ****   sei();
+ 598               	.LM12:
+ 599               	/* #APP */
+ 600               	 ;  18 "Src/core/main.c" 1
+ 601 004e 7894      		sei
+ 602               	 ;  0 "" 2
+  19:Src/core/main.c **** 
+  20:Src/core/main.c ****   spew("START\n");
+ 604               	.LM13:
+ 605               	/* #NOAPP */
+ 606 0050 80E0      		ldi r24,lo8(.LC0)
+ 607 0052 90E0      		ldi r25,hi8(.LC0)
+ 608 0054 9F93      		push r25
+ 609 0056 8F93      		push r24
+ 610 0058 0E94 0000 		call spew
+  21:Src/core/main.c ****   spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
+ 612               	.LM14:
+ 613 005c 8091 0000 		lds r24,_cpuData+5
+ 614 0060 8F93      		push r24
+ 615 0062 8091 0000 		lds r24,_cpuData+4
+ 616 0066 8F93      		push r24
+ 617 0068 8091 0000 		lds r24,_cpuData+3
+ 618 006c 8F93      		push r24
+ 619 006e 8091 0000 		lds r24,_cpuData+2
+ 620 0072 8F93      		push r24
+ 621 0074 8091 0000 		lds r24,_cpuData+1
+ 622 0078 8F93      		push r24
+ 623 007a 8091 0000 		lds r24,_cpuData
+ 624 007e 8F93      		push r24
+ 625 0080 80E0      		ldi r24,lo8(.LC1)
+ 626 0082 90E0      		ldi r25,hi8(.LC1)
+ 627 0084 9F93      		push r25
+ 628 0086 8F93      		push r24
+ 629 0088 0E94 0000 		call spew
+ 630 008c 8DB7      		in r24,__SP_L__
+ 631 008e 9EB7      		in r25,__SP_H__
+ 632 0090 0A96      		adiw r24,10
+ 633 0092 8DBF      		out __SP_L__,r24
+ 634 0094 9EBF      		out __SP_H__,r25
+ 635               	.LBB20:
+ 636               	.LBB21:
+ 637               	.LBB22:
+ 638               	.LBB23:
+ 640               	.Ltext3:
    1:/usr/lib/avr/include/util/delay_basic.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/lib/avr/include/util/delay_basic.h ****    Copyright (c) 2007 Joerg Wunsch
    3:/usr/lib/avr/include/util/delay_basic.h ****    All rights reserved.
@@ -268,37 +306,48 @@
  103:/usr/lib/avr/include/util/delay_basic.h **** _delay_loop_2(uint16_t __count)
  104:/usr/lib/avr/include/util/delay_basic.h **** {
  105:/usr/lib/avr/include/util/delay_basic.h **** 	__asm__ volatile (
- 602               	.LM13:
- 603 0050 C0E2      		ldi r28,lo8(32)
- 604 0052 D3E0      		ldi r29,lo8(3)
- 605               	.L4:
- 606               	.LBE23:
- 607               	.LBE22:
- 608               	.LBE21:
- 609               	.LBE20:
- 611               	.Ltext4:
-  12:Src/core/main.c **** 
- 613               	.LM14:
- 614 0054 80E5      		ldi r24,lo8(80)
- 615 0056 93EC      		ldi r25,lo8(-61)
- 616               	.L3:
- 617               	.LBB27:
- 618               	.LBB26:
- 619               	.LBB25:
- 620               	.LBB24:
- 622               	.Ltext5:
- 624               	.LM15:
- 625 0058 FE01      		movw r30,r28
- 626               	/* #APP */
- 627               	 ;  105 "/usr/lib/avr/include/util/delay_basic.h" 1
- 628 005a 3197      		1: sbiw r30,1
- 629 005c 01F4      		brne 1b
- 630               	 ;  0 "" 2
- 631               	/* #NOAPP */
- 632 005e 0197      		sbiw r24,1
- 633               	.LBE24:
- 634               	.LBE25:
- 636               	.Ltext6:
+ 642               	.LM15:
+ 643 0096 00E2      		ldi r16,lo8(32)
+ 644 0098 13E0      		ldi r17,lo8(3)
+ 645               	.LBE23:
+ 646               	.LBE22:
+ 647               	.LBE21:
+ 648               	.LBE20:
+ 650               	.Ltext4:
+  22:Src/core/main.c ****   while (1)
+  23:Src/core/main.c ****   {
+  24:Src/core/main.c ****     _delay_ms(1000);
+  25:Src/core/main.c **** 
+  26:Src/core/main.c ****     if (check_new_command())
+  27:Src/core/main.c ****     {
+  28:Src/core/main.c ****       parse_cpu_data_rx(get_cpu_cmd());
+  29:Src/core/main.c ****       spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
+ 652               	.LM16:
+ 653 009a C0E0      		ldi r28,lo8(.LC1)
+ 654 009c D0E0      		ldi r29,hi8(.LC1)
+ 655               	.L4:
+  13:Src/core/main.c **** 
+ 657               	.LM17:
+ 658 009e 80E1      		ldi r24,lo8(16)
+ 659 00a0 97E2      		ldi r25,lo8(39)
+ 660               	.L3:
+ 661               	.LBB27:
+ 662               	.LBB26:
+ 663               	.LBB25:
+ 664               	.LBB24:
+ 666               	.Ltext5:
+ 668               	.LM18:
+ 669 00a2 F801      		movw r30,r16
+ 670               	/* #APP */
+ 671               	 ;  105 "/usr/lib/avr/include/util/delay_basic.h" 1
+ 672 00a4 3197      		1: sbiw r30,1
+ 673 00a6 01F4      		brne 1b
+ 674               	 ;  0 "" 2
+ 675               	/* #NOAPP */
+ 676 00a8 0197      		sbiw r24,1
+ 677               	.LBE24:
+ 678               	.LBE25:
+ 680               	.Ltext6:
    1:/usr/lib/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -497,50 +546,72 @@
  196:/usr/lib/avr/include/util/delay.h **** 		//	__ticks = requested delay in 1/10 ms
  197:/usr/lib/avr/include/util/delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
  198:/usr/lib/avr/include/util/delay.h **** 		while(__ticks)
- 638               	.LM16:
- 639 0060 01F4      		brne .L3
- 640               	.LBE26:
- 641               	.LBE27:
- 643               	.Ltext7:
-  18:Src/core/main.c **** 
-  19:Src/core/main.c ****   while (1)
-  20:Src/core/main.c ****   {
-  21:Src/core/main.c ****     _delay_ms(5000);
-  22:Src/core/main.c ****     UART_sendString(DEBUG, "Ping...\n");
- 645               	.LM17:
- 646 0062 60E0      		ldi r22,lo8(.LC0)
- 647 0064 70E0      		ldi r23,hi8(.LC0)
- 648 0066 80E0      		ldi r24,0
- 649 0068 0E94 0000 		call UART_sendString
-  23:Src/core/main.c ****     GPIO_TGL(LED);
- 651               	.LM18:
- 652 006c 60E0      		ldi r22,0
- 653 006e 80E4      		ldi r24,lo8(64)
- 654 0070 96E0      		ldi r25,lo8(6)
- 655 0072 0E94 0000 		call gpio_tgl_np
-  24:Src/core/main.c ****   }
- 657               	.LM19:
- 658 0076 00C0      		rjmp .L4
- 660               	.Lscope1:
- 662               		.stabd	78,0,0
- 663               		.text
- 665               	.Letext0:
- 666               		.ident	"GCC: (GNU) 5.4.0"
- 667               	.global __do_copy_data
+ 682               	.LM19:
+ 683 00aa 01F4      		brne .L3
+ 684               	.LBE26:
+ 685               	.LBE27:
+ 687               	.Ltext7:
+  26:Src/core/main.c ****     {
+ 689               	.LM20:
+ 690 00ac 0E94 0000 		call check_new_command
+ 691 00b0 8823      		tst r24
+ 692 00b2 01F0      		breq .L4
+  28:Src/core/main.c ****       spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
+ 694               	.LM21:
+ 695 00b4 0E94 0000 		call get_cpu_cmd
+ 696 00b8 0E94 0000 		call parse_cpu_data_rx
+ 698               	.LM22:
+ 699 00bc 8091 0000 		lds r24,_cpuData+5
+ 700 00c0 8F93      		push r24
+ 701 00c2 8091 0000 		lds r24,_cpuData+4
+ 702 00c6 8F93      		push r24
+ 703 00c8 8091 0000 		lds r24,_cpuData+3
+ 704 00cc 8F93      		push r24
+ 705 00ce 8091 0000 		lds r24,_cpuData+2
+ 706 00d2 8F93      		push r24
+ 707 00d4 8091 0000 		lds r24,_cpuData+1
+ 708 00d8 8F93      		push r24
+ 709 00da 8091 0000 		lds r24,_cpuData
+ 710 00de 8F93      		push r24
+ 711 00e0 DF93      		push r29
+ 712 00e2 CF93      		push r28
+ 713 00e4 0E94 0000 		call spew
+  30:Src/core/main.c ****       new_command_read();
+ 715               	.LM23:
+ 716 00e8 0E94 0000 		call new_command_read
+ 717 00ec 8DB7      		in r24,__SP_L__
+ 718 00ee 9EB7      		in r25,__SP_H__
+ 719 00f0 0896      		adiw r24,8
+ 720 00f2 8DBF      		out __SP_L__,r24
+ 721 00f4 9EBF      		out __SP_H__,r25
+ 722 00f6 00C0      		rjmp .L4
+ 724               	.Lscope1:
+ 726               		.stabd	78,0,0
+ 727               		.comm	_cpuData,6,1
+ 729               		.text
+ 731               	.Letext0:
+ 732               		.ident	"GCC: (GNU) 5.4.0"
+ 733               	.global __do_copy_data
+ 734               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/ccddU8oG.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccddU8oG.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccddU8oG.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccddU8oG.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccddU8oG.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccddU8oG.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccddU8oG.s:514    .text.startup:0000000000000000 main
+     /tmp/ccn1dFDB.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccn1dFDB.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccn1dFDB.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccn1dFDB.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccn1dFDB.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccn1dFDB.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccn1dFDB.s:523    .text.startup:0000000000000000 main
+                            *COM*:0000000000000006 _cpuData
 
 UNDEFINED SYMBOLS
 gpio_cfg_out_np
 gpio_cfg_in_np
 initUsart
-UART_sendString
-gpio_tgl_np
+spew
+check_new_command
+get_cpu_cmd
+parse_cpu_data_rx
+new_command_read
 __do_copy_data
+__do_clear_bss
