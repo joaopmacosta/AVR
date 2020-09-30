@@ -20,7 +20,7 @@ CROSS ?= avr-
 MCU ?= atxmega32a4u
 F_CPU ?= 32000000L
 
-TARGET = button
+TARGET = flow_sensor
 
 OBJDIR = obj
 

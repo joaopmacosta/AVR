@@ -1,0 +1,379 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  10               		.text
+  11               	.Ltext0:
+ 508               	.global	__vector_47
+ 510               	__vector_47:
+ 511               		.stabd	46,0,0
+ 513               	.Ltext1:
+   1:Src/core/../../Inc/core/../../Inc/core/clock.h **** //***************************************************************************
+   2:Src/core/../../Inc/core/../../Inc/core/clock.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/../../Inc/core/../../Inc/core/clock.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/../../Inc/core/../../Inc/core/clock.h **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/../../Inc/core/../../Inc/core/clock.h **** //***************************************************************************
+   6:Src/core/../../Inc/core/../../Inc/core/clock.h **** // Author: João Costa                                                       *
+   7:Src/core/../../Inc/core/../../Inc/core/clock.h **** //***************************************************************************
+   8:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+   9:Src/core/../../Inc/core/../../Inc/core/clock.h **** #ifndef CLOCK_H_INCLUDED_
+  10:Src/core/../../Inc/core/../../Inc/core/clock.h **** #define CLOCK_H_INCLUDED_
+  11:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  12:Src/core/../../Inc/core/../../Inc/core/clock.h **** /// ISO C 99 headers.
+  13:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include <stddef.h>
+  14:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include <inttypes.h>
+  15:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include <stdio.h>
+  16:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include <stdlib.h>
+  17:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include <string.h>
+  18:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  19:Src/core/../../Inc/core/../../Inc/core/clock.h **** // Local Headers
+  20:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include "../../config.h"
+  21:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include "../../TC_driver/TC_driver.h"
+  22:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  23:Src/core/../../Inc/core/../../Inc/core/clock.h **** // AVR headers.
+  24:Src/core/../../Inc/core/../../Inc/core/clock.h **** #include <avr/io.h>
+  25:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  26:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  27:Src/core/../../Inc/core/../../Inc/core/clock.h **** static inline void
+  28:Src/core/../../Inc/core/../../Inc/core/clock.h **** clock_init(void)
+  29:Src/core/../../Inc/core/../../Inc/core/clock.h **** {
+  30:Src/core/../../Inc/core/../../Inc/core/clock.h ****   // Setting the period/TOP of timer E1
+  31:Src/core/../../Inc/core/../../Inc/core/clock.h ****   // F_CPU/prescaler * period - 1 = ticks
+  32:Src/core/../../Inc/core/../../Inc/core/clock.h ****   // 32000000/256 * 0.001s - 1 = 125
+  33:Src/core/../../Inc/core/../../Inc/core/clock.h ****   TC_SetPeriod(&TCE0, 125); //TE0C->PER = 125
+  34:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  35:Src/core/../../Inc/core/../../Inc/core/clock.h ****   // Setting the clock of timer E0 (F_CPU/256)
+  36:Src/core/../../Inc/core/../../Inc/core/clock.h ****   TC0_ConfigClockSource(&TCE0, TC_CLKSEL_DIV256_gc); //tc->CTRLA[3:0] = xxx
+  37:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  38:Src/core/../../Inc/core/../../Inc/core/clock.h ****   // Setting timer E0 to the normal operating mode
+  39:Src/core/../../Inc/core/../../Inc/core/clock.h ****   TC0_ConfigWGM(&TCE0, TC_WGMODE_NORMAL_gc); //Normal Mode: TOP = PER, OVF = TOP
+  40:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  41:Src/core/../../Inc/core/../../Inc/core/clock.h ****   // Enabling low-priority overflow interruptions
+  42:Src/core/../../Inc/core/../../Inc/core/clock.h ****   TC0_SetOverflowIntLevel(&TCE0, TC_OVFINTLVL_LO_gc);
+  43:Src/core/../../Inc/core/../../Inc/core/clock.h **** }
+  44:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+  45:Src/core/../../Inc/core/../../Inc/core/clock.h **** uint16_t T0_millis = 0;
+  46:Src/core/../../Inc/core/../../Inc/core/clock.h **** //uint8_t over=0;
+  47:Src/core/../../Inc/core/../../Inc/core/clock.h **** ISR(TCE0_OVF_vect)
+  48:Src/core/../../Inc/core/../../Inc/core/clock.h **** {
+ 515               	.LM0:
+ 516               	.LFBB1:
+ 517 0000 1F92      		push r1
+ 518 0002 0F92      		push r0
+ 519 0004 0FB6      		in r0,__SREG__
+ 520 0006 0F92      		push r0
+ 521 0008 1124      		clr __zero_reg__
+ 522 000a 8F93      		push r24
+ 523 000c 9F93      		push r25
+ 524               	/* prologue: Signal */
+ 525               	/* frame size = 0 */
+ 526               	/* stack size = 5 */
+ 527               	.L__stack_usage = 5
+  49:Src/core/../../Inc/core/../../Inc/core/clock.h ****   T0_millis++;
+ 529               	.LM1:
+ 530 000e 8091 0000 		lds r24,T0_millis
+ 531 0012 9091 0000 		lds r25,T0_millis+1
+ 532 0016 0196      		adiw r24,1
+ 533 0018 8093 0000 		sts T0_millis,r24
+ 534 001c 9093 0000 		sts T0_millis+1,r25
+ 535               	/* epilogue start */
+  50:Src/core/../../Inc/core/../../Inc/core/clock.h ****   //GPIO_TGL(LED);
+  51:Src/core/../../Inc/core/../../Inc/core/clock.h **** }
+ 537               	.LM2:
+ 538 0020 9F91      		pop r25
+ 539 0022 8F91      		pop r24
+ 540 0024 0F90      		pop r0
+ 541 0026 0FBE      		out __SREG__,r0
+ 542 0028 0F90      		pop r0
+ 543 002a 1F90      		pop r1
+ 544 002c 1895      		reti
+ 546               	.Lscope1:
+ 548               		.stabd	78,0,0
+ 549               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 550               	.LC0:
+ 551 0000 5354 4152 		.string	"START\n"
+ 551      540A 00
+ 552               		.section	.text.startup,"ax",@progbits
+ 554               	.global	main
+ 556               	main:
+ 557               		.stabd	46,0,0
+ 559               	.Ltext2:
+   1:Src/core/main.c **** //***************************************************************************
+   2:Src/core/main.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/main.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/main.c **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/main.c **** //***************************************************************************
+   6:Src/core/main.c **** // Author: João Costa                                                       *
+   7:Src/core/main.c **** //***************************************************************************
+   8:Src/core/main.c **** 
+   9:Src/core/main.c **** #include "../../Inc/core/main.h"
+  10:Src/core/main.c **** 
+  11:Src/core/main.c **** /*! Success variable, used to test driver. */
+  12:Src/core/main.c **** extern int end_stop1;
+  13:Src/core/main.c **** 
+  14:Src/core/main.c **** int main(void)
+  15:Src/core/main.c **** {
+ 561               	.LM3:
+ 562               	.LFBB2:
+ 563               	/* prologue: function */
+ 564               	/* frame size = 0 */
+ 565               	/* stack size = 0 */
+ 566               	.L__stack_usage = 0
+  16:Src/core/main.c ****   cli();
+ 568               	.LM4:
+ 569               	/* #APP */
+ 570               	 ;  16 "Src/core/main.c" 1
+ 571 0000 F894      		cli
+ 572               	 ;  0 "" 2
+ 573               	/* #NOAPP */
+ 574               	.LBB7:
+ 575               	.LBB8:
+ 577               	.Ltext3:
+   1:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   2:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
+   3:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
+   4:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
+   5:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   6:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Author: João Costa                                                       *
+   7:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //***************************************************************************
+   8:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+   9:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #ifndef BOARD_INIT_H_INCLUDED_
+  10:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #define BOARD_INIT_H_INCLUDED_
+  11:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  12:Src/core/../../Inc/core/../../Inc/core/board_init.h **** /// ISO C 99 headers.
+  13:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stddef.h>
+  14:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <inttypes.h>
+  15:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdio.h>
+  16:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <stdlib.h>
+  17:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <string.h>
+  18:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  19:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // Local Headers
+  20:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../config.h"
+  21:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../driver/io.h"
+  22:Src/core/../../Inc/core/../../Inc/core/board_init.h **** //#include "../driver/usart.h"
+  23:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include "../../TC_driver/TC_driver.h"
+  24:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  25:Src/core/../../Inc/core/../../Inc/core/board_init.h **** // AVR headers.
+  26:Src/core/../../Inc/core/../../Inc/core/board_init.h **** #include <avr/io.h>
+  27:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  28:Src/core/../../Inc/core/../../Inc/core/board_init.h **** static inline void
+  29:Src/core/../../Inc/core/../../Inc/core/board_init.h **** board_init(void)
+  30:Src/core/../../Inc/core/../../Inc/core/board_init.h **** {
+  31:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  32:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // System Clock.                                                        *
+  33:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  34:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // ENABLE INTERNAL 32MHZ OSCILLATOR
+  35:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  36:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+ 579               	.LM5:
+ 580 0002 88ED      		ldi r24,lo8(-40)
+ 581 0004 84BF      		out __CCP__,r24
+  37:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  38:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   OSC.CTRL = OSC_RC32MEN_bm;
+ 583               	.LM6:
+ 584 0006 82E0      		ldi r24,lo8(2)
+ 585 0008 8093 5000 		sts 80,r24
+ 586               	.L3:
+  39:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  40:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
+ 588               	.LM7:
+ 589 000c 8091 5100 		lds r24,81
+ 590 0010 81FF      		sbrs r24,1
+ 591 0012 00C0      		rjmp .L3
+  41:Src/core/../../Inc/core/../../Inc/core/board_init.h ****     ;
+  42:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  43:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CCP = CCP_IOREG_gc;
+ 593               	.LM8:
+ 594 0014 88ED      		ldi r24,lo8(-40)
+ 595 0016 84BF      		out __CCP__,r24
+  44:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  45:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
+ 597               	.LM9:
+ 598 0018 81E0      		ldi r24,lo8(1)
+ 599 001a 8093 4000 		sts 64,r24
+  46:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  47:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  48:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* GPIO.                                                               *
+  49:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  50:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  51:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // Setup pins as IN/OUTputs
+  52:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(LED, false);
+ 601               	.LM10:
+ 602 001e 40E0      		ldi r20,0
+ 603 0020 60E0      		ldi r22,0
+ 604 0022 80E4      		ldi r24,lo8(64)
+ 605 0024 96E0      		ldi r25,lo8(6)
+ 606 0026 0E94 0000 		call gpio_cfg_out_np
+  53:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
+ 608               	.LM11:
+ 609 002a 40E1      		ldi r20,lo8(16)
+ 610 002c 60E0      		ldi r22,0
+ 611 002e 80E4      		ldi r24,lo8(64)
+ 612 0030 96E0      		ldi r25,lo8(6)
+ 613 0032 0E94 0000 		call gpio_cfg_opc_np
+  54:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  55:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_IN(FLOW_SENSOR);
+ 615               	.LM12:
+ 616 0036 61E0      		ldi r22,lo8(1)
+ 617 0038 80E4      		ldi r24,lo8(64)
+ 618 003a 96E0      		ldi r25,lo8(6)
+ 619 003c 0E94 0000 		call gpio_cfg_in_np
+  56:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OPC(FLOW_SENSOR, GPIO_OPC_PULLUP);
+ 621               	.LM13:
+ 622 0040 48E1      		ldi r20,lo8(24)
+ 623 0042 61E0      		ldi r22,lo8(1)
+ 624 0044 80E4      		ldi r24,lo8(64)
+ 625 0046 96E0      		ldi r25,lo8(6)
+ 626 0048 0E94 0000 		call gpio_cfg_opc_np
+  57:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_ISC(FLOW_SENSOR, GPIO_ISC_FALLING);
+ 628               	.LM14:
+ 629 004c 42E0      		ldi r20,lo8(2)
+ 630 004e 61E0      		ldi r22,lo8(1)
+ 631 0050 80E4      		ldi r24,lo8(64)
+ 632 0052 96E0      		ldi r25,lo8(6)
+ 633 0054 0E94 0000 		call gpio_cfg_isc_np
+  58:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  59:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_OUT(UART0_TX, false);
+ 635               	.LM15:
+ 636 0058 40E0      		ldi r20,0
+ 637 005a 63E0      		ldi r22,lo8(3)
+ 638 005c 80E4      		ldi r24,lo8(64)
+ 639 005e 96E0      		ldi r25,lo8(6)
+ 640 0060 0E94 0000 		call gpio_cfg_out_np
+  60:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   GPIO_CFG_IN(UART0_RX);
+ 642               	.LM16:
+ 643 0064 62E0      		ldi r22,lo8(2)
+ 644 0066 80E4      		ldi r24,lo8(64)
+ 645 0068 96E0      		ldi r25,lo8(6)
+ 646 006a 0E94 0000 		call gpio_cfg_in_np
+  61:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  62:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  63:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* GPIO/External Interrupt                                             *
+  64:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  65:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   // External interrupt 0 on PC1, enable pullup, sence falling edge
+  66:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
+  67:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PORTC.INT0MASK = (1 << FLOW_SENSOR_PIN);
+ 648               	.LM17:
+ 649 006e 82E0      		ldi r24,lo8(2)
+ 650 0070 8093 4A06 		sts 1610,r24
+  68:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
+ 652               	.LM18:
+ 653 0074 8093 4906 		sts 1609,r24
+  69:Src/core/../../Inc/core/../../Inc/core/board_init.h **** 
+  70:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  71:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //* Interrupt levels.                                                   *
+  72:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //***********************************************************************
+  73:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   //Enables High, Medium and Low Level Interrupts
+  74:Src/core/../../Inc/core/../../Inc/core/board_init.h ****   PMIC.CTRL |= PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_LOLVLEN_bm;
+ 655               	.LM19:
+ 656 0078 8091 A200 		lds r24,162
+ 657 007c 8760      		ori r24,lo8(7)
+ 658 007e 8093 A200 		sts 162,r24
+ 659               	.LBE8:
+ 660               	.LBE7:
+ 661               	.LBB9:
+ 662               	.LBB10:
+ 664               	.Ltext4:
+  33:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+ 666               	.LM20:
+ 667 0082 8DE7      		ldi r24,lo8(125)
+ 668 0084 90E0      		ldi r25,0
+ 669 0086 8093 260A 		sts 2598,r24
+ 670 008a 9093 270A 		sts 2598+1,r25
+  36:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+ 672               	.LM21:
+ 673 008e 66E0      		ldi r22,lo8(6)
+ 674 0090 80E0      		ldi r24,0
+ 675 0092 9AE0      		ldi r25,lo8(10)
+ 676 0094 0E94 0000 		call TC0_ConfigClockSource
+  39:Src/core/../../Inc/core/../../Inc/core/clock.h **** 
+ 678               	.LM22:
+ 679 0098 60E0      		ldi r22,0
+ 680 009a 80E0      		ldi r24,0
+ 681 009c 9AE0      		ldi r25,lo8(10)
+ 682 009e 0E94 0000 		call TC0_ConfigWGM
+  42:Src/core/../../Inc/core/../../Inc/core/clock.h **** }
+ 684               	.LM23:
+ 685 00a2 61E0      		ldi r22,lo8(1)
+ 686 00a4 80E0      		ldi r24,0
+ 687 00a6 9AE0      		ldi r25,lo8(10)
+ 688 00a8 0E94 0000 		call TC0_SetOverflowIntLevel
+ 689               	.LBE10:
+ 690               	.LBE9:
+ 692               	.Ltext5:
+  17:Src/core/main.c ****   board_init();
+  18:Src/core/main.c ****   clock_init();
+  19:Src/core/main.c ****   initUsart();
+ 694               	.LM24:
+ 695 00ac 0E94 0000 		call initUsart
+  20:Src/core/main.c ****   sei();
+ 697               	.LM25:
+ 698               	/* #APP */
+ 699               	 ;  20 "Src/core/main.c" 1
+ 700 00b0 7894      		sei
+ 701               	 ;  0 "" 2
+  21:Src/core/main.c **** 
+  22:Src/core/main.c ****   spew("START\n");
+ 703               	.LM26:
+ 704               	/* #NOAPP */
+ 705 00b2 80E0      		ldi r24,lo8(.LC0)
+ 706 00b4 90E0      		ldi r25,hi8(.LC0)
+ 707 00b6 9F93      		push r25
+ 708 00b8 8F93      		push r24
+ 709 00ba 0E94 0000 		call spew
+ 710 00be 0F90      		pop __tmp_reg__
+ 711 00c0 0F90      		pop __tmp_reg__
+ 712               	.L6:
+ 713               	.LBB11:
+  23:Src/core/main.c **** 
+  24:Src/core/main.c ****   while (1)
+  25:Src/core/main.c ****   {
+  26:Src/core/main.c ****     /* NO INTERRUPTS MODE*/
+  27:Src/core/main.c ****     /*read_end_stops();*/
+  28:Src/core/main.c ****     for (int i; i < 50; i++){}
+ 715               	.LM27:
+ 716 00c2 C233      		cpi r28,50
+ 717 00c4 D105      		cpc r29,__zero_reg__
+ 718 00c6 04F4      		brge .L6
+ 720               	.LM28:
+ 721 00c8 2196      		adiw r28,1
+ 722 00ca 00C0      		rjmp .L6
+ 723               	.LBE11:
+ 728               	.Lscope2:
+ 730               		.stabd	78,0,0
+ 731               	.global	T0_millis
+ 732               		.section .bss
+ 735               	T0_millis:
+ 736 0000 0000      		.zero	2
+ 738               		.text
+ 740               	.Letext0:
+ 741               		.ident	"GCC: (GNU) 5.4.0"
+ 742               	.global __do_copy_data
+ 743               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccbRe8x1.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccbRe8x1.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccbRe8x1.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccbRe8x1.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccbRe8x1.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccbRe8x1.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccbRe8x1.s:510    .text:0000000000000000 __vector_47
+     /tmp/ccbRe8x1.s:735    .bss:0000000000000000 T0_millis
+     /tmp/ccbRe8x1.s:556    .text.startup:0000000000000000 main
+
+UNDEFINED SYMBOLS
+gpio_cfg_out_np
+gpio_cfg_opc_np
+gpio_cfg_in_np
+gpio_cfg_isc_np
+TC0_ConfigClockSource
+TC0_ConfigWGM
+TC0_SetOverflowIntLevel
+initUsart
+spew
+__do_copy_data
+__do_clear_bss

@@ -15,13 +15,16 @@ int main(void)
 {
   cli();
   board_init();
+  clock_init();
+  initUsart();
   sei();
+
+  spew("START\n");
 
   while (1)
   {
     /* NO INTERRUPTS MODE*/
     /*read_end_stops();*/
-
-    _delay_ms(1);
+    for (int i; i < 50; i++){}
   }
 }

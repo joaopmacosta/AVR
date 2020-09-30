@@ -1,5 +1,5 @@
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef MAIN_H_INCLUDED_
+#define MAIN_H_INCLUDED_
 
 // ISO C99 headers.
 #include <stdbool.h>
@@ -20,11 +20,13 @@
 // Local headers.
 
 #include "../../Inc/core/board_init.h"
+#include "../../Inc/core/clock.h"
+#include "../../Inc/driver/flow_sensor.h"
 #include "../../Inc/driver/io.h"
-#include "../../Inc/core/inputs.h"
+#include "../../Inc/driver/uart.h"
 #include "../../TC_driver/avr_compiler.h"
 
 /*! Number of bytes to send in test example. */
 #define NUM_BYTES 3
 
-#endif
+#endif //MAIN_H_INCLUDED_
