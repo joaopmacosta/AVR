@@ -32,29 +32,24 @@ board_init(void)
   // System Clock.                                                        *
   //***********************************************************************
   // ENABLE INTERNAL 32MHZ OSCILLATOR
-
   CCP = CCP_IOREG_gc;
-
   OSC.CTRL = OSC_RC32MEN_bm;
-
   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
     ;
 
   CCP = CCP_IOREG_gc;
-
   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
 
   //***********************************************************************
   //* GPIO.                                                               *
   //***********************************************************************
-
   // Setup pins as IN/OUTputs
   GPIO_CFG_OUT(LED, false);
   GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
 
   GPIO_CFG_IN(FLOW_SENSOR);
-  GPIO_CFG_OPC(FLOW_SENSOR, GPIO_OPC_PULLUP);
-  GPIO_CFG_ISC(FLOW_SENSOR, GPIO_ISC_FALLING);
+  GPIO_CFG_OPC(FLOW_SENSOR, GPIO_OPC_PULLDOWN);
+  GPIO_CFG_ISC(FLOW_SENSOR, GPIO_ISC_RISING);
 
   GPIO_CFG_OUT(UART0_TX, false);
   GPIO_CFG_IN(UART0_RX);
@@ -63,9 +58,9 @@ board_init(void)
   //* GPIO/External Interrupt                                             *
   //***********************************************************************
   // External interrupt 0 on PC1, enable pullup, sence falling edge
-  //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
-  PORTC.INT0MASK = (1 << FLOW_SENSOR_PIN);
-  PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
+  //PORTC.PIN0CTRL = PORT_OPC_PULLDOWN_gc | PORT_ISC_RISING_gc;
+  PORTD.INT0MASK = (1 << FLOW_SENSOR_PIN);
+  PORTD.INTCTRL = PORT_INT0LVL_MED_gc;
 
   //***********************************************************************
   //* Interrupt levels.                                                   *

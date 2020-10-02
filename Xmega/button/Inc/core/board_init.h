@@ -60,7 +60,7 @@ board_init(void)
   //* GPIO/External Interrupt                                             *
   //***********************************************************************
   // External interrupt 0 on PC1, enable pullup, sence falling edge
-  //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
+  PORTC.PIN0CTRL = PORT_OPC_PULLDOWN_gc | PORT_ISC_RISING_gc;
   PORTC.INT0MASK = (1 << BUTTON_PIN);
   PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
 

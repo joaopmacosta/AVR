@@ -5,11 +5,14 @@
    5               	__CCP__ = 0x34
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
-  10               		.text
-  11               	.Ltext0:
- 485               	.global	gpio_cfg_out_np
- 487               	gpio_cfg_out_np:
- 488               		.stabd	46,0,0
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               	.global	gpio_cfg_out_np
+  13               	gpio_cfg_out_np:
+  14               	.LVL0:
+  15               	.LFB11:
+  16               		.file 1 "Src/driver/io.c"
    1:Src/driver/io.c **** //***************************************************************************
    2:Src/driver/io.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
    3:Src/driver/io.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
@@ -31,601 +34,771 @@
   19:Src/driver/io.c **** void
   20:Src/driver/io.c **** gpio_cfg_out_np(PORT_t* port, uint8_t pin, bool value)
   21:Src/driver/io.c **** {
- 490               	.LM0:
- 491               	.LFBB1:
- 492               	/* prologue: function */
- 493               	/* frame size = 0 */
- 494               	/* stack size = 0 */
- 495               	.L__stack_usage = 0
- 496 0000 FC01      		movw r30,r24
+  17               		.loc 1 21 1 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  23               		.loc 1 21 1 is_stmt 0 view .LVU1
+  24 0000 FC01      		movw r30,r24
   22:Src/driver/io.c ****   if (value)
+  25               		.loc 1 22 3 is_stmt 1 view .LVU2
+  26 0002 81E0      		ldi r24,lo8(1)
+  27 0004 90E0      		ldi r25,0
+  28               	.LVL1:
+  29               		.loc 1 22 3 is_stmt 0 view .LVU3
+  30 0006 00C0      		rjmp 2f
+  31               		1:
+  32 0008 880F      		lsl r24
+  33               		2:
+  34 000a 6A95      		dec r22
+  35 000c 02F4      		brpl 1b
+  36               		.loc 1 22 6 view .LVU4
+  37 000e 4423      		tst r20
+  38 0010 01F0      		breq .L2
   23:Src/driver/io.c ****     port->OUTSET = (1 << pin);
- 498               	.LM1:
- 499 0002 81E0      		ldi r24,lo8(1)
- 500 0004 90E0      		ldi r25,0
- 501 0006 062E      		mov r0,r22
- 502 0008 00C0      		rjmp 2f
- 503               		1:
- 504 000a 880F      		lsl r24
- 505               		2:
- 506 000c 0A94      		dec r0
- 507 000e 02F4      		brpl 1b
-  22:Src/driver/io.c ****   if (value)
- 509               	.LM2:
- 510 0010 4423      		tst r20
- 511 0012 01F0      		breq .L2
- 513               	.LM3:
- 514 0014 8583      		std Z+5,r24
- 515 0016 00C0      		rjmp .L3
- 516               	.L2:
+  39               		.loc 1 23 5 is_stmt 1 view .LVU5
+  40               		.loc 1 23 18 is_stmt 0 view .LVU6
+  41 0012 8583      		std Z+5,r24
+  42               	.L3:
   24:Src/driver/io.c ****   else
   25:Src/driver/io.c ****     port->OUTCLR = (1 << pin);
- 518               	.LM4:
- 519 0018 8683      		std Z+6,r24
- 520               	.L3:
   26:Src/driver/io.c **** 
   27:Src/driver/io.c ****   port->DIRSET = (1 << pin);
- 522               	.LM5:
- 523 001a 81E0      		ldi r24,lo8(1)
- 524 001c 90E0      		ldi r25,0
- 525 001e 00C0      		rjmp 2f
- 526               		1:
- 527 0020 880F      		lsl r24
- 528               		2:
- 529 0022 6A95      		dec r22
- 530 0024 02F4      		brpl 1b
- 531 0026 8183      		std Z+1,r24
- 532 0028 0895      		ret
- 534               	.Lscope1:
- 536               		.stabd	78,0,0
- 540               	.global	gpio_cfg_in_np
- 542               	gpio_cfg_in_np:
- 543               		.stabd	46,0,0
+  43               		.loc 1 27 3 is_stmt 1 view .LVU7
+  44               		.loc 1 27 16 is_stmt 0 view .LVU8
+  45 0014 8183      		std Z+1,r24
+  46               	/* epilogue start */
   28:Src/driver/io.c **** }
+  47               		.loc 1 28 1 view .LVU9
+  48 0016 0895      		ret
+  49               	.L2:
+  25:Src/driver/io.c **** 
+  50               		.loc 1 25 5 is_stmt 1 view .LVU10
+  25:Src/driver/io.c **** 
+  51               		.loc 1 25 18 is_stmt 0 view .LVU11
+  52 0018 8683      		std Z+6,r24
+  53 001a 00C0      		rjmp .L3
+  54               		.cfi_endproc
+  55               	.LFE11:
+  57               	.global	gpio_cfg_in_np
+  59               	gpio_cfg_in_np:
+  60               	.LVL2:
+  61               	.LFB12:
   29:Src/driver/io.c **** 
   30:Src/driver/io.c **** void
   31:Src/driver/io.c **** gpio_cfg_in_np(PORT_t* port, uint8_t pin)
   32:Src/driver/io.c **** {
- 545               	.LM6:
- 546               	.LFBB2:
- 547               	/* prologue: function */
- 548               	/* frame size = 0 */
- 549               	/* stack size = 0 */
- 550               	.L__stack_usage = 0
+  62               		.loc 1 32 1 is_stmt 1 view -0
+  63               		.cfi_startproc
+  64               	/* prologue: function */
+  65               	/* frame size = 0 */
+  66               	/* stack size = 0 */
+  67               	.L__stack_usage = 0
+  68               		.loc 1 32 1 is_stmt 0 view .LVU13
+  69 001c FC01      		movw r30,r24
   33:Src/driver/io.c ****   port->DIRCLR = (1 << pin);
- 552               	.LM7:
- 553 002a 21E0      		ldi r18,lo8(1)
- 554 002c 30E0      		ldi r19,0
- 555 002e 00C0      		rjmp 2f
- 556               		1:
- 557 0030 220F      		lsl r18
- 558               		2:
- 559 0032 6A95      		dec r22
- 560 0034 02F4      		brpl 1b
- 561 0036 FC01      		movw r30,r24
- 562 0038 2283      		std Z+2,r18
+  70               		.loc 1 33 3 is_stmt 1 view .LVU14
+  71               		.loc 1 33 21 is_stmt 0 view .LVU15
+  72 001e 81E0      		ldi r24,lo8(1)
+  73 0020 90E0      		ldi r25,0
+  74               	.LVL3:
+  75               		.loc 1 33 21 view .LVU16
+  76 0022 00C0      		rjmp 2f
+  77               		1:
+  78 0024 880F      		lsl r24
+  79               		2:
+  80 0026 6A95      		dec r22
+  81 0028 02F4      		brpl 1b
+  82               		.loc 1 33 16 view .LVU17
+  83 002a 8283      		std Z+2,r24
   34:Src/driver/io.c ****   port->OUTCLR = (1 << pin);
- 564               	.LM8:
- 565 003a 2683      		std Z+6,r18
- 566 003c 0895      		ret
- 568               	.Lscope2:
- 570               		.stabd	78,0,0
- 575               	.global	gpio_cfg_opc_np
- 577               	gpio_cfg_opc_np:
- 578               		.stabd	46,0,0
+  84               		.loc 1 34 3 is_stmt 1 view .LVU18
+  85               		.loc 1 34 16 is_stmt 0 view .LVU19
+  86 002c 8683      		std Z+6,r24
+  87               	/* epilogue start */
   35:Src/driver/io.c **** }
+  88               		.loc 1 35 1 view .LVU20
+  89 002e 0895      		ret
+  90               		.cfi_endproc
+  91               	.LFE12:
+  93               	.global	gpio_cfg_opc_np
+  95               	gpio_cfg_opc_np:
+  96               	.LVL4:
+  97               	.LFB13:
   36:Src/driver/io.c **** 
   37:Src/driver/io.c **** void
   38:Src/driver/io.c **** gpio_cfg_opc_np(PORT_t* port, uint8_t pin, gpio_opc_t opc)
   39:Src/driver/io.c **** {
- 580               	.LM9:
- 581               	.LFBB3:
- 582               	/* prologue: function */
- 583               	/* frame size = 0 */
- 584               	/* stack size = 0 */
- 585               	.L__stack_usage = 0
+  98               		.loc 1 39 1 is_stmt 1 view -0
+  99               		.cfi_startproc
+ 100               	/* prologue: function */
+ 101               	/* frame size = 0 */
+ 102               	/* stack size = 0 */
+ 103               	.L__stack_usage = 0
   40:Src/driver/io.c ****   *(&port->PIN0CTRL + pin) |= opc;
- 587               	.LM10:
- 588 003e 4096      		adiw r24,16
- 589 0040 FC01      		movw r30,r24
- 590 0042 E60F      		add r30,r22
- 591 0044 F11D      		adc r31,__zero_reg__
- 592 0046 8081      		ld r24,Z
- 593 0048 482B      		or r20,r24
- 594 004a 4083      		st Z,r20
- 595 004c 0895      		ret
- 597               	.Lscope3:
- 599               		.stabd	78,0,0
- 604               	.global	gpio_cfg_isc_np
- 606               	gpio_cfg_isc_np:
- 607               		.stabd	46,0,0
+ 104               		.loc 1 40 3 view .LVU22
+ 105               		.loc 1 40 5 is_stmt 0 view .LVU23
+ 106 0030 FC01      		movw r30,r24
+ 107 0032 7096      		adiw r30,16
+ 108               		.loc 1 40 28 view .LVU24
+ 109 0034 E60F      		add r30,r22
+ 110 0036 F11D      		adc r31,__zero_reg__
+ 111 0038 8081      		ld r24,Z
+ 112               	.LVL5:
+ 113               		.loc 1 40 28 view .LVU25
+ 114 003a 842B      		or r24,r20
+ 115 003c 8083      		st Z,r24
+ 116               	/* epilogue start */
   41:Src/driver/io.c **** }
+ 117               		.loc 1 41 1 view .LVU26
+ 118 003e 0895      		ret
+ 119               		.cfi_endproc
+ 120               	.LFE13:
+ 122               	.global	gpio_cfg_isc_np
+ 124               	gpio_cfg_isc_np:
+ 125               	.LFB28:
+ 126               		.cfi_startproc
+ 127               	/* prologue: function */
+ 128               	/* frame size = 0 */
+ 129               	/* stack size = 0 */
+ 130               	.L__stack_usage = 0
+ 131 0040 4096      		adiw r24,16
+ 132 0042 FC01      		movw r30,r24
+ 133 0044 E60F      		add r30,r22
+ 134 0046 F11D      		adc r31,__zero_reg__
+ 135 0048 8081      		ld r24,Z
+ 136 004a 482B      		or r20,r24
+ 137 004c 4083      		st Z,r20
+ 138               	/* epilogue start */
+ 139 004e 0895      		ret
+ 140               		.cfi_endproc
+ 141               	.LFE28:
+ 143               	.global	gpio_cfg_inv_np
+ 145               	gpio_cfg_inv_np:
+ 146               	.LVL6:
+ 147               	.LFB15:
   42:Src/driver/io.c **** 
   43:Src/driver/io.c **** void
   44:Src/driver/io.c **** gpio_cfg_isc_np(PORT_t* port, uint8_t pin, gpio_isc_t isc)
   45:Src/driver/io.c **** {
- 609               	.LM11:
- 610               	.LFBB4:
- 611               	/* prologue: function */
- 612               	/* frame size = 0 */
- 613               	/* stack size = 0 */
- 614               	.L__stack_usage = 0
   46:Src/driver/io.c ****   *(&port->PIN0CTRL + pin) |= isc;
- 616               	.LM12:
- 617 004e 4096      		adiw r24,16
- 618 0050 FC01      		movw r30,r24
- 619 0052 E60F      		add r30,r22
- 620 0054 F11D      		adc r31,__zero_reg__
- 621 0056 8081      		ld r24,Z
- 622 0058 482B      		or r20,r24
- 623 005a 4083      		st Z,r20
- 624 005c 0895      		ret
- 626               	.Lscope4:
- 628               		.stabd	78,0,0
- 632               	.global	gpio_cfg_inv_np
- 634               	gpio_cfg_inv_np:
- 635               		.stabd	46,0,0
   47:Src/driver/io.c **** }
   48:Src/driver/io.c **** 
   49:Src/driver/io.c **** void
   50:Src/driver/io.c **** gpio_cfg_inv_np(PORT_t* port, uint8_t pin)
   51:Src/driver/io.c **** {
- 637               	.LM13:
- 638               	.LFBB5:
- 639               	/* prologue: function */
- 640               	/* frame size = 0 */
- 641               	/* stack size = 0 */
- 642               	.L__stack_usage = 0
+ 148               		.loc 1 51 1 is_stmt 1 view -0
+ 149               		.cfi_startproc
+ 150               	/* prologue: function */
+ 151               	/* frame size = 0 */
+ 152               	/* stack size = 0 */
+ 153               	.L__stack_usage = 0
   52:Src/driver/io.c ****   *(&port->PIN0CTRL + pin) |= PORT_INVEN_bm;
- 644               	.LM14:
- 645 005e 4096      		adiw r24,16
- 646 0060 FC01      		movw r30,r24
- 647 0062 E60F      		add r30,r22
- 648 0064 F11D      		adc r31,__zero_reg__
- 649 0066 8081      		ld r24,Z
- 650 0068 8064      		ori r24,lo8(64)
- 651 006a 8083      		st Z,r24
- 652 006c 0895      		ret
- 654               	.Lscope5:
- 656               		.stabd	78,0,0
- 660               	.global	gpio_set_np
- 662               	gpio_set_np:
- 663               		.stabd	46,0,0
+ 154               		.loc 1 52 3 view .LVU28
+ 155               		.loc 1 52 5 is_stmt 0 view .LVU29
+ 156 0050 4096      		adiw r24,16
+ 157               	.LVL7:
+ 158               		.loc 1 52 28 view .LVU30
+ 159 0052 FC01      		movw r30,r24
+ 160 0054 E60F      		add r30,r22
+ 161 0056 F11D      		adc r31,__zero_reg__
+ 162 0058 8081      		ld r24,Z
+ 163               	.LVL8:
+ 164               		.loc 1 52 28 view .LVU31
+ 165 005a 8064      		ori r24,lo8(64)
+ 166 005c 8083      		st Z,r24
+ 167               	/* epilogue start */
   53:Src/driver/io.c **** }
+ 168               		.loc 1 53 1 view .LVU32
+ 169 005e 0895      		ret
+ 170               		.cfi_endproc
+ 171               	.LFE15:
+ 173               	.global	gpio_set_np
+ 175               	gpio_set_np:
+ 176               	.LVL9:
+ 177               	.LFB16:
   54:Src/driver/io.c **** 
   55:Src/driver/io.c **** void
   56:Src/driver/io.c **** gpio_set_np(PORT_t* port, uint8_t pin)
   57:Src/driver/io.c **** {
- 665               	.LM15:
- 666               	.LFBB6:
- 667               	/* prologue: function */
- 668               	/* frame size = 0 */
- 669               	/* stack size = 0 */
- 670               	.L__stack_usage = 0
+ 178               		.loc 1 57 1 is_stmt 1 view -0
+ 179               		.cfi_startproc
+ 180               	/* prologue: function */
+ 181               	/* frame size = 0 */
+ 182               	/* stack size = 0 */
+ 183               	.L__stack_usage = 0
+ 184               		.loc 1 57 1 is_stmt 0 view .LVU34
+ 185 0060 FC01      		movw r30,r24
   58:Src/driver/io.c ****   port->OUTSET = (1 << pin);
- 672               	.LM16:
- 673 006e 21E0      		ldi r18,lo8(1)
- 674 0070 30E0      		ldi r19,0
- 675 0072 00C0      		rjmp 2f
- 676               		1:
- 677 0074 220F      		lsl r18
- 678               		2:
- 679 0076 6A95      		dec r22
- 680 0078 02F4      		brpl 1b
- 681 007a FC01      		movw r30,r24
- 682 007c 2583      		std Z+5,r18
- 683 007e 0895      		ret
- 685               	.Lscope6:
- 687               		.stabd	78,0,0
- 691               	.global	gpio_clr_np
- 693               	gpio_clr_np:
- 694               		.stabd	46,0,0
+ 186               		.loc 1 58 3 is_stmt 1 view .LVU35
+ 187               		.loc 1 58 21 is_stmt 0 view .LVU36
+ 188 0062 81E0      		ldi r24,lo8(1)
+ 189 0064 90E0      		ldi r25,0
+ 190               	.LVL10:
+ 191               		.loc 1 58 21 view .LVU37
+ 192 0066 00C0      		rjmp 2f
+ 193               		1:
+ 194 0068 880F      		lsl r24
+ 195               		2:
+ 196 006a 6A95      		dec r22
+ 197 006c 02F4      		brpl 1b
+ 198               		.loc 1 58 16 view .LVU38
+ 199 006e 8583      		std Z+5,r24
+ 200               	/* epilogue start */
   59:Src/driver/io.c **** }
+ 201               		.loc 1 59 1 view .LVU39
+ 202 0070 0895      		ret
+ 203               		.cfi_endproc
+ 204               	.LFE16:
+ 206               	.global	gpio_clr_np
+ 208               	gpio_clr_np:
+ 209               	.LVL11:
+ 210               	.LFB17:
   60:Src/driver/io.c **** 
   61:Src/driver/io.c **** void
   62:Src/driver/io.c **** gpio_clr_np(PORT_t* port, uint8_t pin)
   63:Src/driver/io.c **** {
- 696               	.LM17:
- 697               	.LFBB7:
- 698               	/* prologue: function */
- 699               	/* frame size = 0 */
- 700               	/* stack size = 0 */
- 701               	.L__stack_usage = 0
+ 211               		.loc 1 63 1 is_stmt 1 view -0
+ 212               		.cfi_startproc
+ 213               	/* prologue: function */
+ 214               	/* frame size = 0 */
+ 215               	/* stack size = 0 */
+ 216               	.L__stack_usage = 0
+ 217               		.loc 1 63 1 is_stmt 0 view .LVU41
+ 218 0072 FC01      		movw r30,r24
   64:Src/driver/io.c ****   port->OUTCLR = (1 << pin);
- 703               	.LM18:
- 704 0080 21E0      		ldi r18,lo8(1)
- 705 0082 30E0      		ldi r19,0
- 706 0084 00C0      		rjmp 2f
- 707               		1:
- 708 0086 220F      		lsl r18
- 709               		2:
- 710 0088 6A95      		dec r22
- 711 008a 02F4      		brpl 1b
- 712 008c FC01      		movw r30,r24
- 713 008e 2683      		std Z+6,r18
- 714 0090 0895      		ret
- 716               	.Lscope7:
- 718               		.stabd	78,0,0
- 722               	.global	gpio_tgl_np
- 724               	gpio_tgl_np:
- 725               		.stabd	46,0,0
+ 219               		.loc 1 64 3 is_stmt 1 view .LVU42
+ 220               		.loc 1 64 21 is_stmt 0 view .LVU43
+ 221 0074 81E0      		ldi r24,lo8(1)
+ 222 0076 90E0      		ldi r25,0
+ 223               	.LVL12:
+ 224               		.loc 1 64 21 view .LVU44
+ 225 0078 00C0      		rjmp 2f
+ 226               		1:
+ 227 007a 880F      		lsl r24
+ 228               		2:
+ 229 007c 6A95      		dec r22
+ 230 007e 02F4      		brpl 1b
+ 231               		.loc 1 64 16 view .LVU45
+ 232 0080 8683      		std Z+6,r24
+ 233               	/* epilogue start */
   65:Src/driver/io.c **** }
+ 234               		.loc 1 65 1 view .LVU46
+ 235 0082 0895      		ret
+ 236               		.cfi_endproc
+ 237               	.LFE17:
+ 239               	.global	gpio_tgl_np
+ 241               	gpio_tgl_np:
+ 242               	.LVL13:
+ 243               	.LFB18:
   66:Src/driver/io.c **** 
   67:Src/driver/io.c **** void
   68:Src/driver/io.c **** gpio_tgl_np(PORT_t* port, uint8_t pin)
   69:Src/driver/io.c **** {
- 727               	.LM19:
- 728               	.LFBB8:
- 729               	/* prologue: function */
- 730               	/* frame size = 0 */
- 731               	/* stack size = 0 */
- 732               	.L__stack_usage = 0
+ 244               		.loc 1 69 1 is_stmt 1 view -0
+ 245               		.cfi_startproc
+ 246               	/* prologue: function */
+ 247               	/* frame size = 0 */
+ 248               	/* stack size = 0 */
+ 249               	.L__stack_usage = 0
+ 250               		.loc 1 69 1 is_stmt 0 view .LVU48
+ 251 0084 FC01      		movw r30,r24
   70:Src/driver/io.c ****   port->OUTTGL = (1 << pin);
- 734               	.LM20:
- 735 0092 21E0      		ldi r18,lo8(1)
- 736 0094 30E0      		ldi r19,0
- 737 0096 00C0      		rjmp 2f
- 738               		1:
- 739 0098 220F      		lsl r18
- 740               		2:
- 741 009a 6A95      		dec r22
- 742 009c 02F4      		brpl 1b
- 743 009e FC01      		movw r30,r24
- 744 00a0 2783      		std Z+7,r18
- 745 00a2 0895      		ret
- 747               	.Lscope8:
- 749               		.stabd	78,0,0
- 753               	.global	gpio_is_set_np
- 755               	gpio_is_set_np:
- 756               		.stabd	46,0,0
+ 252               		.loc 1 70 3 is_stmt 1 view .LVU49
+ 253               		.loc 1 70 21 is_stmt 0 view .LVU50
+ 254 0086 81E0      		ldi r24,lo8(1)
+ 255 0088 90E0      		ldi r25,0
+ 256               	.LVL14:
+ 257               		.loc 1 70 21 view .LVU51
+ 258 008a 00C0      		rjmp 2f
+ 259               		1:
+ 260 008c 880F      		lsl r24
+ 261               		2:
+ 262 008e 6A95      		dec r22
+ 263 0090 02F4      		brpl 1b
+ 264               		.loc 1 70 16 view .LVU52
+ 265 0092 8783      		std Z+7,r24
+ 266               	/* epilogue start */
   71:Src/driver/io.c **** }
+ 267               		.loc 1 71 1 view .LVU53
+ 268 0094 0895      		ret
+ 269               		.cfi_endproc
+ 270               	.LFE18:
+ 272               	.global	gpio_is_set_np
+ 274               	gpio_is_set_np:
+ 275               	.LVL15:
+ 276               	.LFB19:
   72:Src/driver/io.c **** 
   73:Src/driver/io.c **** bool
   74:Src/driver/io.c **** gpio_is_set_np(PORT_t* port, uint8_t pin)
   75:Src/driver/io.c **** {
- 758               	.LM21:
- 759               	.LFBB9:
- 760               	/* prologue: function */
- 761               	/* frame size = 0 */
- 762               	/* stack size = 0 */
- 763               	.L__stack_usage = 0
+ 277               		.loc 1 75 1 is_stmt 1 view -0
+ 278               		.cfi_startproc
+ 279               	/* prologue: function */
+ 280               	/* frame size = 0 */
+ 281               	/* stack size = 0 */
+ 282               	.L__stack_usage = 0
+ 283               		.loc 1 75 1 is_stmt 0 view .LVU55
+ 284 0096 FC01      		movw r30,r24
   76:Src/driver/io.c ****   return port->IN & (1 << pin);
- 765               	.LM22:
- 766 00a4 FC01      		movw r30,r24
- 767 00a6 8085      		ldd r24,Z+8
- 768 00a8 21E0      		ldi r18,lo8(1)
- 769 00aa 30E0      		ldi r19,0
- 770 00ac 00C0      		rjmp 2f
- 771               		1:
- 772 00ae 220F      		lsl r18
- 773 00b0 331F      		rol r19
- 774               		2:
- 775 00b2 6A95      		dec r22
- 776 00b4 02F4      		brpl 1b
- 777 00b6 90E0      		ldi r25,0
- 778 00b8 2823      		and r18,r24
- 779 00ba 3923      		and r19,r25
- 780 00bc 81E0      		ldi r24,lo8(1)
- 781 00be 232B      		or r18,r19
- 782 00c0 01F4      		brne .L13
- 783 00c2 80E0      		ldi r24,0
- 784               	.L13:
+ 285               		.loc 1 76 3 is_stmt 1 view .LVU56
+ 286               		.loc 1 76 14 is_stmt 0 view .LVU57
+ 287 0098 8085      		ldd r24,Z+8
+ 288               	.LVL16:
+ 289               		.loc 1 76 24 view .LVU58
+ 290 009a 21E0      		ldi r18,lo8(1)
+ 291 009c 30E0      		ldi r19,0
+ 292 009e 00C0      		rjmp 2f
+ 293               		1:
+ 294 00a0 220F      		lsl r18
+ 295 00a2 331F      		rol r19
+ 296               		2:
+ 297 00a4 6A95      		dec r22
+ 298 00a6 02F4      		brpl 1b
+ 299               		.loc 1 76 14 view .LVU59
+ 300 00a8 90E0      		ldi r25,0
+ 301               		.loc 1 76 19 view .LVU60
+ 302 00aa 2823      		and r18,r24
+ 303 00ac 3923      		and r19,r25
+ 304 00ae 81E0      		ldi r24,lo8(1)
+ 305 00b0 232B      		or r18,r19
+ 306 00b2 01F4      		brne .L12
+ 307 00b4 80E0      		ldi r24,0
+ 308               	.L12:
+ 309               	/* epilogue start */
   77:Src/driver/io.c **** }
- 786               	.LM23:
- 787 00c4 0895      		ret
- 789               	.Lscope9:
- 791               		.stabd	78,0,0
- 795               	.global	gpio_cfg_out
- 797               	gpio_cfg_out:
- 798               		.stabd	46,0,0
+ 310               		.loc 1 77 1 view .LVU61
+ 311 00b6 0895      		ret
+ 312               		.cfi_endproc
+ 313               	.LFE19:
+ 315               	.global	gpio_cfg_out
+ 317               	gpio_cfg_out:
+ 318               	.LVL17:
+ 319               	.LFB20:
   78:Src/driver/io.c **** 
   79:Src/driver/io.c **** void
   80:Src/driver/io.c **** gpio_cfg_out(gpio_t gpio, uint8_t value)
   81:Src/driver/io.c **** {
- 800               	.LM24:
- 801               	.LFBB10:
- 802               	/* prologue: function */
- 803               	/* frame size = 0 */
- 804               	/* stack size = 0 */
- 805               	.L__stack_usage = 0
+ 320               		.loc 1 81 1 is_stmt 1 view -0
+ 321               		.cfi_startproc
+ 322               	/* prologue: function */
+ 323               	/* frame size = 0 */
+ 324               	/* stack size = 0 */
+ 325               	.L__stack_usage = 0
+ 326               		.loc 1 81 1 is_stmt 0 view .LVU63
+ 327 00b8 FC01      		movw r30,r24
   82:Src/driver/io.c ****   gpio_cfg_out_np(gpio->port, gpio->pin, value);
- 807               	.LM25:
- 808 00c6 41E0      		ldi r20,lo8(1)
- 809 00c8 6111      		cpse r22,__zero_reg__
- 810 00ca 00C0      		rjmp .L15
- 811 00cc 40E0      		ldi r20,0
- 812               	.L15:
- 813 00ce FC01      		movw r30,r24
- 814 00d0 6281      		ldd r22,Z+2
- 815 00d2 8081      		ld r24,Z
- 816 00d4 9181      		ldd r25,Z+1
- 817 00d6 0C94 0000 		jmp gpio_cfg_out_np
- 819               	.Lscope10:
- 821               		.stabd	78,0,0
- 824               	.global	gpio_cfg_in
- 826               	gpio_cfg_in:
- 827               		.stabd	46,0,0
+ 328               		.loc 1 82 3 is_stmt 1 view .LVU64
+ 329 00ba 41E0      		ldi r20,lo8(1)
+ 330 00bc 6111      		cpse r22,__zero_reg__
+ 331 00be 00C0      		rjmp .L14
+ 332 00c0 40E0      		ldi r20,0
+ 333               	.L14:
+ 334 00c2 6281      		ldd r22,Z+2
+ 335               	.LVL18:
+ 336               		.loc 1 82 3 is_stmt 0 view .LVU65
+ 337 00c4 8081      		ld r24,Z
+ 338 00c6 9181      		ldd r25,Z+1
+ 339               	.LVL19:
+ 340               		.loc 1 82 3 view .LVU66
+ 341 00c8 0C94 0000 		jmp gpio_cfg_out_np
+ 342               	.LVL20:
+ 343               		.loc 1 82 3 view .LVU67
+ 344               		.cfi_endproc
+ 345               	.LFE20:
+ 347               	.global	gpio_cfg_in
+ 349               	gpio_cfg_in:
+ 350               	.LVL21:
+ 351               	.LFB21:
   83:Src/driver/io.c **** }
   84:Src/driver/io.c **** 
   85:Src/driver/io.c **** void
   86:Src/driver/io.c **** gpio_cfg_in(gpio_t gpio)
   87:Src/driver/io.c **** {
- 829               	.LM26:
- 830               	.LFBB11:
- 831               	/* prologue: function */
- 832               	/* frame size = 0 */
- 833               	/* stack size = 0 */
- 834               	.L__stack_usage = 0
+ 352               		.loc 1 87 1 is_stmt 1 view -0
+ 353               		.cfi_startproc
+ 354               	/* prologue: function */
+ 355               	/* frame size = 0 */
+ 356               	/* stack size = 0 */
+ 357               	.L__stack_usage = 0
+ 358               		.loc 1 87 1 is_stmt 0 view .LVU69
+ 359 00cc FC01      		movw r30,r24
   88:Src/driver/io.c ****   gpio_cfg_in_np(gpio->port, gpio->pin);
- 836               	.LM27:
- 837 00da DC01      		movw r26,r24
- 838 00dc ED91      		ld r30,X+
- 839 00de FC91      		ld r31,X
- 840 00e0 1197      		sbiw r26,1
- 841               	.LBB14:
- 842               	.LBB15:
+ 360               		.loc 1 88 3 is_stmt 1 view .LVU70
+ 361 00ce A081      		ld r26,Z
+ 362 00d0 B181      		ldd r27,Z+1
+ 363               	.LVL22:
+ 364               	.LBB14:
+ 365               	.LBI14:
+  31:Src/driver/io.c **** {
+ 366               		.loc 1 31 1 view .LVU71
+ 367               	.LBB15:
   33:Src/driver/io.c ****   port->OUTCLR = (1 << pin);
- 844               	.LM28:
- 845 00e2 21E0      		ldi r18,lo8(1)
- 846 00e4 30E0      		ldi r19,0
- 847 00e6 A901      		movw r20,r18
- 848 00e8 1296      		adiw r26,2
- 849 00ea 0C90      		ld r0,X
- 850 00ec 00C0      		rjmp 2f
- 851               		1:
- 852 00ee 440F      		lsl r20
- 853 00f0 551F      		rol r21
- 854               		2:
- 855 00f2 0A94      		dec r0
- 856 00f4 02F4      		brpl 1b
- 857 00f6 4283      		std Z+2,r20
+ 368               		.loc 1 33 3 view .LVU72
+  33:Src/driver/io.c ****   port->OUTCLR = (1 << pin);
+ 369               		.loc 1 33 21 is_stmt 0 view .LVU73
+ 370 00d2 2281      		ldd r18,Z+2
+ 371 00d4 81E0      		ldi r24,lo8(1)
+ 372 00d6 90E0      		ldi r25,0
+ 373               	.LVL23:
+  33:Src/driver/io.c ****   port->OUTCLR = (1 << pin);
+ 374               		.loc 1 33 21 view .LVU74
+ 375 00d8 00C0      		rjmp 2f
+ 376               		1:
+ 377 00da 880F      		lsl r24
+ 378               		2:
+ 379 00dc 2A95      		dec r18
+ 380 00de 02F4      		brpl 1b
+  33:Src/driver/io.c ****   port->OUTCLR = (1 << pin);
+ 381               		.loc 1 33 16 view .LVU75
+ 382 00e0 1296      		adiw r26,2
+ 383 00e2 8C93      		st X,r24
+ 384 00e4 1297      		sbiw r26,2
   34:Src/driver/io.c **** }
- 859               	.LM29:
- 860 00f8 4683      		std Z+6,r20
- 861 00fa 0895      		ret
- 862               	.LBE15:
- 863               	.LBE14:
- 865               	.Lscope11:
- 867               		.stabd	78,0,0
- 871               	.global	gpio_cfg_opc
- 873               	gpio_cfg_opc:
- 874               		.stabd	46,0,0
+ 385               		.loc 1 34 3 is_stmt 1 view .LVU76
+  34:Src/driver/io.c **** }
+ 386               		.loc 1 34 16 is_stmt 0 view .LVU77
+ 387 00e6 1696      		adiw r26,6
+ 388 00e8 8C93      		st X,r24
+ 389               	.LVL24:
+ 390               	/* epilogue start */
+  34:Src/driver/io.c **** }
+ 391               		.loc 1 34 16 view .LVU78
+ 392               	.LBE15:
+ 393               	.LBE14:
   89:Src/driver/io.c **** }
+ 394               		.loc 1 89 1 view .LVU79
+ 395 00ea 0895      		ret
+ 396               		.cfi_endproc
+ 397               	.LFE21:
+ 399               	.global	gpio_cfg_opc
+ 401               	gpio_cfg_opc:
+ 402               	.LVL25:
+ 403               	.LFB22:
   90:Src/driver/io.c **** 
   91:Src/driver/io.c **** void
   92:Src/driver/io.c **** gpio_cfg_opc(gpio_t gpio, gpio_opc_t opc)
   93:Src/driver/io.c **** {
- 876               	.LM30:
- 877               	.LFBB12:
- 878               	/* prologue: function */
- 879               	/* frame size = 0 */
- 880               	/* stack size = 0 */
- 881               	.L__stack_usage = 0
- 882               	.LBB16:
- 883               	.LBB17:
-  40:Src/driver/io.c **** }
- 885               	.LM31:
- 886 00fc DC01      		movw r26,r24
- 887 00fe ED91      		ld r30,X+
- 888 0100 FC91      		ld r31,X
- 889 0102 1197      		sbiw r26,1
- 890 0104 7096      		adiw r30,16
- 891 0106 1296      		adiw r26,2
- 892 0108 8C91      		ld r24,X
- 893 010a E80F      		add r30,r24
- 894 010c F11D      		adc r31,__zero_reg__
- 895 010e 8081      		ld r24,Z
- 896 0110 682B      		or r22,r24
- 897 0112 6083      		st Z,r22
- 898 0114 0895      		ret
- 899               	.LBE17:
- 900               	.LBE16:
- 902               	.Lscope12:
- 904               		.stabd	78,0,0
- 907               	.global	gpio_set
- 909               	gpio_set:
- 910               		.stabd	46,0,0
+ 404               		.loc 1 93 1 is_stmt 1 view -0
+ 405               		.cfi_startproc
+ 406               	/* prologue: function */
+ 407               	/* frame size = 0 */
+ 408               	/* stack size = 0 */
+ 409               	.L__stack_usage = 0
+ 410               		.loc 1 93 1 is_stmt 0 view .LVU81
+ 411 00ec DC01      		movw r26,r24
   94:Src/driver/io.c ****   gpio_cfg_opc_np(gpio->port, gpio->pin, opc);
+ 412               		.loc 1 94 3 is_stmt 1 view .LVU82
+ 413               	.LVL26:
+ 414               	.LBB16:
+ 415               	.LBI16:
+  38:Src/driver/io.c **** {
+ 416               		.loc 1 38 1 view .LVU83
+ 417               	.LBB17:
+  40:Src/driver/io.c **** }
+ 418               		.loc 1 40 3 view .LVU84
+  40:Src/driver/io.c **** }
+ 419               		.loc 1 40 5 is_stmt 0 view .LVU85
+ 420 00ee 8D91      		ld r24,X+
+ 421 00f0 9C91      		ld r25,X
+ 422 00f2 1197      		sbiw r26,1
+ 423               	.LVL27:
+  40:Src/driver/io.c **** }
+ 424               		.loc 1 40 5 view .LVU86
+ 425 00f4 4096      		adiw r24,16
+ 426               	.LVL28:
+  40:Src/driver/io.c **** }
+ 427               		.loc 1 40 28 view .LVU87
+ 428 00f6 1296      		adiw r26,2
+ 429 00f8 EC91      		ld r30,X
+ 430 00fa E80F      		add r30,r24
+ 431 00fc F92F      		mov r31,r25
+ 432 00fe F11D      		adc r31,__zero_reg__
+ 433 0100 8081      		ld r24,Z
+ 434 0102 682B      		or r22,r24
+ 435               	.LVL29:
+  40:Src/driver/io.c **** }
+ 436               		.loc 1 40 28 view .LVU88
+ 437 0104 6083      		st Z,r22
+ 438               	.LVL30:
+ 439               	/* epilogue start */
+  40:Src/driver/io.c **** }
+ 440               		.loc 1 40 28 view .LVU89
+ 441               	.LBE17:
+ 442               	.LBE16:
   95:Src/driver/io.c **** }
+ 443               		.loc 1 95 1 view .LVU90
+ 444 0106 0895      		ret
+ 445               		.cfi_endproc
+ 446               	.LFE22:
+ 448               	.global	gpio_set
+ 450               	gpio_set:
+ 451               	.LVL31:
+ 452               	.LFB23:
   96:Src/driver/io.c **** 
   97:Src/driver/io.c **** void
   98:Src/driver/io.c **** gpio_set(gpio_t gpio)
   99:Src/driver/io.c **** {
- 912               	.LM32:
- 913               	.LFBB13:
- 914               	/* prologue: function */
- 915               	/* frame size = 0 */
- 916               	/* stack size = 0 */
- 917               	.L__stack_usage = 0
+ 453               		.loc 1 99 1 is_stmt 1 view -0
+ 454               		.cfi_startproc
+ 455               	/* prologue: function */
+ 456               	/* frame size = 0 */
+ 457               	/* stack size = 0 */
+ 458               	.L__stack_usage = 0
+ 459               		.loc 1 99 1 is_stmt 0 view .LVU92
+ 460 0108 FC01      		movw r30,r24
  100:Src/driver/io.c ****   gpio_set_np(gpio->port, gpio->pin);
- 919               	.LM33:
- 920 0116 DC01      		movw r26,r24
- 921 0118 ED91      		ld r30,X+
- 922 011a FC91      		ld r31,X
- 923 011c 1197      		sbiw r26,1
- 924               	.LBB18:
- 925               	.LBB19:
+ 461               		.loc 1 100 3 is_stmt 1 view .LVU93
+ 462 010a A081      		ld r26,Z
+ 463 010c B181      		ldd r27,Z+1
+ 464               	.LVL32:
+ 465               	.LBB18:
+ 466               	.LBI18:
+  56:Src/driver/io.c **** {
+ 467               		.loc 1 56 1 view .LVU94
+ 468               	.LBB19:
   58:Src/driver/io.c **** }
- 927               	.LM34:
- 928 011e 21E0      		ldi r18,lo8(1)
- 929 0120 30E0      		ldi r19,0
- 930 0122 A901      		movw r20,r18
- 931 0124 1296      		adiw r26,2
- 932 0126 0C90      		ld r0,X
- 933 0128 00C0      		rjmp 2f
- 934               		1:
- 935 012a 440F      		lsl r20
- 936 012c 551F      		rol r21
- 937               		2:
- 938 012e 0A94      		dec r0
- 939 0130 02F4      		brpl 1b
- 940 0132 4583      		std Z+5,r20
- 941 0134 0895      		ret
- 942               	.LBE19:
- 943               	.LBE18:
- 945               	.Lscope13:
- 947               		.stabd	78,0,0
- 950               	.global	gpio_clr
- 952               	gpio_clr:
- 953               		.stabd	46,0,0
+ 469               		.loc 1 58 3 view .LVU95
+  58:Src/driver/io.c **** }
+ 470               		.loc 1 58 21 is_stmt 0 view .LVU96
+ 471 010e 2281      		ldd r18,Z+2
+ 472 0110 81E0      		ldi r24,lo8(1)
+ 473 0112 90E0      		ldi r25,0
+ 474               	.LVL33:
+  58:Src/driver/io.c **** }
+ 475               		.loc 1 58 21 view .LVU97
+ 476 0114 00C0      		rjmp 2f
+ 477               		1:
+ 478 0116 880F      		lsl r24
+ 479               		2:
+ 480 0118 2A95      		dec r18
+ 481 011a 02F4      		brpl 1b
+  58:Src/driver/io.c **** }
+ 482               		.loc 1 58 16 view .LVU98
+ 483 011c 1596      		adiw r26,5
+ 484 011e 8C93      		st X,r24
+ 485               	.LVL34:
+ 486               	/* epilogue start */
+  58:Src/driver/io.c **** }
+ 487               		.loc 1 58 16 view .LVU99
+ 488               	.LBE19:
+ 489               	.LBE18:
  101:Src/driver/io.c **** }
+ 490               		.loc 1 101 1 view .LVU100
+ 491 0120 0895      		ret
+ 492               		.cfi_endproc
+ 493               	.LFE23:
+ 495               	.global	gpio_clr
+ 497               	gpio_clr:
+ 498               	.LVL35:
+ 499               	.LFB24:
  102:Src/driver/io.c **** 
  103:Src/driver/io.c **** void
  104:Src/driver/io.c **** gpio_clr(gpio_t gpio)
  105:Src/driver/io.c **** {
- 955               	.LM35:
- 956               	.LFBB14:
- 957               	/* prologue: function */
- 958               	/* frame size = 0 */
- 959               	/* stack size = 0 */
- 960               	.L__stack_usage = 0
+ 500               		.loc 1 105 1 is_stmt 1 view -0
+ 501               		.cfi_startproc
+ 502               	/* prologue: function */
+ 503               	/* frame size = 0 */
+ 504               	/* stack size = 0 */
+ 505               	.L__stack_usage = 0
+ 506               		.loc 1 105 1 is_stmt 0 view .LVU102
+ 507 0122 FC01      		movw r30,r24
  106:Src/driver/io.c ****   gpio_clr_np(gpio->port, gpio->pin);
- 962               	.LM36:
- 963 0136 DC01      		movw r26,r24
- 964 0138 ED91      		ld r30,X+
- 965 013a FC91      		ld r31,X
- 966 013c 1197      		sbiw r26,1
- 967               	.LBB20:
- 968               	.LBB21:
+ 508               		.loc 1 106 3 is_stmt 1 view .LVU103
+ 509 0124 A081      		ld r26,Z
+ 510 0126 B181      		ldd r27,Z+1
+ 511               	.LVL36:
+ 512               	.LBB20:
+ 513               	.LBI20:
+  62:Src/driver/io.c **** {
+ 514               		.loc 1 62 1 view .LVU104
+ 515               	.LBB21:
   64:Src/driver/io.c **** }
- 970               	.LM37:
- 971 013e 21E0      		ldi r18,lo8(1)
- 972 0140 30E0      		ldi r19,0
- 973 0142 A901      		movw r20,r18
- 974 0144 1296      		adiw r26,2
- 975 0146 0C90      		ld r0,X
- 976 0148 00C0      		rjmp 2f
- 977               		1:
- 978 014a 440F      		lsl r20
- 979 014c 551F      		rol r21
- 980               		2:
- 981 014e 0A94      		dec r0
- 982 0150 02F4      		brpl 1b
- 983 0152 4683      		std Z+6,r20
- 984 0154 0895      		ret
- 985               	.LBE21:
- 986               	.LBE20:
- 988               	.Lscope14:
- 990               		.stabd	78,0,0
- 993               	.global	gpio_tgl
- 995               	gpio_tgl:
- 996               		.stabd	46,0,0
+ 516               		.loc 1 64 3 view .LVU105
+  64:Src/driver/io.c **** }
+ 517               		.loc 1 64 21 is_stmt 0 view .LVU106
+ 518 0128 2281      		ldd r18,Z+2
+ 519 012a 81E0      		ldi r24,lo8(1)
+ 520 012c 90E0      		ldi r25,0
+ 521               	.LVL37:
+  64:Src/driver/io.c **** }
+ 522               		.loc 1 64 21 view .LVU107
+ 523 012e 00C0      		rjmp 2f
+ 524               		1:
+ 525 0130 880F      		lsl r24
+ 526               		2:
+ 527 0132 2A95      		dec r18
+ 528 0134 02F4      		brpl 1b
+  64:Src/driver/io.c **** }
+ 529               		.loc 1 64 16 view .LVU108
+ 530 0136 1696      		adiw r26,6
+ 531 0138 8C93      		st X,r24
+ 532               	.LVL38:
+ 533               	/* epilogue start */
+  64:Src/driver/io.c **** }
+ 534               		.loc 1 64 16 view .LVU109
+ 535               	.LBE21:
+ 536               	.LBE20:
  107:Src/driver/io.c **** }
+ 537               		.loc 1 107 1 view .LVU110
+ 538 013a 0895      		ret
+ 539               		.cfi_endproc
+ 540               	.LFE24:
+ 542               	.global	gpio_tgl
+ 544               	gpio_tgl:
+ 545               	.LVL39:
+ 546               	.LFB25:
  108:Src/driver/io.c **** 
  109:Src/driver/io.c **** void
  110:Src/driver/io.c **** gpio_tgl(gpio_t gpio)
  111:Src/driver/io.c **** {
- 998               	.LM38:
- 999               	.LFBB15:
- 1000               	/* prologue: function */
- 1001               	/* frame size = 0 */
- 1002               	/* stack size = 0 */
- 1003               	.L__stack_usage = 0
+ 547               		.loc 1 111 1 is_stmt 1 view -0
+ 548               		.cfi_startproc
+ 549               	/* prologue: function */
+ 550               	/* frame size = 0 */
+ 551               	/* stack size = 0 */
+ 552               	.L__stack_usage = 0
+ 553               		.loc 1 111 1 is_stmt 0 view .LVU112
+ 554 013c FC01      		movw r30,r24
  112:Src/driver/io.c ****   gpio_tgl_np(gpio->port, gpio->pin);
- 1005               	.LM39:
- 1006 0156 DC01      		movw r26,r24
- 1007 0158 ED91      		ld r30,X+
- 1008 015a FC91      		ld r31,X
- 1009 015c 1197      		sbiw r26,1
- 1010               	.LBB22:
- 1011               	.LBB23:
+ 555               		.loc 1 112 3 is_stmt 1 view .LVU113
+ 556 013e A081      		ld r26,Z
+ 557 0140 B181      		ldd r27,Z+1
+ 558               	.LVL40:
+ 559               	.LBB22:
+ 560               	.LBI22:
+  68:Src/driver/io.c **** {
+ 561               		.loc 1 68 1 view .LVU114
+ 562               	.LBB23:
   70:Src/driver/io.c **** }
- 1013               	.LM40:
- 1014 015e 21E0      		ldi r18,lo8(1)
- 1015 0160 30E0      		ldi r19,0
- 1016 0162 A901      		movw r20,r18
- 1017 0164 1296      		adiw r26,2
- 1018 0166 0C90      		ld r0,X
- 1019 0168 00C0      		rjmp 2f
- 1020               		1:
- 1021 016a 440F      		lsl r20
- 1022 016c 551F      		rol r21
- 1023               		2:
- 1024 016e 0A94      		dec r0
- 1025 0170 02F4      		brpl 1b
- 1026 0172 4783      		std Z+7,r20
- 1027 0174 0895      		ret
- 1028               	.LBE23:
- 1029               	.LBE22:
- 1031               	.Lscope15:
- 1033               		.stabd	78,0,0
- 1036               	.global	gpio_is_set
- 1038               	gpio_is_set:
- 1039               		.stabd	46,0,0
+ 563               		.loc 1 70 3 view .LVU115
+  70:Src/driver/io.c **** }
+ 564               		.loc 1 70 21 is_stmt 0 view .LVU116
+ 565 0142 2281      		ldd r18,Z+2
+ 566 0144 81E0      		ldi r24,lo8(1)
+ 567 0146 90E0      		ldi r25,0
+ 568               	.LVL41:
+  70:Src/driver/io.c **** }
+ 569               		.loc 1 70 21 view .LVU117
+ 570 0148 00C0      		rjmp 2f
+ 571               		1:
+ 572 014a 880F      		lsl r24
+ 573               		2:
+ 574 014c 2A95      		dec r18
+ 575 014e 02F4      		brpl 1b
+  70:Src/driver/io.c **** }
+ 576               		.loc 1 70 16 view .LVU118
+ 577 0150 1796      		adiw r26,7
+ 578 0152 8C93      		st X,r24
+ 579               	.LVL42:
+ 580               	/* epilogue start */
+  70:Src/driver/io.c **** }
+ 581               		.loc 1 70 16 view .LVU119
+ 582               	.LBE23:
+ 583               	.LBE22:
  113:Src/driver/io.c **** }
+ 584               		.loc 1 113 1 view .LVU120
+ 585 0154 0895      		ret
+ 586               		.cfi_endproc
+ 587               	.LFE25:
+ 589               	.global	gpio_is_set
+ 591               	gpio_is_set:
+ 592               	.LVL43:
+ 593               	.LFB26:
  114:Src/driver/io.c **** 
  115:Src/driver/io.c **** bool
  116:Src/driver/io.c **** gpio_is_set(gpio_t gpio)
  117:Src/driver/io.c **** {
- 1041               	.LM41:
- 1042               	.LFBB16:
- 1043               	/* prologue: function */
- 1044               	/* frame size = 0 */
- 1045               	/* stack size = 0 */
- 1046               	.L__stack_usage = 0
- 1047 0176 FC01      		movw r30,r24
+ 594               		.loc 1 117 1 is_stmt 1 view -0
+ 595               		.cfi_startproc
+ 596               	/* prologue: function */
+ 597               	/* frame size = 0 */
+ 598               	/* stack size = 0 */
+ 599               	.L__stack_usage = 0
+ 600               		.loc 1 117 1 is_stmt 0 view .LVU122
+ 601 0156 FC01      		movw r30,r24
  118:Src/driver/io.c ****   return gpio_is_set_np(gpio->port, gpio->pin);
- 1049               	.LM42:
- 1050 0178 A081      		ld r26,Z
- 1051 017a B181      		ldd r27,Z+1
- 1052               	.LBB24:
- 1053               	.LBB25:
+ 602               		.loc 1 118 3 is_stmt 1 view .LVU123
+ 603               		.loc 1 118 10 is_stmt 0 view .LVU124
+ 604 0158 A081      		ld r26,Z
+ 605 015a B181      		ldd r27,Z+1
+ 606               	.LVL44:
+ 607               	.LBB24:
+ 608               	.LBI24:
+  74:Src/driver/io.c **** {
+ 609               		.loc 1 74 1 is_stmt 1 view .LVU125
+ 610               	.LBB25:
   76:Src/driver/io.c **** }
- 1055               	.LM43:
- 1056 017c 1896      		adiw r26,8
- 1057 017e 9C91      		ld r25,X
- 1058               	.LBE25:
- 1059               	.LBE24:
- 1061               	.LM44:
- 1062 0180 21E0      		ldi r18,lo8(1)
- 1063 0182 30E0      		ldi r19,0
- 1064 0184 0280      		ldd r0,Z+2
- 1065 0186 00C0      		rjmp 2f
- 1066               		1:
- 1067 0188 220F      		lsl r18
- 1068 018a 331F      		rol r19
- 1069               		2:
- 1070 018c 0A94      		dec r0
- 1071 018e 02F4      		brpl 1b
- 1072 0190 892F      		mov r24,r25
- 1073 0192 90E0      		ldi r25,0
- 1074 0194 2823      		and r18,r24
- 1075 0196 3923      		and r19,r25
- 1076 0198 81E0      		ldi r24,lo8(1)
- 1077 019a 232B      		or r18,r19
- 1078 019c 01F4      		brne .L22
- 1079 019e 80E0      		ldi r24,0
- 1080               	.L22:
+ 611               		.loc 1 76 3 view .LVU126
+  76:Src/driver/io.c **** }
+ 612               		.loc 1 76 14 is_stmt 0 view .LVU127
+ 613 015c 1896      		adiw r26,8
+ 614 015e 8C91      		ld r24,X
+ 615               	.LVL45:
+  76:Src/driver/io.c **** }
+ 616               		.loc 1 76 24 view .LVU128
+ 617 0160 9281      		ldd r25,Z+2
+ 618 0162 21E0      		ldi r18,lo8(1)
+ 619 0164 30E0      		ldi r19,0
+ 620 0166 00C0      		rjmp 2f
+ 621               		1:
+ 622 0168 220F      		lsl r18
+ 623 016a 331F      		rol r19
+ 624               		2:
+ 625 016c 9A95      		dec r25
+ 626 016e 02F4      		brpl 1b
+  76:Src/driver/io.c **** }
+ 627               		.loc 1 76 14 view .LVU129
+ 628 0170 90E0      		ldi r25,0
+  76:Src/driver/io.c **** }
+ 629               		.loc 1 76 19 view .LVU130
+ 630 0172 2823      		and r18,r24
+ 631 0174 3923      		and r19,r25
+ 632 0176 81E0      		ldi r24,lo8(1)
+ 633 0178 232B      		or r18,r19
+ 634 017a 01F4      		brne .L21
+ 635 017c 80E0      		ldi r24,0
+ 636               	.L21:
+ 637               	/* epilogue start */
+ 638               	.LBE25:
+ 639               	.LBE24:
  119:Src/driver/io.c **** }...
- 1082               	.LM45:
- 1083 01a0 0895      		ret
- 1085               	.Lscope16:
- 1087               		.stabd	78,0,0
- 1089               	.Letext0:
- 1090               		.ident	"GCC: (GNU) 5.4.0"
+ 640               		.loc 1 119 1 view .LVU131
+ 641 017e 0895      		ret
+ 642               		.cfi_endproc
+ 643               	.LFE26:
+ 645               	.Letext0:
+ 646               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 647               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 648               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 649               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
+ 650               		.file 6 "Src/driver/../../Inc/driver/io.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 io.c
-     /tmp/ccjb5lYN.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccjb5lYN.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccjb5lYN.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccjb5lYN.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccjb5lYN.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccjb5lYN.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccjb5lYN.s:487    .text:0000000000000000 gpio_cfg_out_np
-     /tmp/ccjb5lYN.s:542    .text:000000000000002a gpio_cfg_in_np
-     /tmp/ccjb5lYN.s:577    .text:000000000000003e gpio_cfg_opc_np
-     /tmp/ccjb5lYN.s:606    .text:000000000000004e gpio_cfg_isc_np
-     /tmp/ccjb5lYN.s:634    .text:000000000000005e gpio_cfg_inv_np
-     /tmp/ccjb5lYN.s:662    .text:000000000000006e gpio_set_np
-     /tmp/ccjb5lYN.s:693    .text:0000000000000080 gpio_clr_np
-     /tmp/ccjb5lYN.s:724    .text:0000000000000092 gpio_tgl_np
-     /tmp/ccjb5lYN.s:755    .text:00000000000000a4 gpio_is_set_np
-     /tmp/ccjb5lYN.s:797    .text:00000000000000c6 gpio_cfg_out
-     /tmp/ccjb5lYN.s:826    .text:00000000000000da gpio_cfg_in
-     /tmp/ccjb5lYN.s:873    .text:00000000000000fc gpio_cfg_opc
-     /tmp/ccjb5lYN.s:909    .text:0000000000000116 gpio_set
-     /tmp/ccjb5lYN.s:952    .text:0000000000000136 gpio_clr
-     /tmp/ccjb5lYN.s:995    .text:0000000000000156 gpio_tgl
-     /tmp/ccjb5lYN.s:1038   .text:0000000000000176 gpio_is_set
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:13     .text:0000000000000000 gpio_cfg_out_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:59     .text:000000000000001c gpio_cfg_in_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:95     .text:0000000000000030 gpio_cfg_opc_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:124    .text:0000000000000040 gpio_cfg_isc_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:145    .text:0000000000000050 gpio_cfg_inv_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:175    .text:0000000000000060 gpio_set_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:208    .text:0000000000000072 gpio_clr_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:241    .text:0000000000000084 gpio_tgl_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:274    .text:0000000000000096 gpio_is_set_np
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:317    .text:00000000000000b8 gpio_cfg_out
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:349    .text:00000000000000cc gpio_cfg_in
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:401    .text:00000000000000ec gpio_cfg_opc
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:450    .text:0000000000000108 gpio_set
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:497    .text:0000000000000122 gpio_clr
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:544    .text:000000000000013c gpio_tgl
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cc4U9gdw.s:591    .text:0000000000000156 gpio_is_set
 
 NO UNDEFINED SYMBOLS

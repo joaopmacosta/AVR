@@ -1,5 +1,5 @@
-#ifndef SERVO_DRIVER_H_INCLUDED_
-#define SERVO_DRIVER_H_INCLUDED_
+#ifndef STEPPER_DRIVER_H_INCLUDED_
+#define STEPPER_DRIVER_H_INCLUDED_
 
 // ISO C 99 headers.
 #include <stdbool.h>
@@ -10,7 +10,7 @@
 #include "../../Inc/driver/io.h"
 
 // This structure contains stepper motor's pins
-typedef struct stepper_motor
+typedef struct
 {
   // A
   gpio_t a;
@@ -21,16 +21,18 @@ typedef struct stepper_motor
   // B'
   gpio_t b_;
   // phase
-  int stp_ph;
-} stepper_motor_t;
+  int phase;
+} stepper_motor;
 
-int step_phase[8][4]{
+stepper_motor stepper_motor_t;
+
+/*bool step_phase[8][4] = {
     {1, 0, 0, 0},
     {0, 1, 0, 0},
     {0, 0, 1, 0},
-    {0, 0, 0, 1}};
+    {0, 0, 0, 1}};*/
 
-int microstep_phase[8][4]{
+bool microstep_phase[8][4] = {
     {1, 0, 0, 0},
     {1, 1, 0, 0},
     {0, 1, 0, 0},
@@ -40,31 +42,15 @@ int microstep_phase[8][4]{
     {0, 0, 0, 1},
     {1, 0, 0, 1}};
 
-#define STEPPER_CFG_START(servo, name, val) servo_cfg_start(servo, &name##_PORT, name##_PIN, val)
+#define STEPPER_CFG_PHASE(val) stepper_motor_t.phase = 0;
+#define STEPPER_CFG_A(name, val) servo_cfg_A(&name##_PORT, name##_PIN, val)
+#define STEPPER_CFG_A_(name, val) servo_cfg_A_(&name##_PORT, name##_PIN, val)
+#define STEPPER_CFG_B(name, val) servo_cfg_B(&name##_PORT, name##_PIN, val)
+#define STEPPER_CFG_B_(name, val) servo_cfg_B_(&name##_PORT, name##_PIN, val)
 
-#define SERVO_START(servo) servo_start(servo)
-#define SERVO_STOP(servo) servo_stop(servo)
-#define SERVO_BRAKE(servo) servo_brake(servo)
-#define SERVO_RUN(servo) servo_run(servo)
+void servo_cfg_A(PORT_t *port, uint8_t pin, bool value);
+void servo_cfg_A_(PORT_t *port, uint8_t pin, bool value);
+void servo_cfg_B(PORT_t *port, uint8_t pin, bool value);
+void servo_cfg_B_(PORT_t *port, uint8_t pin, bool value);
 
-void servo_cfg_start(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
-
-void servo_cfg_brake(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
-
-void servo_cfg_alarm_in(servo_motor_t servo, PORT_t *port, uint8_t pin);
-
-void servo_cfg_alarm_out(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
-
-void servo_cfg_speed_in(servo_motor_t servo, PORT_t *port, uint8_t pin);
-
-void servo_cfg_speed_out(servo_motor_t servo, PORT_t *port, uint8_t pin, bool value);
-
-void servo_start(servo_motor_t servo);
-
-void servo_stop(servo_motor_t servo);
-
-void servo_brake(servo_motor_t servo);
-
-void servo_run(servo_motor_t servo);
-
-#endif //SERVO_DRIVER_H_
+#endif //STEPPER_DRIVER_H_INCLUDED_

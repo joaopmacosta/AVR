@@ -5,11 +5,14 @@
    5               	__CCP__ = 0x34
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
-  10               		.text
-  11               	.Ltext0:
- 507               	.global	CRC8_CPU
- 509               	CRC8_CPU:
- 510               		.stabd	46,0,0
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               	.global	CRC8_CPU
+  13               	CRC8_CPU:
+  14               	.LVL0:
+  15               	.LFB12:
+  16               		.file 1 "Src/driver/cpu_parser.c"
    1:Src/driver/cpu_parser.c **** //***************************************************************************
    2:Src/driver/cpu_parser.c **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
    3:Src/driver/cpu_parser.c **** // Departamento de Engenharia Electrotécnica e de Computadores              *
@@ -54,478 +57,638 @@
   42:Src/driver/cpu_parser.c **** 
   43:Src/driver/cpu_parser.c **** uint8_t CRC8_CPU(unsigned char *data)
   44:Src/driver/cpu_parser.c **** {
- 512               	.LM0:
- 513               	.LFBB1:
- 514               	/* prologue: function */
- 515               	/* frame size = 0 */
- 516               	/* stack size = 0 */
- 517               	.L__stack_usage = 0
- 518 0000 AC01      		movw r20,r24
+  17               		.loc 1 44 1 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  23               		.loc 1 44 1 is_stmt 0 view .LVU1
+  24 0000 9C01      		movw r18,r24
   45:Src/driver/cpu_parser.c ****     uint8_t csum = 0x00;
+  25               		.loc 1 45 5 is_stmt 1 view .LVU2
+  26               	.LVL1:
   46:Src/driver/cpu_parser.c ****     uint8_t t = 0;
- 520               	.LM1:
- 521 0002 20E0      		ldi r18,0
-  45:Src/driver/cpu_parser.c ****     uint8_t csum = 0x00;
- 523               	.LM2:
- 524 0004 80E0      		ldi r24,0
- 525               	.L2:
+  27               		.loc 1 46 5 view .LVU3
   47:Src/driver/cpu_parser.c ****     while (data[t] != '*')
- 527               	.LM3:
- 528 0006 FA01      		movw r30,r20
- 529 0008 E20F      		add r30,r18
- 530 000a F11D      		adc r31,__zero_reg__
- 531 000c 3081      		ld r19,Z
- 532 000e 3A32      		cpi r19,lo8(42)
- 533 0010 01F0      		breq .L5
+  28               		.loc 1 47 5 view .LVU4
+  46:Src/driver/cpu_parser.c ****     uint8_t t = 0;
+  29               		.loc 1 46 13 is_stmt 0 view .LVU5
+  30 0002 90E0      		ldi r25,0
+  45:Src/driver/cpu_parser.c ****     uint8_t csum = 0x00;
+  31               		.loc 1 45 13 view .LVU6
+  32 0004 80E0      		ldi r24,0
+  33               	.LVL2:
+  34               	.L2:
+  35               		.loc 1 47 11 is_stmt 1 view .LVU7
+  36               		.loc 1 47 16 is_stmt 0 view .LVU8
+  37 0006 F901      		movw r30,r18
+  38 0008 E90F      		add r30,r25
+  39 000a F11D      		adc r31,__zero_reg__
+  40 000c 4081      		ld r20,Z
+  41               		.loc 1 47 11 view .LVU9
+  42 000e 4A32      		cpi r20,lo8(42)
+  43 0010 01F4      		brne .L3
   48:Src/driver/cpu_parser.c ****     {
   49:Src/driver/cpu_parser.c ****         csum ^= data[t];
- 535               	.LM4:
- 536 0012 8327      		eor r24,r19
   50:Src/driver/cpu_parser.c ****         t++;
- 538               	.LM5:
- 539 0014 2F5F      		subi r18,lo8(-(1))
- 540 0016 00C0      		rjmp .L2
- 541               	.L5:
   51:Src/driver/cpu_parser.c ****     }
   52:Src/driver/cpu_parser.c ****     //(csum | 0x80)
   53:Src/driver/cpu_parser.c ****     return (csum | 0x80);
+  44               		.loc 1 53 5 is_stmt 1 view .LVU10
   54:Src/driver/cpu_parser.c **** }
- 543               	.LM6:
- 544 0018 8068      		ori r24,lo8(-128)
- 545 001a 0895      		ret
- 551               	.Lscope1:
- 553               		.stabd	78,0,0
- 554               		.section	.rodata.str1.1,"aMS",@progbits,1
- 555               	.LC0:
- 556 0000 2573 00   		.string	"%s"
- 557               		.text
- 560               	.global	cpu_parser
- 562               	cpu_parser:
- 563               		.stabd	46,0,0
+  45               		.loc 1 54 1 is_stmt 0 view .LVU11
+  46 0012 8068      		ori r24,lo8(-128)
+  47               	.LVL3:
+  48               	/* epilogue start */
+  49               		.loc 1 54 1 view .LVU12
+  50 0014 0895      		ret
+  51               	.LVL4:
+  52               	.L3:
+  49:Src/driver/cpu_parser.c ****         t++;
+  53               		.loc 1 49 9 is_stmt 1 view .LVU13
+  49:Src/driver/cpu_parser.c ****         t++;
+  54               		.loc 1 49 14 is_stmt 0 view .LVU14
+  55 0016 8427      		eor r24,r20
+  56               	.LVL5:
+  50:Src/driver/cpu_parser.c ****     }
+  57               		.loc 1 50 9 is_stmt 1 view .LVU15
+  50:Src/driver/cpu_parser.c ****     }
+  58               		.loc 1 50 10 is_stmt 0 view .LVU16
+  59 0018 9F5F      		subi r25,lo8(-(1))
+  60               	.LVL6:
+  50:Src/driver/cpu_parser.c ****     }
+  61               		.loc 1 50 10 view .LVU17
+  62 001a 00C0      		rjmp .L2
+  63               		.cfi_endproc
+  64               	.LFE12:
+  66               		.section	.rodata.str1.1,"aMS",@progbits,1
+  67               	.LC0:
+  68 0000 2573 00   		.string	"%s"
+  69               		.text
+  70               	.global	cpu_parser
+  72               	cpu_parser:
+  73               	.LVL7:
+  74               	.LFB13:
   55:Src/driver/cpu_parser.c **** 
   56:Src/driver/cpu_parser.c **** void cpu_parser(uint8_t data)
   57:Src/driver/cpu_parser.c **** {
- 565               	.LM7:
- 566               	.LFBB2:
- 567 001c CF93      		push r28
- 568               	/* prologue: function */
- 569               	/* frame size = 0 */
- 570               	/* stack size = 1 */
- 571               	.L__stack_usage = 1
- 572 001e C82F      		mov r28,r24
+  75               		.loc 1 57 1 is_stmt 1 view -0
+  76               		.cfi_startproc
+  77               		.loc 1 57 1 is_stmt 0 view .LVU19
+  78 001c CF93      		push r28
+  79               		.cfi_def_cfa_offset 3
+  80               		.cfi_offset 28, -2
+  81               	/* prologue: function */
+  82               	/* frame size = 0 */
+  83               	/* stack size = 1 */
+  84               	.L__stack_usage = 1
+  85 001e C82F      		mov r28,r24
   58:Src/driver/cpu_parser.c ****     if (parser_mode == PARSER)
- 574               	.LM8:
- 575 0020 8091 0000 		lds r24,parser_mode
- 576 0024 8111      		cpse r24,__zero_reg__
- 577 0026 00C0      		rjmp .L7
+  86               		.loc 1 58 5 is_stmt 1 view .LVU20
+  87               		.loc 1 58 21 is_stmt 0 view .LVU21
+  88 0020 8091 0000 		lds r24,parser_mode
+  89               	.LVL8:
+  90               		.loc 1 58 8 view .LVU22
+  91 0024 8111      		cpse r24,__zero_reg__
+  92 0026 00C0      		rjmp .L5
   59:Src/driver/cpu_parser.c ****     {
   60:Src/driver/cpu_parser.c ****         if (data == '@')
- 579               	.LM9:
- 580 0028 C034      		cpi r28,lo8(64)
- 581 002a 01F0      		breq .+2
- 582 002c 00C0      		rjmp .L6
+  93               		.loc 1 60 9 is_stmt 1 view .LVU23
+  94               		.loc 1 60 12 is_stmt 0 view .LVU24
+  95 0028 C034      		cpi r28,lo8(64)
+  96 002a 01F4      		brne .L4
   61:Src/driver/cpu_parser.c ****         {
   62:Src/driver/cpu_parser.c ****             cnt_cpu = 0;
- 584               	.LM10:
- 585 002e 1092 0000 		sts cnt_cpu,__zero_reg__
+  97               		.loc 1 62 13 is_stmt 1 view .LVU25
+  98               		.loc 1 62 21 is_stmt 0 view .LVU26
+  99 002c 1092 0000 		sts cnt_cpu,__zero_reg__
   63:Src/driver/cpu_parser.c ****             memset(&data_cpu_rx, '\0', sizeof(data_cpu_rx));
- 587               	.LM11:
- 588 0032 40E2      		ldi r20,lo8(32)
- 589 0034 50E0      		ldi r21,0
- 590 0036 60E0      		ldi r22,0
- 591 0038 70E0      		ldi r23,0
- 592 003a 80E0      		ldi r24,lo8(data_cpu_rx)
- 593 003c 90E0      		ldi r25,hi8(data_cpu_rx)
- 594 003e 0E94 0000 		call memset
+ 100               		.loc 1 63 13 is_stmt 1 view .LVU27
+ 101 0030 40E2      		ldi r20,lo8(32)
+ 102 0032 50E0      		ldi r21,0
+ 103 0034 70E0      		ldi r23,0
+ 104 0036 60E0      		ldi r22,0
+ 105 0038 80E0      		ldi r24,lo8(data_cpu_rx)
+ 106 003a 90E0      		ldi r25,hi8(data_cpu_rx)
+ 107 003c 0E94 0000 		call memset
+ 108               	.LVL9:
   64:Src/driver/cpu_parser.c ****             data_cpu_rx[cnt_cpu] = data;
- 596               	.LM12:
- 597 0042 8091 0000 		lds r24,cnt_cpu
- 598 0046 E82F      		mov r30,r24
- 599 0048 F0E0      		ldi r31,0
- 600 004a E050      		subi r30,lo8(-(data_cpu_rx))
- 601 004c F040      		sbci r31,hi8(-(data_cpu_rx))
- 602 004e C083      		st Z,r28
+ 109               		.loc 1 64 13 view .LVU28
+ 110               		.loc 1 64 24 is_stmt 0 view .LVU29
+ 111 0040 8091 0000 		lds r24,cnt_cpu
+ 112 0044 E82F      		mov r30,r24
+ 113 0046 F0E0      		ldi r31,0
+ 114               		.loc 1 64 34 view .LVU30
+ 115 0048 E050      		subi r30,lo8(-(data_cpu_rx))
+ 116 004a F040      		sbci r31,hi8(-(data_cpu_rx))
+ 117 004c C083      		st Z,r28
   65:Src/driver/cpu_parser.c ****             cnt_cpu++;
- 604               	.LM13:
- 605 0050 8F5F      		subi r24,lo8(-(1))
- 606 0052 8093 0000 		sts cnt_cpu,r24
+ 118               		.loc 1 65 13 is_stmt 1 view .LVU31
+ 119               		.loc 1 65 20 is_stmt 0 view .LVU32
+ 120 004e 8F5F      		subi r24,lo8(-(1))
+ 121 0050 8093 0000 		sts cnt_cpu,r24
   66:Src/driver/cpu_parser.c ****             parser_mode = DATA;
- 608               	.LM14:
- 609 0056 81E0      		ldi r24,lo8(1)
- 610 0058 8093 0000 		sts parser_mode,r24
- 611 005c 00C0      		rjmp .L11
- 612               	.L7:
+ 122               		.loc 1 66 13 is_stmt 1 view .LVU33
+ 123               		.loc 1 66 25 is_stmt 0 view .LVU34
+ 124 0054 81E0      		ldi r24,lo8(1)
+ 125 0056 8093 0000 		sts parser_mode,r24
   67:Src/driver/cpu_parser.c ****             csum_cpu = data;
+ 126               		.loc 1 67 13 is_stmt 1 view .LVU35
+ 127               	.LVL10:
+ 128               	.L9:
   68:Src/driver/cpu_parser.c ****         }
   69:Src/driver/cpu_parser.c ****     }
   70:Src/driver/cpu_parser.c ****     else if (parser_mode == DATA)
- 614               	.LM15:
- 615 005e 8130      		cpi r24,lo8(1)
- 616 0060 01F4      		brne .L9
- 617 0062 E091 0000 		lds r30,cnt_cpu
   71:Src/driver/cpu_parser.c ****     {
   72:Src/driver/cpu_parser.c ****         //spew("DATA\n", data);
   73:Src/driver/cpu_parser.c ****         if (data == '*')
- 619               	.LM16:
- 620 0066 CA32      		cpi r28,lo8(42)
- 621 0068 01F4      		brne .L10
   74:Src/driver/cpu_parser.c ****         {
   75:Src/driver/cpu_parser.c ****             parser_mode = CSUM;
- 623               	.LM17:
- 624 006a 82E0      		ldi r24,lo8(2)
- 625 006c 8093 0000 		sts parser_mode,r24
   76:Src/driver/cpu_parser.c ****             data_cpu_rx[cnt_cpu] = data;
- 627               	.LM18:
- 628 0070 F0E0      		ldi r31,0
- 629 0072 E050      		subi r30,lo8(-(data_cpu_rx))
- 630 0074 F040      		sbci r31,hi8(-(data_cpu_rx))
- 631 0076 C083      		st Z,r28
- 632 0078 00C0      		rjmp .L6
- 633               	.L10:
   77:Src/driver/cpu_parser.c ****             //verifica cnt_cpu < buf
   78:Src/driver/cpu_parser.c ****         }
   79:Src/driver/cpu_parser.c ****         else
   80:Src/driver/cpu_parser.c ****         {
   81:Src/driver/cpu_parser.c ****             data_cpu_rx[cnt_cpu] = data;
- 635               	.LM19:
- 636 007a AE2F      		mov r26,r30
- 637 007c B0E0      		ldi r27,0
- 638 007e A050      		subi r26,lo8(-(data_cpu_rx))
- 639 0080 B040      		sbci r27,hi8(-(data_cpu_rx))
- 640 0082 CC93      		st X,r28
   82:Src/driver/cpu_parser.c ****             cnt_cpu++;
- 642               	.LM20:
- 643 0084 EF5F      		subi r30,lo8(-(1))
- 644 0086 E093 0000 		sts cnt_cpu,r30
   83:Src/driver/cpu_parser.c ****             csum_cpu ^= data;
- 646               	.LM21:
- 647 008a 8091 0000 		lds r24,csum_cpu
- 648 008e C827      		eor r28,r24
- 649               	.L11:
- 650 0090 C093 0000 		sts csum_cpu,r28
- 651 0094 00C0      		rjmp .L6
- 652               	.L9:
+ 129               		.loc 1 83 22 is_stmt 0 view .LVU36
+ 130 005a C093 0000 		sts csum_cpu,r28
+ 131 005e 00C0      		rjmp .L4
+ 132               	.LVL11:
+ 133               	.L5:
+  70:Src/driver/cpu_parser.c ****     {
+ 134               		.loc 1 70 10 is_stmt 1 view .LVU37
+  70:Src/driver/cpu_parser.c ****     {
+ 135               		.loc 1 70 13 is_stmt 0 view .LVU38
+ 136 0060 8130      		cpi r24,lo8(1)
+ 137 0062 01F4      		brne .L7
+  73:Src/driver/cpu_parser.c ****         {
+ 138               		.loc 1 73 9 is_stmt 1 view .LVU39
+ 139 0064 8091 0000 		lds r24,cnt_cpu
+ 140 0068 E82F      		mov r30,r24
+ 141 006a F0E0      		ldi r31,0
+ 142 006c E050      		subi r30,lo8(-(data_cpu_rx))
+ 143 006e F040      		sbci r31,hi8(-(data_cpu_rx))
+  73:Src/driver/cpu_parser.c ****         {
+ 144               		.loc 1 73 12 is_stmt 0 view .LVU40
+ 145 0070 CA32      		cpi r28,lo8(42)
+ 146 0072 01F4      		brne .L8
+  75:Src/driver/cpu_parser.c ****             data_cpu_rx[cnt_cpu] = data;
+ 147               		.loc 1 75 13 is_stmt 1 view .LVU41
+  75:Src/driver/cpu_parser.c ****             data_cpu_rx[cnt_cpu] = data;
+ 148               		.loc 1 75 25 is_stmt 0 view .LVU42
+ 149 0074 82E0      		ldi r24,lo8(2)
+ 150 0076 8093 0000 		sts parser_mode,r24
+  76:Src/driver/cpu_parser.c ****             //verifica cnt_cpu < buf
+ 151               		.loc 1 76 13 is_stmt 1 view .LVU43
+  76:Src/driver/cpu_parser.c ****             //verifica cnt_cpu < buf
+ 152               		.loc 1 76 34 is_stmt 0 view .LVU44
+ 153 007a C083      		st Z,r28
+ 154               	.LVL12:
+ 155               	.L4:
+ 156               	/* epilogue start */
   84:Src/driver/cpu_parser.c ****         }
   85:Src/driver/cpu_parser.c ****     }
   86:Src/driver/cpu_parser.c ****     else if (parser_mode == CSUM)
- 654               	.LM22:
- 655 0096 8230      		cpi r24,lo8(2)
- 656 0098 01F4      		brne .L6
   87:Src/driver/cpu_parser.c ****     {
   88:Src/driver/cpu_parser.c ****         //if (csum_cpu == data)
   89:Src/driver/cpu_parser.c ****         //{
   90:Src/driver/cpu_parser.c ****         data_cpu_rx[cnt_cpu] = '\0';
- 658               	.LM23:
- 659 009a 80E0      		ldi r24,lo8(data_cpu_rx)
- 660 009c 90E0      		ldi r25,hi8(data_cpu_rx)
- 661 009e E091 0000 		lds r30,cnt_cpu
- 662 00a2 F0E0      		ldi r31,0
- 663 00a4 E050      		subi r30,lo8(-(data_cpu_rx))
- 664 00a6 F040      		sbci r31,hi8(-(data_cpu_rx))
- 665 00a8 1082      		st Z,__zero_reg__
   91:Src/driver/cpu_parser.c ****         sprintf(data_cpu_cmd, "%s", data_cpu_rx);
- 667               	.LM24:
- 668 00aa 9F93      		push r25
- 669 00ac 8F93      		push r24
- 670 00ae 80E0      		ldi r24,lo8(.LC0)
- 671 00b0 90E0      		ldi r25,hi8(.LC0)
- 672 00b2 9F93      		push r25
- 673 00b4 8F93      		push r24
- 674 00b6 80E0      		ldi r24,lo8(data_cpu_cmd)
- 675 00b8 90E0      		ldi r25,hi8(data_cpu_cmd)
- 676 00ba 9F93      		push r25
- 677 00bc 8F93      		push r24
- 678 00be 0E94 0000 		call sprintf
   92:Src/driver/cpu_parser.c ****         new_command = true;
- 680               	.LM25:
- 681 00c2 81E0      		ldi r24,lo8(1)
- 682 00c4 8093 0000 		sts new_command,r24
   93:Src/driver/cpu_parser.c ****         //}
   94:Src/driver/cpu_parser.c ****         parser_mode = PARSER;
- 684               	.LM26:
- 685 00c8 1092 0000 		sts parser_mode,__zero_reg__
- 686 00cc 0F90      		pop __tmp_reg__
- 687 00ce 0F90      		pop __tmp_reg__
- 688 00d0 0F90      		pop __tmp_reg__
- 689 00d2 0F90      		pop __tmp_reg__
- 690 00d4 0F90      		pop __tmp_reg__
- 691 00d6 0F90      		pop __tmp_reg__
- 692               	.L6:
- 693               	/* epilogue start */
   95:Src/driver/cpu_parser.c ****     }
   96:Src/driver/cpu_parser.c **** }
- 695               	.LM27:
- 696 00d8 CF91      		pop r28
- 697 00da 0895      		ret
- 699               	.Lscope2:
- 701               		.stabd	78,0,0
- 702               		.section	.rodata.str1.1
- 703               	.LC1:
- 704 0003 7061 7273 		.string	"parse_cpu_data_rx: %s\n"
- 704      655F 6370 
- 704      755F 6461 
- 704      7461 5F72 
- 704      783A 2025 
- 705               	.LC2:
- 706 001a 2C00      		.string	","
- 707               	.LC3:
- 708 001c 3120 2D20 		.string	"1 - %d\n"
- 708      2564 0A00 
- 709               	.LC4:
- 710 0024 3220 2D20 		.string	"2 - %d\n"
- 710      2564 0A00 
- 711               	.LC5:
- 712 002c 3320 2D20 		.string	"3 - %d\n"
- 712      2564 0A00 
- 713               		.text
- 715               	.global	parse_cpu_data_rx
- 717               	parse_cpu_data_rx:
- 718               		.stabd	46,0,0
+ 157               		.loc 1 96 1 view .LVU45
+ 158 007c CF91      		pop r28
+ 159 007e 0895      		ret
+ 160               	.LVL13:
+ 161               	.L8:
+  81:Src/driver/cpu_parser.c ****             cnt_cpu++;
+ 162               		.loc 1 81 13 is_stmt 1 view .LVU46
+  81:Src/driver/cpu_parser.c ****             cnt_cpu++;
+ 163               		.loc 1 81 34 is_stmt 0 view .LVU47
+ 164 0080 C083      		st Z,r28
+  82:Src/driver/cpu_parser.c ****             csum_cpu ^= data;
+ 165               		.loc 1 82 13 is_stmt 1 view .LVU48
+  82:Src/driver/cpu_parser.c ****             csum_cpu ^= data;
+ 166               		.loc 1 82 20 is_stmt 0 view .LVU49
+ 167 0082 8F5F      		subi r24,lo8(-(1))
+ 168 0084 8093 0000 		sts cnt_cpu,r24
+  83:Src/driver/cpu_parser.c ****         }
+ 169               		.loc 1 83 13 is_stmt 1 view .LVU50
+  83:Src/driver/cpu_parser.c ****         }
+ 170               		.loc 1 83 22 is_stmt 0 view .LVU51
+ 171 0088 8091 0000 		lds r24,csum_cpu
+ 172 008c C827      		eor r28,r24
+ 173               	.LVL14:
+  83:Src/driver/cpu_parser.c ****         }
+ 174               		.loc 1 83 22 view .LVU52
+ 175 008e 00C0      		rjmp .L9
+ 176               	.LVL15:
+ 177               	.L7:
+  86:Src/driver/cpu_parser.c ****     {
+ 178               		.loc 1 86 10 is_stmt 1 view .LVU53
+  86:Src/driver/cpu_parser.c ****     {
+ 179               		.loc 1 86 13 is_stmt 0 view .LVU54
+ 180 0090 8230      		cpi r24,lo8(2)
+ 181 0092 01F4      		brne .L4
+  90:Src/driver/cpu_parser.c ****         sprintf(data_cpu_cmd, "%s", data_cpu_rx);
+ 182               		.loc 1 90 9 is_stmt 1 view .LVU55
+  90:Src/driver/cpu_parser.c ****         sprintf(data_cpu_cmd, "%s", data_cpu_rx);
+ 183               		.loc 1 90 30 is_stmt 0 view .LVU56
+ 184 0094 80E0      		ldi r24,lo8(data_cpu_rx)
+ 185 0096 90E0      		ldi r25,hi8(data_cpu_rx)
+  90:Src/driver/cpu_parser.c ****         sprintf(data_cpu_cmd, "%s", data_cpu_rx);
+ 186               		.loc 1 90 20 view .LVU57
+ 187 0098 E091 0000 		lds r30,cnt_cpu
+ 188 009c F0E0      		ldi r31,0
+  90:Src/driver/cpu_parser.c ****         sprintf(data_cpu_cmd, "%s", data_cpu_rx);
+ 189               		.loc 1 90 30 view .LVU58
+ 190 009e E050      		subi r30,lo8(-(data_cpu_rx))
+ 191 00a0 F040      		sbci r31,hi8(-(data_cpu_rx))
+ 192 00a2 1082      		st Z,__zero_reg__
+  91:Src/driver/cpu_parser.c ****         new_command = true;
+ 193               		.loc 1 91 9 is_stmt 1 view .LVU59
+ 194 00a4 9F93      		push r25
+ 195               		.cfi_def_cfa_offset 4
+ 196 00a6 8F93      		push r24
+ 197               		.cfi_def_cfa_offset 5
+ 198 00a8 80E0      		ldi r24,lo8(.LC0)
+ 199 00aa 90E0      		ldi r25,hi8(.LC0)
+ 200 00ac 9F93      		push r25
+ 201               		.cfi_def_cfa_offset 6
+ 202 00ae 8F93      		push r24
+ 203               		.cfi_def_cfa_offset 7
+ 204 00b0 80E0      		ldi r24,lo8(data_cpu_cmd)
+ 205 00b2 90E0      		ldi r25,hi8(data_cpu_cmd)
+ 206 00b4 9F93      		push r25
+ 207               		.cfi_def_cfa_offset 8
+ 208 00b6 8F93      		push r24
+ 209               		.cfi_def_cfa_offset 9
+ 210 00b8 0E94 0000 		call sprintf
+ 211               	.LVL16:
+  92:Src/driver/cpu_parser.c ****         //}
+ 212               		.loc 1 92 9 view .LVU60
+  92:Src/driver/cpu_parser.c ****         //}
+ 213               		.loc 1 92 21 is_stmt 0 view .LVU61
+ 214 00bc 81E0      		ldi r24,lo8(1)
+ 215 00be 8093 0000 		sts new_command,r24
+  94:Src/driver/cpu_parser.c ****     }
+ 216               		.loc 1 94 9 is_stmt 1 view .LVU62
+  94:Src/driver/cpu_parser.c ****     }
+ 217               		.loc 1 94 21 is_stmt 0 view .LVU63
+ 218 00c2 1092 0000 		sts parser_mode,__zero_reg__
+ 219 00c6 0F90      		pop __tmp_reg__
+ 220 00c8 0F90      		pop __tmp_reg__
+ 221 00ca 0F90      		pop __tmp_reg__
+ 222 00cc 0F90      		pop __tmp_reg__
+ 223 00ce 0F90      		pop __tmp_reg__
+ 224 00d0 0F90      		pop __tmp_reg__
+ 225               		.cfi_def_cfa_offset 3
+ 226               		.loc 1 96 1 view .LVU64
+ 227 00d2 00C0      		rjmp .L4
+ 228               		.cfi_endproc
+ 229               	.LFE13:
+ 231               		.section	.rodata.str1.1
+ 232               	.LC1:
+ 233 0003 7061 7273 		.string	"parse_cpu_data_rx: %s\n"
+ 233      655F 6370 
+ 233      755F 6461 
+ 233      7461 5F72 
+ 233      783A 2025 
+ 234               	.LC2:
+ 235 001a 2C00      		.string	","
+ 236               	.LC3:
+ 237 001c 3120 2D20 		.string	"1 - %d\n"
+ 237      2564 0A00 
+ 238               	.LC4:
+ 239 0024 3220 2D20 		.string	"2 - %d\n"
+ 239      2564 0A00 
+ 240               	.LC5:
+ 241 002c 3320 2D20 		.string	"3 - %d\n"
+ 241      2564 0A00 
+ 242               		.text
+ 243               	.global	parse_cpu_data_rx
+ 245               	parse_cpu_data_rx:
+ 246               	.LVL17:
+ 247               	.LFB14:
   97:Src/driver/cpu_parser.c **** 
   98:Src/driver/cpu_parser.c **** void parse_cpu_data_rx(char *data_rx)
   99:Src/driver/cpu_parser.c **** {
- 720               	.LM28:
- 721               	.LFBB3:
- 722 00dc EF92      		push r14
- 723 00de FF92      		push r15
- 724 00e0 0F93      		push r16
- 725 00e2 1F93      		push r17
- 726 00e4 CF93      		push r28
- 727 00e6 DF93      		push r29
- 728 00e8 CDB7      		in r28,__SP_L__
- 729 00ea DEB7      		in r29,__SP_H__
- 730 00ec A297      		sbiw r28,34
- 731 00ee CDBF      		out __SP_L__,r28
- 732 00f0 DEBF      		out __SP_H__,r29
- 733               	/* prologue: function */
- 734               	/* frame size = 34 */
- 735               	/* stack size = 40 */
- 736               	.L__stack_usage = 40
- 737 00f2 8C01      		movw r16,r24
+ 248               		.loc 1 99 1 is_stmt 1 view -0
+ 249               		.cfi_startproc
+ 250               		.loc 1 99 1 is_stmt 0 view .LVU66
+ 251 00d4 EF92      		push r14
+ 252               		.cfi_def_cfa_offset 3
+ 253               		.cfi_offset 14, -2
+ 254 00d6 FF92      		push r15
+ 255               		.cfi_def_cfa_offset 4
+ 256               		.cfi_offset 15, -3
+ 257 00d8 0F93      		push r16
+ 258               		.cfi_def_cfa_offset 5
+ 259               		.cfi_offset 16, -4
+ 260 00da 1F93      		push r17
+ 261               		.cfi_def_cfa_offset 6
+ 262               		.cfi_offset 17, -5
+ 263 00dc CF93      		push r28
+ 264               		.cfi_def_cfa_offset 7
+ 265               		.cfi_offset 28, -6
+ 266 00de DF93      		push r29
+ 267               		.cfi_def_cfa_offset 8
+ 268               		.cfi_offset 29, -7
+ 269 00e0 CDB7      		in r28,__SP_L__
+ 270 00e2 DEB7      		in r29,__SP_H__
+ 271               		.cfi_def_cfa_register 28
+ 272 00e4 A297      		sbiw r28,34
+ 273               		.cfi_def_cfa_offset 42
+ 274 00e6 CDBF      		out __SP_L__,r28
+ 275 00e8 DEBF      		out __SP_H__,r29
+ 276               	/* prologue: function */
+ 277               	/* frame size = 34 */
+ 278               	/* stack size = 40 */
+ 279               	.L__stack_usage = 40
+ 280 00ea 8C01      		movw r16,r24
  100:Src/driver/cpu_parser.c ****     spew("parse_cpu_data_rx: %s\n", data_rx);
- 739               	.LM29:
- 740 00f4 1F93      		push r17
- 741 00f6 8F93      		push r24
- 742 00f8 80E0      		ldi r24,lo8(.LC1)
- 743 00fa 90E0      		ldi r25,hi8(.LC1)
- 744 00fc 9F93      		push r25
- 745 00fe 8F93      		push r24
- 746 0100 0E94 0000 		call spew
+ 281               		.loc 1 100 5 is_stmt 1 view .LVU67
+ 282 00ec 1F93      		push r17
+ 283 00ee 8F93      		push r24
+ 284 00f0 80E0      		ldi r24,lo8(.LC1)
+ 285 00f2 90E0      		ldi r25,hi8(.LC1)
+ 286               	.LVL18:
+ 287               		.loc 1 100 5 is_stmt 0 view .LVU68
+ 288 00f4 9F93      		push r25
+ 289 00f6 8F93      		push r24
+ 290 00f8 0E94 0000 		call spew
+ 291               	.LVL19:
  101:Src/driver/cpu_parser.c ****     char *word = strtok(data_rx, ",");
- 748               	.LM30:
- 749 0104 60E0      		ldi r22,lo8(.LC2)
- 750 0106 70E0      		ldi r23,hi8(.LC2)
- 751 0108 C801      		movw r24,r16
- 752 010a 0E94 0000 		call strtok
+ 292               		.loc 1 101 5 is_stmt 1 view .LVU69
+ 293               		.loc 1 101 18 is_stmt 0 view .LVU70
+ 294 00fc 60E0      		ldi r22,lo8(.LC2)
+ 295 00fe 70E0      		ldi r23,hi8(.LC2)
+ 296 0100 C801      		movw r24,r16
+ 297 0102 0E94 0000 		call strtok
+ 298               	.LVL20:
  102:Src/driver/cpu_parser.c ****     char pre_mode[2];
+ 299               		.loc 1 102 5 is_stmt 1 view .LVU71
  103:Src/driver/cpu_parser.c ****     sprintf(pre_mode, "%s", word);
- 754               	.LM31:
- 755 010e 9F93      		push r25
- 756 0110 8F93      		push r24
- 757 0112 00E0      		ldi r16,lo8(.LC0)
- 758 0114 10E0      		ldi r17,hi8(.LC0)
- 759 0116 1F93      		push r17
- 760 0118 0F93      		push r16
- 761 011a 7E01      		movw r14,r28
- 762 011c 81E2      		ldi r24,33
- 763 011e E80E      		add r14,r24
- 764 0120 F11C      		adc r15,__zero_reg__
- 765 0122 FF92      		push r15
- 766 0124 EF92      		push r14
- 767 0126 0E94 0000 		call sprintf
+ 300               		.loc 1 103 5 view .LVU72
+ 301 0106 9F93      		push r25
+ 302 0108 8F93      		push r24
+ 303 010a 00E0      		ldi r16,lo8(.LC0)
+ 304 010c 10E0      		ldi r17,hi8(.LC0)
+ 305               	.LVL21:
+ 306               		.loc 1 103 5 is_stmt 0 view .LVU73
+ 307 010e 1F93      		push r17
+ 308 0110 0F93      		push r16
+ 309 0112 7E01      		movw r14,r28
+ 310 0114 21E2      		ldi r18,33
+ 311 0116 E20E      		add r14,r18
+ 312 0118 F11C      		adc r15,__zero_reg__
+ 313 011a FF92      		push r15
+ 314 011c EF92      		push r14
+ 315 011e 0E94 0000 		call sprintf
+ 316               	.LVL22:
  104:Src/driver/cpu_parser.c **** 
  105:Src/driver/cpu_parser.c ****     switch (pre_mode[1])
- 769               	.LM32:
- 770 012a CDBF      		out __SP_L__,r28
- 771 012c DEBF      		out __SP_H__,r29
- 772 012e 8AA1      		ldd r24,Y+34
- 773 0130 8035      		cpi r24,lo8(80)
- 774 0132 01F4      		brne .+2
- 775 0134 00C0      		rjmp .L14
- 776 0136 8335      		cpi r24,lo8(83)
- 777 0138 01F0      		breq .+2
- 778 013a 00C0      		rjmp .L12
- 779               	.LBB2:
+ 317               		.loc 1 105 5 is_stmt 1 view .LVU74
+ 318               		.loc 1 105 21 is_stmt 0 view .LVU75
+ 319 0122 8AA1      		ldd r24,Y+34
+ 320               		.loc 1 105 5 view .LVU76
+ 321 0124 CDBF      		out __SP_L__,r28
+ 322 0126 DEBF      		out __SP_H__,r29
+ 323 0128 8035      		cpi r24,lo8(80)
+ 324 012a 01F4      		brne .+2
+ 325 012c 00C0      		rjmp .L11
+ 326 012e 8335      		cpi r24,lo8(83)
+ 327 0130 01F0      		breq .+2
+ 328 0132 00C0      		rjmp .L10
+ 329               	.LBB2:
  106:Src/driver/cpu_parser.c ****     {
  107:Src/driver/cpu_parser.c ****     case START:
  108:Src/driver/cpu_parser.c ****         word = strtok(NULL, ",");
- 781               	.LM33:
- 782 013c 60E0      		ldi r22,lo8(.LC2)
- 783 013e 70E0      		ldi r23,hi8(.LC2)
- 784 0140 80E0      		ldi r24,0
- 785 0142 90E0      		ldi r25,0
- 786 0144 0E94 0000 		call strtok
+ 330               		.loc 1 108 9 is_stmt 1 view .LVU77
+ 331               		.loc 1 108 16 is_stmt 0 view .LVU78
+ 332 0134 60E0      		ldi r22,lo8(.LC2)
+ 333 0136 70E0      		ldi r23,hi8(.LC2)
+ 334 0138 90E0      		ldi r25,0
+ 335 013a 80E0      		ldi r24,0
+ 336 013c 0E94 0000 		call strtok
+ 337               	.LVL23:
  109:Src/driver/cpu_parser.c ****         pre_mode[0] = word[0];
- 788               	.LM34:
- 789 0148 FC01      		movw r30,r24
- 790 014a 8081      		ld r24,Z
- 791 014c 89A3      		std Y+33,r24
+ 338               		.loc 1 109 9 is_stmt 1 view .LVU79
+ 339               		.loc 1 109 27 is_stmt 0 view .LVU80
+ 340 0140 FC01      		movw r30,r24
+ 341 0142 8081      		ld r24,Z
+ 342               	.LVL24:
+ 343               		.loc 1 109 21 view .LVU81
+ 344 0144 89A3      		std Y+33,r24
  110:Src/driver/cpu_parser.c ****         pre_mode[1] = '\0';
- 793               	.LM35:
- 794 014e 1AA2      		std Y+34,__zero_reg__
+ 345               		.loc 1 110 9 is_stmt 1 view .LVU82
+ 346               		.loc 1 110 21 is_stmt 0 view .LVU83
+ 347 0146 1AA2      		std Y+34,__zero_reg__
  111:Src/driver/cpu_parser.c ****         _cpuData.arg1 = atoi(pre_mode);
- 796               	.LM36:
- 797 0150 C701      		movw r24,r14
- 798 0152 0E94 0000 		call atoi
- 799 0156 8093 0000 		sts _cpuData,r24
- 800 015a 9093 0000 		sts _cpuData+1,r25
+ 348               		.loc 1 111 9 is_stmt 1 view .LVU84
+ 349               		.loc 1 111 25 is_stmt 0 view .LVU85
+ 350 0148 C701      		movw r24,r14
+ 351 014a 0E94 0000 		call atoi
+ 352               	.LVL25:
+ 353               		.loc 1 111 23 view .LVU86
+ 354 014e 8093 0000 		sts _cpuData,r24
+ 355 0152 9093 0000 		sts _cpuData+1,r25
  112:Src/driver/cpu_parser.c ****         spew("1 - %d\n", _cpuData.arg1);
- 802               	.LM37:
- 803 015e 9F93      		push r25
- 804 0160 8F93      		push r24
- 805 0162 80E0      		ldi r24,lo8(.LC3)
- 806 0164 90E0      		ldi r25,hi8(.LC3)
- 807 0166 9F93      		push r25
- 808 0168 8F93      		push r24
- 809 016a 0E94 0000 		call spew
+ 356               		.loc 1 112 9 is_stmt 1 view .LVU87
+ 357 0156 9F93      		push r25
+ 358 0158 8F93      		push r24
+ 359 015a 80E0      		ldi r24,lo8(.LC3)
+ 360 015c 90E0      		ldi r25,hi8(.LC3)
+ 361 015e 9F93      		push r25
+ 362 0160 8F93      		push r24
+ 363 0162 0E94 0000 		call spew
+ 364               	.LVL26:
  113:Src/driver/cpu_parser.c **** 
  114:Src/driver/cpu_parser.c ****         word = strtok(NULL, ",");
- 811               	.LM38:
- 812 016e 60E0      		ldi r22,lo8(.LC2)
- 813 0170 70E0      		ldi r23,hi8(.LC2)
- 814 0172 80E0      		ldi r24,0
- 815 0174 90E0      		ldi r25,0
- 816 0176 0E94 0000 		call strtok
+ 365               		.loc 1 114 9 view .LVU88
+ 366               		.loc 1 114 16 is_stmt 0 view .LVU89
+ 367 0166 60E0      		ldi r22,lo8(.LC2)
+ 368 0168 70E0      		ldi r23,hi8(.LC2)
+ 369 016a 90E0      		ldi r25,0
+ 370 016c 80E0      		ldi r24,0
+ 371 016e 0E94 0000 		call strtok
+ 372               	.LVL27:
  115:Src/driver/cpu_parser.c ****         char rx_arg2[16];
+ 373               		.loc 1 115 9 is_stmt 1 view .LVU90
  116:Src/driver/cpu_parser.c ****         sprintf(rx_arg2, "%s", word);
- 818               	.LM39:
- 819 017a 9F93      		push r25
- 820 017c 8F93      		push r24
- 821 017e 1F93      		push r17
- 822 0180 0F93      		push r16
- 823 0182 7E01      		movw r14,r28
- 824 0184 F1E1      		ldi r31,17
- 825 0186 EF0E      		add r14,r31
- 826 0188 F11C      		adc r15,__zero_reg__
- 827 018a FF92      		push r15
- 828 018c EF92      		push r14
- 829 018e 0E94 0000 		call sprintf
+ 374               		.loc 1 116 9 view .LVU91
+ 375 0172 9F93      		push r25
+ 376 0174 8F93      		push r24
+ 377 0176 1F93      		push r17
+ 378 0178 0F93      		push r16
+ 379 017a 7E01      		movw r14,r28
+ 380 017c F1E1      		ldi r31,17
+ 381 017e EF0E      		add r14,r31
+ 382 0180 F11C      		adc r15,__zero_reg__
+ 383 0182 FF92      		push r15
+ 384 0184 EF92      		push r14
+ 385 0186 0E94 0000 		call sprintf
+ 386               	.LVL28:
  117:Src/driver/cpu_parser.c ****         rx_arg2[strlen(rx_arg2)] = '\0';
- 831               	.LM40:
- 832 0192 C701      		movw r24,r14
- 833 0194 0E94 0000 		call strlen
- 834 0198 8E0D      		add r24,r14
- 835 019a 9F1D      		adc r25,r15
- 836 019c FC01      		movw r30,r24
- 837 019e 1082      		st Z,__zero_reg__
+ 387               		.loc 1 117 9 view .LVU92
+ 388               		.loc 1 117 17 is_stmt 0 view .LVU93
+ 389 018a C701      		movw r24,r14
+ 390 018c 0E94 0000 		call strlen
+ 391               	.LVL29:
+ 392               		.loc 1 117 34 view .LVU94
+ 393 0190 F701      		movw r30,r14
+ 394 0192 E80F      		add r30,r24
+ 395 0194 F91F      		adc r31,r25
+ 396 0196 1082      		st Z,__zero_reg__
  118:Src/driver/cpu_parser.c **** 
  119:Src/driver/cpu_parser.c ****         _cpuData.arg2 = atoi(rx_arg2);
- 839               	.LM41:
- 840 01a0 C701      		movw r24,r14
- 841 01a2 0E94 0000 		call atoi
- 842 01a6 8093 0000 		sts _cpuData+2,r24
- 843 01aa 9093 0000 		sts _cpuData+3,r25
+ 397               		.loc 1 119 9 is_stmt 1 view .LVU95
+ 398               		.loc 1 119 25 is_stmt 0 view .LVU96
+ 399 0198 C701      		movw r24,r14
+ 400 019a 0E94 0000 		call atoi
+ 401               	.LVL30:
+ 402               		.loc 1 119 23 view .LVU97
+ 403 019e 8093 0000 		sts _cpuData+2,r24
+ 404 01a2 9093 0000 		sts _cpuData+3,r25
  120:Src/driver/cpu_parser.c ****         spew("2 - %d\n", _cpuData.arg2);
- 845               	.LM42:
- 846 01ae 9F93      		push r25
- 847 01b0 8F93      		push r24
- 848 01b2 80E0      		ldi r24,lo8(.LC4)
- 849 01b4 90E0      		ldi r25,hi8(.LC4)
- 850 01b6 9F93      		push r25
- 851 01b8 8F93      		push r24
- 852 01ba 0E94 0000 		call spew
+ 405               		.loc 1 120 9 is_stmt 1 view .LVU98
+ 406 01a6 9F93      		push r25
+ 407 01a8 8F93      		push r24
+ 408 01aa 80E0      		ldi r24,lo8(.LC4)
+ 409 01ac 90E0      		ldi r25,hi8(.LC4)
+ 410 01ae 9F93      		push r25
+ 411 01b0 8F93      		push r24
+ 412 01b2 0E94 0000 		call spew
+ 413               	.LVL31:
  121:Src/driver/cpu_parser.c **** 
  122:Src/driver/cpu_parser.c ****         word = strtok(NULL, ",");
- 854               	.LM43:
- 855 01be 60E0      		ldi r22,lo8(.LC2)
- 856 01c0 70E0      		ldi r23,hi8(.LC2)
- 857 01c2 80E0      		ldi r24,0
- 858 01c4 90E0      		ldi r25,0
- 859 01c6 0E94 0000 		call strtok
+ 414               		.loc 1 122 9 view .LVU99
+ 415               		.loc 1 122 16 is_stmt 0 view .LVU100
+ 416 01b6 60E0      		ldi r22,lo8(.LC2)
+ 417 01b8 70E0      		ldi r23,hi8(.LC2)
+ 418 01ba 90E0      		ldi r25,0
+ 419 01bc 80E0      		ldi r24,0
+ 420 01be 0E94 0000 		call strtok
+ 421               	.LVL32:
  123:Src/driver/cpu_parser.c ****         char rx_arg3[16];
+ 422               		.loc 1 123 9 is_stmt 1 view .LVU101
  124:Src/driver/cpu_parser.c ****         sprintf(rx_arg3, "%s", word);
- 861               	.LM44:
- 862 01ca 9F93      		push r25
- 863 01cc 8F93      		push r24
- 864 01ce 1F93      		push r17
- 865 01d0 0F93      		push r16
- 866 01d2 8E01      		movw r16,r28
- 867 01d4 0F5F      		subi r16,-1
- 868 01d6 1F4F      		sbci r17,-1
- 869 01d8 1F93      		push r17
- 870 01da 0F93      		push r16
- 871 01dc 0E94 0000 		call sprintf
+ 423               		.loc 1 124 9 view .LVU102
+ 424 01c2 9F93      		push r25
+ 425 01c4 8F93      		push r24
+ 426 01c6 1F93      		push r17
+ 427 01c8 0F93      		push r16
+ 428 01ca 8E01      		movw r16,r28
+ 429 01cc 0F5F      		subi r16,-1
+ 430 01ce 1F4F      		sbci r17,-1
+ 431 01d0 1F93      		push r17
+ 432 01d2 0F93      		push r16
+ 433 01d4 0E94 0000 		call sprintf
+ 434               	.LVL33:
  125:Src/driver/cpu_parser.c ****         rx_arg3[strlen(rx_arg3)] = '\0';
- 873               	.LM45:
- 874 01e0 C801      		movw r24,r16
- 875 01e2 0E94 0000 		call strlen
- 876 01e6 800F      		add r24,r16
- 877 01e8 911F      		adc r25,r17
- 878 01ea FC01      		movw r30,r24
- 879 01ec 1082      		st Z,__zero_reg__
+ 435               		.loc 1 125 9 view .LVU103
+ 436               		.loc 1 125 17 is_stmt 0 view .LVU104
+ 437 01d8 C801      		movw r24,r16
+ 438 01da 0E94 0000 		call strlen
+ 439               	.LVL34:
+ 440               		.loc 1 125 34 view .LVU105
+ 441 01de F801      		movw r30,r16
+ 442 01e0 E80F      		add r30,r24
+ 443 01e2 F91F      		adc r31,r25
+ 444 01e4 1082      		st Z,__zero_reg__
  126:Src/driver/cpu_parser.c **** 
  127:Src/driver/cpu_parser.c ****         _cpuData.arg3 = atoi(rx_arg3);
- 881               	.LM46:
- 882 01ee C801      		movw r24,r16
- 883 01f0 0E94 0000 		call atoi
- 884 01f4 8093 0000 		sts _cpuData+4,r24
- 885 01f8 9093 0000 		sts _cpuData+5,r25
+ 445               		.loc 1 127 9 is_stmt 1 view .LVU106
+ 446               		.loc 1 127 25 is_stmt 0 view .LVU107
+ 447 01e6 C801      		movw r24,r16
+ 448 01e8 0E94 0000 		call atoi
+ 449               	.LVL35:
+ 450               		.loc 1 127 23 view .LVU108
+ 451 01ec 8093 0000 		sts _cpuData+4,r24
+ 452 01f0 9093 0000 		sts _cpuData+5,r25
  128:Src/driver/cpu_parser.c ****         spew("3 - %d\n", _cpuData.arg3);
- 887               	.LM47:
- 888 01fc 9F93      		push r25
- 889 01fe 8F93      		push r24
- 890 0200 80E0      		ldi r24,lo8(.LC5)
- 891 0202 90E0      		ldi r25,hi8(.LC5)
- 892 0204 9F93      		push r25
- 893 0206 8F93      		push r24
- 894 0208 0E94 0000 		call spew
+ 453               		.loc 1 128 9 is_stmt 1 view .LVU109
+ 454 01f4 9F93      		push r25
+ 455 01f6 8F93      		push r24
+ 456 01f8 80E0      		ldi r24,lo8(.LC5)
+ 457 01fa 90E0      		ldi r25,hi8(.LC5)
+ 458 01fc 9F93      		push r25
+ 459 01fe 8F93      		push r24
+ 460 0200 0E94 0000 		call spew
+ 461               	.LVL36:
  129:Src/driver/cpu_parser.c **** 
  130:Src/driver/cpu_parser.c ****         //DO STUFF!
  131:Src/driver/cpu_parser.c ****         GPIO_SET(LED);
- 896               	.LM48:
- 897 020c 60E0      		ldi r22,0
- 898 020e 80E4      		ldi r24,lo8(64)
- 899 0210 96E0      		ldi r25,lo8(6)
- 900 0212 0E94 0000 		call gpio_set_np
+ 462               		.loc 1 131 9 view .LVU110
+ 463 0204 60E0      		ldi r22,0
+ 464 0206 80E4      		ldi r24,lo8(64)
+ 465 0208 96E0      		ldi r25,lo8(6)
+ 466 020a 0E94 0000 		call gpio_set_np
+ 467               	.LVL37:
  132:Src/driver/cpu_parser.c ****         break;
- 902               	.LM49:
- 903 0216 CDBF      		out __SP_L__,r28
- 904 0218 DEBF      		out __SP_H__,r29
- 905 021a 00C0      		rjmp .L12
- 906               	.L14:
+ 468               		.loc 1 132 9 view .LVU111
+ 469 020e CDBF      		out __SP_L__,r28
+ 470 0210 DEBF      		out __SP_H__,r29
+ 471               	.L10:
+ 472               	/* epilogue start */
+ 473               		.loc 1 132 9 is_stmt 0 view .LVU112
+ 474               	.LBE2:
  133:Src/driver/cpu_parser.c **** 
  134:Src/driver/cpu_parser.c ****     case STOP:
  135:Src/driver/cpu_parser.c ****         GPIO_CLR(LED);
- 908               	.LM50:
- 909 021c 60E0      		ldi r22,0
- 910 021e 80E4      		ldi r24,lo8(64)
- 911 0220 96E0      		ldi r25,lo8(6)
- 912 0222 0E94 0000 		call gpio_clr_np
- 913               	.L12:
- 914               	/* epilogue start */
- 915               	.LBE2:
  136:Src/driver/cpu_parser.c ****         break;
  137:Src/driver/cpu_parser.c **** 
  138:Src/driver/cpu_parser.c ****     default:
  139:Src/driver/cpu_parser.c ****         break;
  140:Src/driver/cpu_parser.c ****     }
  141:Src/driver/cpu_parser.c **** }
- 917               	.LM51:
- 918 0226 A296      		adiw r28,34
- 919 0228 CDBF      		out __SP_L__,r28
- 920 022a DEBF      		out __SP_H__,r29
- 921 022c DF91      		pop r29
- 922 022e CF91      		pop r28
- 923 0230 1F91      		pop r17
- 924 0232 0F91      		pop r16
- 925 0234 FF90      		pop r15
- 926 0236 EF90      		pop r14
- 927 0238 0895      		ret
- 936               	.Lscope3:
- 938               		.stabd	78,0,0
- 940               	.global	check_new_command
- 942               	check_new_command:
- 943               		.stabd	46,0,0
+ 475               		.loc 1 141 1 view .LVU113
+ 476 0212 A296      		adiw r28,34
+ 477 0214 CDBF      		out __SP_L__,r28
+ 478 0216 DEBF      		out __SP_H__,r29
+ 479 0218 DF91      		pop r29
+ 480 021a CF91      		pop r28
+ 481 021c 1F91      		pop r17
+ 482 021e 0F91      		pop r16
+ 483 0220 FF90      		pop r15
+ 484 0222 EF90      		pop r14
+ 485 0224 0895      		ret
+ 486               	.L11:
+ 487               	.LBB3:
+ 135:Src/driver/cpu_parser.c ****         break;
+ 488               		.loc 1 135 9 is_stmt 1 view .LVU114
+ 489 0226 60E0      		ldi r22,0
+ 490 0228 80E4      		ldi r24,lo8(64)
+ 491 022a 96E0      		ldi r25,lo8(6)
+ 492 022c 0E94 0000 		call gpio_clr_np
+ 493               	.LVL38:
+ 136:Src/driver/cpu_parser.c **** 
+ 494               		.loc 1 136 9 view .LVU115
+ 495               	.LBE3:
+ 496               		.loc 1 141 1 is_stmt 0 view .LVU116
+ 497 0230 00C0      		rjmp .L10
+ 498               		.cfi_endproc
+ 499               	.LFE14:
+ 501               	.global	check_new_command
+ 503               	check_new_command:
+ 504               	.LFB15:
  142:Src/driver/cpu_parser.c **** 
  143:Src/driver/cpu_parser.c **** bool check_new_command(void)
  144:Src/driver/cpu_parser.c **** {
- 945               	.LM52:
- 946               	.LFBB4:
- 947               	/* prologue: function */
- 948               	/* frame size = 0 */
- 949               	/* stack size = 0 */
- 950               	.L__stack_usage = 0
+ 505               		.loc 1 144 1 is_stmt 1 view -0
+ 506               		.cfi_startproc
+ 507               	/* prologue: function */
+ 508               	/* frame size = 0 */
+ 509               	/* stack size = 0 */
+ 510               	.L__stack_usage = 0
  145:Src/driver/cpu_parser.c ****     if (new_command)
+ 511               		.loc 1 145 5 view .LVU118
  146:Src/driver/cpu_parser.c ****     {
  147:Src/driver/cpu_parser.c ****         return true;
  148:Src/driver/cpu_parser.c ****     }
@@ -534,112 +697,125 @@
  151:Src/driver/cpu_parser.c ****         return false;
  152:Src/driver/cpu_parser.c ****     }
  153:Src/driver/cpu_parser.c **** }
- 952               	.LM53:
- 953 023a 8091 0000 		lds r24,new_command
- 954 023e 0895      		ret
- 956               	.Lscope4:
- 958               		.stabd	78,0,0
- 960               	.global	get_cpu_cmd
- 962               	get_cpu_cmd:
- 963               		.stabd	46,0,0
+ 512               		.loc 1 153 1 is_stmt 0 view .LVU119
+ 513 0232 8091 0000 		lds r24,new_command
+ 514               	/* epilogue start */
+ 515 0236 0895      		ret
+ 516               		.cfi_endproc
+ 517               	.LFE15:
+ 519               	.global	get_cpu_cmd
+ 521               	get_cpu_cmd:
+ 522               	.LFB16:
  154:Src/driver/cpu_parser.c **** 
  155:Src/driver/cpu_parser.c **** char* get_cpu_cmd() // NOT WORKING... :(
  156:Src/driver/cpu_parser.c **** {
- 965               	.LM54:
- 966               	.LFBB5:
- 967               	/* prologue: function */
- 968               	/* frame size = 0 */
- 969               	/* stack size = 0 */
- 970               	.L__stack_usage = 0
+ 523               		.loc 1 156 1 is_stmt 1 view -0
+ 524               		.cfi_startproc
+ 525               	/* prologue: function */
+ 526               	/* frame size = 0 */
+ 527               	/* stack size = 0 */
+ 528               	.L__stack_usage = 0
  157:Src/driver/cpu_parser.c ****     return data_cpu_cmd;
+ 529               		.loc 1 157 5 view .LVU121
  158:Src/driver/cpu_parser.c **** }
- 972               	.LM55:
- 973 0240 80E0      		ldi r24,lo8(data_cpu_cmd)
- 974 0242 90E0      		ldi r25,hi8(data_cpu_cmd)
- 975 0244 0895      		ret
- 977               	.Lscope5:
- 979               		.stabd	78,0,0
- 981               	.global	new_command_read
- 983               	new_command_read:
- 984               		.stabd	46,0,0
+ 530               		.loc 1 158 1 is_stmt 0 view .LVU122
+ 531 0238 80E0      		ldi r24,lo8(data_cpu_cmd)
+ 532 023a 90E0      		ldi r25,hi8(data_cpu_cmd)
+ 533               	/* epilogue start */
+ 534 023c 0895      		ret
+ 535               		.cfi_endproc
+ 536               	.LFE16:
+ 538               	.global	new_command_read
+ 540               	new_command_read:
+ 541               	.LFB17:
  159:Src/driver/cpu_parser.c **** 
  160:Src/driver/cpu_parser.c **** void new_command_read()
  161:Src/driver/cpu_parser.c **** {
- 986               	.LM56:
- 987               	.LFBB6:
- 988               	/* prologue: function */
- 989               	/* frame size = 0 */
- 990               	/* stack size = 0 */
- 991               	.L__stack_usage = 0
+ 542               		.loc 1 161 1 is_stmt 1 view -0
+ 543               		.cfi_startproc
+ 544               	/* prologue: function */
+ 545               	/* frame size = 0 */
+ 546               	/* stack size = 0 */
+ 547               	.L__stack_usage = 0
  162:Src/driver/cpu_parser.c ****     new_command = false;
- 993               	.LM57:
- 994 0246 1092 0000 		sts new_command,__zero_reg__
- 995 024a 0895      		ret
- 997               	.Lscope6:
- 999               		.stabd	78,0,0
- 1000               	.global	new_command
- 1001               		.section .bss
- 1004               	new_command:
- 1005 0000 00        		.zero	1
- 1006               	.global	cnt_cpu
- 1009               	cnt_cpu:
- 1010 0001 00        		.zero	1
- 1011               		.comm	data_cpu_cmd,32,1
- 1012               		.comm	data_cpu_rx,32,1
- 1013               	.global	parser_mode
- 1016               	parser_mode:
- 1017 0002 00        		.zero	1
- 1018               		.comm	csum_cpu,1,1
- 1019               		.comm	text_to_send_cpu,16,1
- 1020               	.global	is_preamble
- 1021               		.data
- 1024               	is_preamble:
- 1025 0000 01        		.byte	1
- 1026               	.global	all_mode
- 1027               		.section	.rodata.str1.1
- 1028               	.LC6:
- 1029 0034 6100      		.string	"a"
- 1030               		.data
- 1033               	all_mode:
- 1034 0001 0000      		.word	.LC6
- 1035               	.global	state_mode
- 1036               		.section	.rodata.str1.1
- 1037               	.LC7:
- 1038 0036 7300      		.string	"s"
- 1039               		.data
- 1042               	state_mode:
- 1043 0003 0000      		.word	.LC7
- 1044               		.comm	_cpuData,6,1
- 1056               		.text
- 1058               	.Letext0:
- 1059               		.ident	"GCC: (GNU) 5.4.0"
- 1060               	.global __do_copy_data
- 1061               	.global __do_clear_bss
+ 548               		.loc 1 162 5 view .LVU124
+ 549               		.loc 1 162 17 is_stmt 0 view .LVU125
+ 550 023e 1092 0000 		sts new_command,__zero_reg__
+ 551               	/* epilogue start */
+ 163:Src/driver/cpu_parser.c **** }...
+ 552               		.loc 1 163 1 view .LVU126
+ 553 0242 0895      		ret
+ 554               		.cfi_endproc
+ 555               	.LFE17:
+ 557               	.global	new_command
+ 558               		.section .bss
+ 561               	new_command:
+ 562 0000 00        		.zero	1
+ 563               	.global	cnt_cpu
+ 566               	cnt_cpu:
+ 567 0001 00        		.zero	1
+ 568               		.comm	data_cpu_cmd,32,1
+ 569               		.comm	data_cpu_rx,32,1
+ 570               	.global	parser_mode
+ 573               	parser_mode:
+ 574 0002 00        		.zero	1
+ 575               		.comm	csum_cpu,1,1
+ 576               		.comm	text_to_send_cpu,16,1
+ 577               	.global	is_preamble
+ 578               		.data
+ 581               	is_preamble:
+ 582 0000 01        		.byte	1
+ 583               	.global	all_mode
+ 584               		.section	.rodata.str1.1
+ 585               	.LC6:
+ 586 0034 6100      		.string	"a"
+ 587               		.data
+ 590               	all_mode:
+ 591 0001 0000      		.word	.LC6
+ 592               	.global	state_mode
+ 593               		.section	.rodata.str1.1
+ 594               	.LC7:
+ 595 0036 7300      		.string	"s"
+ 596               		.data
+ 599               	state_mode:
+ 600 0003 0000      		.word	.LC7
+ 601               		.comm	_cpuData,6,1
+ 602               		.text
+ 603               	.Letext0:
+ 604               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 605               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 606               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdio.h"
+ 607               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 608               		.file 6 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
+ 609               		.file 7 "Src/driver/../../Inc/driver/cpu_parser.h"
+ 610               		.file 8 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/string.h"
+ 611               		.file 9 "Src/driver/../../Inc/driver/uart.h"
+ 612               		.file 10 "Src/driver/../../Inc/driver/io.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 cpu_parser.c
-     /tmp/ccb1WQSC.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccb1WQSC.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccb1WQSC.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccb1WQSC.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccb1WQSC.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccb1WQSC.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccb1WQSC.s:509    .text:0000000000000000 CRC8_CPU
-     /tmp/ccb1WQSC.s:562    .text:000000000000001c cpu_parser
-     /tmp/ccb1WQSC.s:1016   .bss:0000000000000002 parser_mode
-     /tmp/ccb1WQSC.s:1009   .bss:0000000000000001 cnt_cpu
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:13     .text:0000000000000000 CRC8_CPU
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:72     .text:000000000000001c cpu_parser
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:573    .bss:0000000000000002 parser_mode
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:566    .bss:0000000000000001 cnt_cpu
                             *COM*:0000000000000020 data_cpu_rx
                             *COM*:0000000000000001 csum_cpu
                             *COM*:0000000000000020 data_cpu_cmd
-     /tmp/ccb1WQSC.s:1004   .bss:0000000000000000 new_command
-     /tmp/ccb1WQSC.s:717    .text:00000000000000dc parse_cpu_data_rx
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:561    .bss:0000000000000000 new_command
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:245    .text:00000000000000d4 parse_cpu_data_rx
                             *COM*:0000000000000006 _cpuData
-     /tmp/ccb1WQSC.s:942    .text:000000000000023a check_new_command
-     /tmp/ccb1WQSC.s:962    .text:0000000000000240 get_cpu_cmd
-     /tmp/ccb1WQSC.s:983    .text:0000000000000246 new_command_read
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:503    .text:0000000000000232 check_new_command
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:521    .text:0000000000000238 get_cpu_cmd
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:540    .text:000000000000023e new_command_read
                             *COM*:0000000000000010 text_to_send_cpu
-     /tmp/ccb1WQSC.s:1024   .data:0000000000000000 is_preamble
-     /tmp/ccb1WQSC.s:1033   .data:0000000000000001 all_mode
-     /tmp/ccb1WQSC.s:1042   .data:0000000000000003 state_mode
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:581    .data:0000000000000000 is_preamble
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:590    .data:0000000000000001 all_mode
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccmppT3u.s:599    .data:0000000000000003 state_mode
 
 UNDEFINED SYMBOLS
 memset

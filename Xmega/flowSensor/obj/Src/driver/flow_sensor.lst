@@ -5,455 +5,381 @@
    5               	__CCP__ = 0x34
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
-  10               		.text
-  11               	.Ltext0:
- 494               	.global	__vector_47
- 496               	__vector_47:
- 497               		.stabd	46,0,0
- 499               	.Ltext1:
-   1:Src/driver/../../Inc/core/clock.h **** //***************************************************************************
-   2:Src/driver/../../Inc/core/clock.h **** // Copyright (C) 2017 Laboratório de Sistemas e Tecnologia Subaquática      *
-   3:Src/driver/../../Inc/core/clock.h **** // Departamento de Engenharia Electrotécnica e de Computadores              *
-   4:Src/driver/../../Inc/core/clock.h **** // Rua Dr. Roberto Frias, 4200-465 Porto, Portugal                          *
-   5:Src/driver/../../Inc/core/clock.h **** //***************************************************************************
-   6:Src/driver/../../Inc/core/clock.h **** // Author: João Costa                                                       *
-   7:Src/driver/../../Inc/core/clock.h **** //***************************************************************************
-   8:Src/driver/../../Inc/core/clock.h **** 
-   9:Src/driver/../../Inc/core/clock.h **** #ifndef CLOCK_H_INCLUDED_
-  10:Src/driver/../../Inc/core/clock.h **** #define CLOCK_H_INCLUDED_
-  11:Src/driver/../../Inc/core/clock.h **** 
-  12:Src/driver/../../Inc/core/clock.h **** /// ISO C 99 headers.
-  13:Src/driver/../../Inc/core/clock.h **** #include <stddef.h>
-  14:Src/driver/../../Inc/core/clock.h **** #include <inttypes.h>
-  15:Src/driver/../../Inc/core/clock.h **** #include <stdio.h>
-  16:Src/driver/../../Inc/core/clock.h **** #include <stdlib.h>
-  17:Src/driver/../../Inc/core/clock.h **** #include <string.h>
-  18:Src/driver/../../Inc/core/clock.h **** 
-  19:Src/driver/../../Inc/core/clock.h **** // Local Headers
-  20:Src/driver/../../Inc/core/clock.h **** #include "../../config.h"
-  21:Src/driver/../../Inc/core/clock.h **** #include "../../TC_driver/TC_driver.h"
-  22:Src/driver/../../Inc/core/clock.h **** 
-  23:Src/driver/../../Inc/core/clock.h **** // AVR headers.
-  24:Src/driver/../../Inc/core/clock.h **** #include <avr/io.h>
-  25:Src/driver/../../Inc/core/clock.h **** 
-  26:Src/driver/../../Inc/core/clock.h **** 
-  27:Src/driver/../../Inc/core/clock.h **** static inline void
-  28:Src/driver/../../Inc/core/clock.h **** clock_init(void)
-  29:Src/driver/../../Inc/core/clock.h **** {
-  30:Src/driver/../../Inc/core/clock.h ****   // Setting the period/TOP of timer E1
-  31:Src/driver/../../Inc/core/clock.h ****   // F_CPU/prescaler * period - 1 = ticks
-  32:Src/driver/../../Inc/core/clock.h ****   // 32000000/256 * 0.001s - 1 = 125
-  33:Src/driver/../../Inc/core/clock.h ****   TC_SetPeriod(&TCE0, 125); //TE0C->PER = 125
-  34:Src/driver/../../Inc/core/clock.h **** 
-  35:Src/driver/../../Inc/core/clock.h ****   // Setting the clock of timer E0 (F_CPU/256)
-  36:Src/driver/../../Inc/core/clock.h ****   TC0_ConfigClockSource(&TCE0, TC_CLKSEL_DIV256_gc); //tc->CTRLA[3:0] = xxx
-  37:Src/driver/../../Inc/core/clock.h **** 
-  38:Src/driver/../../Inc/core/clock.h ****   // Setting timer E0 to the normal operating mode
-  39:Src/driver/../../Inc/core/clock.h ****   TC0_ConfigWGM(&TCE0, TC_WGMODE_NORMAL_gc); //Normal Mode: TOP = PER, OVF = TOP
-  40:Src/driver/../../Inc/core/clock.h **** 
-  41:Src/driver/../../Inc/core/clock.h ****   // Enabling low-priority overflow interruptions
-  42:Src/driver/../../Inc/core/clock.h ****   TC0_SetOverflowIntLevel(&TCE0, TC_OVFINTLVL_LO_gc);
-  43:Src/driver/../../Inc/core/clock.h **** }
-  44:Src/driver/../../Inc/core/clock.h **** 
-  45:Src/driver/../../Inc/core/clock.h **** uint16_t T0_millis = 0;
-  46:Src/driver/../../Inc/core/clock.h **** //uint8_t over=0;
-  47:Src/driver/../../Inc/core/clock.h **** ISR(TCE0_OVF_vect)
-  48:Src/driver/../../Inc/core/clock.h **** {
- 501               	.LM0:
- 502               	.LFBB1:
- 503 0000 1F92      		push r1
- 504 0002 0F92      		push r0
- 505 0004 0FB6      		in r0,__SREG__
- 506 0006 0F92      		push r0
- 507 0008 1124      		clr __zero_reg__
- 508 000a 8F93      		push r24
- 509 000c 9F93      		push r25
- 510               	/* prologue: Signal */
- 511               	/* frame size = 0 */
- 512               	/* stack size = 5 */
- 513               	.L__stack_usage = 5
-  49:Src/driver/../../Inc/core/clock.h ****   T0_millis++;
- 515               	.LM1:
- 516 000e 8091 0000 		lds r24,T0_millis
- 517 0012 9091 0000 		lds r25,T0_millis+1
- 518 0016 0196      		adiw r24,1
- 519 0018 8093 0000 		sts T0_millis,r24
- 520 001c 9093 0000 		sts T0_millis+1,r25
- 521               	/* epilogue start */
-  50:Src/driver/../../Inc/core/clock.h ****   //GPIO_TGL(LED);
-  51:Src/driver/../../Inc/core/clock.h **** }
- 523               	.LM2:
- 524 0020 9F91      		pop r25
- 525 0022 8F91      		pop r24
- 526 0024 0F90      		pop r0
- 527 0026 0FBE      		out __SREG__,r0
- 528 0028 0F90      		pop r0
- 529 002a 1F90      		pop r1
- 530 002c 1895      		reti
- 532               	.Lscope1:
- 534               		.stabd	78,0,0
- 535               	.global	__floatunsisf
- 536               	.global	__divsf3
- 537               	.global	__mulsf3
- 538               	.global	__fixunssfsi
- 539               		.section	.rodata.str1.1,"aMS",@progbits,1
- 540               	.LC0:
- 541 0000 7469 636B 		.string	"ticks: %d | flow: %d | flow(ml): %d | qty: %d\n"
- 541      733A 2025 
- 541      6420 7C20 
- 541      666C 6F77 
- 541      3A20 2564 
- 542               		.text
- 544               	.global	update_flows
- 546               	update_flows:
- 547               		.stabd	46,0,0
- 549               	.Ltext2:
-   1:Src/driver/flow_sensor.c **** #include "../../Inc/driver/flow_sensor.h"
-   2:Src/driver/flow_sensor.c **** #include "../../Inc/driver/io.h"
-   3:Src/driver/flow_sensor.c **** #include "../../Inc/core/clock.h"
-   4:Src/driver/flow_sensor.c **** #include "../../TC_driver/avr_compiler.h"
-   5:Src/driver/flow_sensor.c **** #include "../../config.h"
-   6:Src/driver/flow_sensor.c **** 
-   7:Src/driver/flow_sensor.c **** // VARS
-   8:Src/driver/flow_sensor.c **** uint16_t flow1 = 0;
-   9:Src/driver/flow_sensor.c **** uint16_t flowTimer = 0;
-  10:Src/driver/flow_sensor.c **** uint16_t flow1ml = 0;
-  11:Src/driver/flow_sensor.c **** uint16_t flow1Ticks = 0;
-  12:Src/driver/flow_sensor.c **** uint16_t qtyWater1 = 0;
-  13:Src/driver/flow_sensor.c **** 
-  14:Src/driver/flow_sensor.c **** //end stop1
-  15:Src/driver/flow_sensor.c **** int switch1 = 1;
-  16:Src/driver/flow_sensor.c **** int last_switch1;
-  17:Src/driver/flow_sensor.c **** int end_stop1 = 0;
-  18:Src/driver/flow_sensor.c **** 
-  19:Src/driver/flow_sensor.c **** void update_flows(void)
-  20:Src/driver/flow_sensor.c **** {
- 551               	.LM3:
- 552               	.LFBB2:
- 553 002e AF92      		push r10
- 554 0030 BF92      		push r11
- 555 0032 CF92      		push r12
- 556 0034 DF92      		push r13
- 557 0036 EF92      		push r14
- 558 0038 FF92      		push r15
- 559 003a 0F93      		push r16
- 560 003c 1F93      		push r17
- 561 003e CF93      		push r28
- 562 0040 DF93      		push r29
- 563               	/* prologue: function */
- 564               	/* frame size = 0 */
- 565               	/* stack size = 10 */
- 566               	.L__stack_usage = 10
-  21:Src/driver/flow_sensor.c ****   //if (T0_millis - flowTimer >= FLOW_REFRESH_TIME)
-  22:Src/driver/flow_sensor.c ****   //{
-  23:Src/driver/flow_sensor.c ****     // The flow sensor outputs 4.5 pulses per second per litre/minute of flow.
-  24:Src/driver/flow_sensor.c ****     //float calibrationFactor = 4.5 * (4250/500) ; //4.5;
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               	.global	__floatunsisf
+  12               	.global	__divsf3
+  13               	.global	__mulsf3
+  14               	.global	__fixunssfsi
+  15               		.section	.rodata.str1.1,"aMS",@progbits,1
+  16               	.LC0:
+  17 0000 7469 636B 		.string	"ticks: %d | flow: %d | flow(ml): %d | qty: %d\n"
+  17      733A 2025 
+  17      6420 7C20 
+  17      666C 6F77 
+  17      3A20 2564 
+  18               		.text
+  19               	.global	get_flow1_value
+  21               	get_flow1_value:
+  22               	.LFB12:
+  23               		.file 1 "Src/driver/flow_sensor.c"
+   1:Src/driver/flow_sensor.c **** #include "../../Inc/driver/io.h"
+   2:Src/driver/flow_sensor.c **** #include "../../Inc/driver/clock.h"
+   3:Src/driver/flow_sensor.c **** #include "../../Inc/driver/flow_sensor.h"
+   4:Src/driver/flow_sensor.c **** #include "../../Inc/driver/uart.h"
+   5:Src/driver/flow_sensor.c **** #include "../../TC_driver/avr_compiler.h"
+   6:Src/driver/flow_sensor.c **** #include "../../config.h"
+   7:Src/driver/flow_sensor.c **** 
+   8:Src/driver/flow_sensor.c **** // VARS
+   9:Src/driver/flow_sensor.c **** uint16_t flow1 = 0;
+  10:Src/driver/flow_sensor.c **** uint16_t flowTimer = 0;
+  11:Src/driver/flow_sensor.c **** uint16_t flow1ml = 0;
+  12:Src/driver/flow_sensor.c **** uint16_t flow1Ticks = 0;
+  13:Src/driver/flow_sensor.c **** uint16_t qtyWater1 = 0;
+  14:Src/driver/flow_sensor.c **** 
+  15:Src/driver/flow_sensor.c **** //end stop1
+  16:Src/driver/flow_sensor.c **** int switch1 = 1;
+  17:Src/driver/flow_sensor.c **** int last_switch1;
+  18:Src/driver/flow_sensor.c **** int end_stop1 = 0;
+  19:Src/driver/flow_sensor.c **** 
+  20:Src/driver/flow_sensor.c **** void get_flow1_value(void)
+  21:Src/driver/flow_sensor.c **** {
+  24               		.loc 1 21 1 view -0
+  25               		.cfi_startproc
+  26 0000 CF93      		push r28
+  27               		.cfi_def_cfa_offset 3
+  28               		.cfi_offset 28, -2
+  29 0002 DF93      		push r29
+  30               		.cfi_def_cfa_offset 4
+  31               		.cfi_offset 29, -3
+  32 0004 00D0      		rcall .
+  33 0006 00D0      		rcall .
+  34               		.cfi_def_cfa_offset 8
+  35 0008 CDB7      		in r28,__SP_L__
+  36 000a DEB7      		in r29,__SP_H__
+  37               		.cfi_def_cfa_register 28
+  38               	/* prologue: function */
+  39               	/* frame size = 4 */
+  40               	/* stack size = 6 */
+  41               	.L__stack_usage = 6
+  22:Src/driver/flow_sensor.c ****   if (get_timer_value() - flowTimer >= FLOW_REFRESH_TIME)
+  42               		.loc 1 22 3 view .LVU1
+  43               		.loc 1 22 7 is_stmt 0 view .LVU2
+  44 000c 0E94 0000 		call get_timer_value
+  45               	.LVL0:
+  46               		.loc 1 22 25 view .LVU3
+  47 0010 2091 0000 		lds r18,flowTimer
+  48 0014 3091 0000 		lds r19,flowTimer+1
+  49 0018 821B      		sub r24,r18
+  50 001a 930B      		sbc r25,r19
+  51               		.loc 1 22 6 view .LVU4
+  52 001c 883E      		cpi r24,-24
+  53 001e 9340      		sbci r25,3
+  54 0020 00F4      		brsh .+2
+  55 0022 00C0      		rjmp .L1
+  23:Src/driver/flow_sensor.c ****   {
+  24:Src/driver/flow_sensor.c ****     //spew("time: %d\n", get_timer_value()/1000);
   25:Src/driver/flow_sensor.c ****     
-  26:Src/driver/flow_sensor.c ****     // Because this loop may not complete in exactly 1 second intervals we calculate
-  27:Src/driver/flow_sensor.c ****     // the number of milliseconds that have passed since the last execution and use
-  28:Src/driver/flow_sensor.c ****     // that to scale the output. We also apply the calibrationFactor to scale the output
-  29:Src/driver/flow_sensor.c ****     // based on the number of pulses per second per units of measure (litres/minute in
-  30:Src/driver/flow_sensor.c ****     // this case) coming from the sensor.
-  31:Src/driver/flow_sensor.c ****     flow1 = (((FLOW_REFRESH_TIME / (T0_millis - flowTimer)) * flow1Ticks) / CALIBRATION_FACTOR)/60*
- 568               	.LM4:
- 569 0042 A090 0000 		lds r10,T0_millis
- 570 0046 B090 0000 		lds r11,T0_millis+1
- 571 004a C091 0000 		lds r28,flow1Ticks
- 572 004e D091 0000 		lds r29,flow1Ticks+1
- 573 0052 8091 0000 		lds r24,flowTimer
- 574 0056 9091 0000 		lds r25,flowTimer+1
- 575 005a B501      		movw r22,r10
- 576 005c 681B      		sub r22,r24
- 577 005e 790B      		sbc r23,r25
- 578 0060 08EE      		ldi r16,lo8(-24)
- 579 0062 13E0      		ldi r17,lo8(3)
- 580 0064 C801      		movw r24,r16
- 581 0066 0E94 0000 		call __udivmodhi4
- 582 006a CB01      		movw r24,r22
- 583 006c 8C9F      		mul r24,r28
- 584 006e B001      		movw r22,r0
- 585 0070 8D9F      		mul r24,r29
- 586 0072 700D      		add r23,r0
- 587 0074 9C9F      		mul r25,r28
- 588 0076 700D      		add r23,r0
- 589 0078 1124      		clr r1
- 590 007a 80E0      		ldi r24,0
- 591 007c 90E0      		ldi r25,0
- 592 007e 0E94 0000 		call __floatunsisf
- 593 0082 20E0      		ldi r18,0
- 594 0084 30E0      		ldi r19,0
- 595 0086 40E1      		ldi r20,lo8(16)
- 596 0088 52E4      		ldi r21,lo8(66)
- 597 008a 0E94 0000 		call __divsf3
- 598 008e 20E0      		ldi r18,0
- 599 0090 30E0      		ldi r19,0
- 600 0092 40E7      		ldi r20,lo8(112)
- 601 0094 52E4      		ldi r21,lo8(66)
- 602 0096 0E94 0000 		call __divsf3
- 603 009a 20E0      		ldi r18,0
- 604 009c 30E0      		ldi r19,0
- 605 009e 4AE7      		ldi r20,lo8(122)
- 606 00a0 54E4      		ldi r21,lo8(68)
- 607 00a2 0E94 0000 		call __mulsf3
- 608 00a6 0E94 0000 		call __fixunssfsi
- 609 00aa 6B01      		movw r12,r22
- 610 00ac 7C01      		movw r14,r24
- 611 00ae 6093 0000 		sts flow1,r22
- 612 00b2 7093 0000 		sts flow1+1,r23
-  32:Src/driver/flow_sensor.c ****     //flow2 = (((FLOW_REFRESH_TIME / (T0_millis - flowTimer)) * flow2Ticks) / CALIBRATION_FACTOR)/6
-  33:Src/driver/flow_sensor.c ****     // Note the time this processing pass was executed. Note that because we've
-  34:Src/driver/flow_sensor.c ****     // disabled interrupts the millis() function won't actually be incrementing right
-  35:Src/driver/flow_sensor.c ****     // at this point, but it will still return the value it was set to just before
-  36:Src/driver/flow_sensor.c ****     // interrupts went away.
-  37:Src/driver/flow_sensor.c **** 
-  38:Src/driver/flow_sensor.c ****     flowTimer = T0_millis;
- 614               	.LM5:
- 615 00b6 A092 0000 		sts flowTimer,r10
- 616 00ba B092 0000 		sts flowTimer+1,r11
-  39:Src/driver/flow_sensor.c **** 
-  40:Src/driver/flow_sensor.c ****     // Divide the flow rate in litres/minute by 60 to determine how many litres have
-  41:Src/driver/flow_sensor.c ****     // passed through the sensor in this 1 second interval, then multiply by 1000 to
-  42:Src/driver/flow_sensor.c ****     // convert to millilitres.
-  43:Src/driver/flow_sensor.c ****     flow1ml = (flow1 / 60) * 1000;
- 618               	.LM6:
- 619 00be CB01      		movw r24,r22
- 620 00c0 6CE3      		ldi r22,lo8(60)
- 621 00c2 70E0      		ldi r23,0
- 622 00c4 0E94 0000 		call __udivmodhi4
- 623 00c8 609F      		mul r22,r16
- 624 00ca 9001      		movw r18,r0
- 625 00cc 619F      		mul r22,r17
- 626 00ce 300D      		add r19,r0
- 627 00d0 709F      		mul r23,r16
- 628 00d2 300D      		add r19,r0
- 629 00d4 1124      		clr r1
- 630 00d6 2093 0000 		sts flow1ml,r18
- 631 00da 3093 0000 		sts flow1ml+1,r19
-  44:Src/driver/flow_sensor.c ****     //flow2ml = (flow2 / 60) * 1000;
-  45:Src/driver/flow_sensor.c ****     
-  46:Src/driver/flow_sensor.c ****     // Add the millilitres passed in this second to the cumulative total
-  47:Src/driver/flow_sensor.c ****     qtyWater1 += flow1;
- 633               	.LM7:
- 634 00de 0091 0000 		lds r16,qtyWater1
- 635 00e2 1091 0000 		lds r17,qtyWater1+1
- 636 00e6 0C0D      		add r16,r12
- 637 00e8 1D1D      		adc r17,r13
- 638 00ea 0093 0000 		sts qtyWater1,r16
- 639 00ee 1093 0000 		sts qtyWater1+1,r17
-  48:Src/driver/flow_sensor.c ****     //qtyWater2 += flow2;
-  49:Src/driver/flow_sensor.c **** 
-  50:Src/driver/flow_sensor.c ****     spew("ticks: %d | flow: %d | flow(ml): %d | qty: %d\n", flow1Ticks, flow1, flow1ml, qtyWater1);
- 641               	.LM8:
- 642 00f2 A601      		movw r20,r12
- 643 00f4 BE01      		movw r22,r28
- 644 00f6 80E0      		ldi r24,lo8(.LC0)
- 645 00f8 90E0      		ldi r25,hi8(.LC0)
- 646 00fa 0E94 0000 		call spew
-  51:Src/driver/flow_sensor.c **** 
-  52:Src/driver/flow_sensor.c ****     flow1 = 0;
- 648               	.LM9:
- 649 00fe 1092 0000 		sts flow1,__zero_reg__
- 650 0102 1092 0000 		sts flow1+1,__zero_reg__
-  53:Src/driver/flow_sensor.c ****     flow1Ticks = 0;
- 652               	.LM10:
- 653 0106 1092 0000 		sts flow1Ticks,__zero_reg__
- 654 010a 1092 0000 		sts flow1Ticks+1,__zero_reg__
- 655               	/* epilogue start */
-  54:Src/driver/flow_sensor.c ****   //}
-  55:Src/driver/flow_sensor.c **** }
- 657               	.LM11:
- 658 010e DF91      		pop r29
- 659 0110 CF91      		pop r28
- 660 0112 1F91      		pop r17
- 661 0114 0F91      		pop r16
- 662 0116 FF90      		pop r15
- 663 0118 EF90      		pop r14
- 664 011a DF90      		pop r13
- 665 011c CF90      		pop r12
- 666 011e BF90      		pop r11
- 667 0120 AF90      		pop r10
- 668 0122 0895      		ret
- 670               	.Lscope2:
- 672               		.stabd	78,0,0
- 674               	.global	measure_water_level
- 676               	measure_water_level:
- 677               		.stabd	46,0,0
-  56:Src/driver/flow_sensor.c **** 
-  57:Src/driver/flow_sensor.c **** float measure_water_level(void){
- 679               	.LM12:
- 680               	.LFBB3:
- 681               	/* prologue: function */
- 682               	/* frame size = 0 */
- 683               	/* stack size = 0 */
- 684               	.L__stack_usage = 0
-  58:Src/driver/flow_sensor.c ****   return 100.1;
-  59:Src/driver/flow_sensor.c **** }
- 686               	.LM13:
- 687 0124 63E3      		ldi r22,lo8(51)
- 688 0126 73E3      		ldi r23,lo8(51)
- 689 0128 88EC      		ldi r24,lo8(-56)
- 690 012a 92E4      		ldi r25,lo8(66)
- 691 012c 0895      		ret
- 693               	.Lscope3:
- 695               		.stabd	78,0,0
- 697               	.global	__vector_66
- 699               	__vector_66:
- 700               		.stabd	46,0,0
-  60:Src/driver/flow_sensor.c **** 
-  61:Src/driver/flow_sensor.c **** ISR(PORTA_INT0_vect)
-  62:Src/driver/flow_sensor.c **** {
- 702               	.LM14:
- 703               	.LFBB4:
- 704 012e 1F92      		push r1
- 705 0130 0F92      		push r0
- 706 0132 0FB6      		in r0,__SREG__
- 707 0134 0F92      		push r0
- 708 0136 1124      		clr __zero_reg__
- 709 0138 8F93      		push r24
- 710 013a 9F93      		push r25
- 711               	/* prologue: Signal */
- 712               	/* frame size = 0 */
- 713               	/* stack size = 5 */
- 714               	.L__stack_usage = 5
-  63:Src/driver/flow_sensor.c ****   flow1Ticks++;
- 716               	.LM15:
- 717 013c 8091 0000 		lds r24,flow1Ticks
- 718 0140 9091 0000 		lds r25,flow1Ticks+1
- 719 0144 0196      		adiw r24,1
- 720 0146 8093 0000 		sts flow1Ticks,r24
- 721 014a 9093 0000 		sts flow1Ticks+1,r25
- 722               	/* epilogue start */
-  64:Src/driver/flow_sensor.c **** }
- 724               	.LM16:
- 725 014e 9F91      		pop r25
- 726 0150 8F91      		pop r24
- 727 0152 0F90      		pop r0
- 728 0154 0FBE      		out __SREG__,r0
- 729 0156 0F90      		pop r0
- 730 0158 1F90      		pop r1
- 731 015a 1895      		reti
- 733               	.Lscope4:
- 735               		.stabd	78,0,0
- 737               	.global	__vector_2
- 739               	__vector_2:
- 740               		.stabd	46,0,0
-  65:Src/driver/flow_sensor.c **** 
-  66:Src/driver/flow_sensor.c **** ISR(PORTC_INT0_vect)
-  67:Src/driver/flow_sensor.c **** {
- 742               	.LM17:
- 743               	.LFBB5:
- 744 015c 1F92      		push r1
- 745 015e 0F92      		push r0
- 746 0160 0FB6      		in r0,__SREG__
- 747 0162 0F92      		push r0
- 748 0164 1124      		clr __zero_reg__
- 749 0166 2F93      		push r18
- 750 0168 3F93      		push r19
- 751 016a 4F93      		push r20
- 752 016c 5F93      		push r21
- 753 016e 6F93      		push r22
- 754 0170 7F93      		push r23
- 755 0172 8F93      		push r24
- 756 0174 9F93      		push r25
- 757 0176 AF93      		push r26
- 758 0178 BF93      		push r27
- 759 017a EF93      		push r30
- 760 017c FF93      		push r31
- 761               	/* prologue: Signal */
- 762               	/* frame size = 0 */
- 763               	/* stack size = 15 */
- 764               	.L__stack_usage = 15
-  68:Src/driver/flow_sensor.c ****   GPIO_TGL(LED);
- 766               	.LM18:
- 767 017e 60E0      		ldi r22,0
- 768 0180 80E4      		ldi r24,lo8(64)
- 769 0182 96E0      		ldi r25,lo8(6)
- 770 0184 0E94 0000 		call gpio_tgl_np
- 771               	/* epilogue start */
-  69:Src/driver/flow_sensor.c **** }...
- 773               	.LM19:
- 774 0188 FF91      		pop r31
- 775 018a EF91      		pop r30
- 776 018c BF91      		pop r27
- 777 018e AF91      		pop r26
- 778 0190 9F91      		pop r25
- 779 0192 8F91      		pop r24
- 780 0194 7F91      		pop r23
- 781 0196 6F91      		pop r22
- 782 0198 5F91      		pop r21
- 783 019a 4F91      		pop r20
- 784 019c 3F91      		pop r19
- 785 019e 2F91      		pop r18
- 786 01a0 0F90      		pop r0
- 787 01a2 0FBE      		out __SREG__,r0
- 788 01a4 0F90      		pop r0
- 789 01a6 1F90      		pop r1
- 790 01a8 1895      		reti
- 792               	.Lscope5:
- 794               		.stabd	78,0,0
- 795               	.global	end_stop1
- 796               		.section .bss
- 799               	end_stop1:
- 800 0000 0000      		.zero	2
- 801               		.comm	last_switch1,2,1
- 802               	.global	switch1
- 803               		.data
- 806               	switch1:
- 807 0000 0100      		.word	1
- 808               	.global	qtyWater1
- 809               		.section .bss
- 812               	qtyWater1:
- 813 0002 0000      		.zero	2
- 814               	.global	flow1Ticks
- 817               	flow1Ticks:
- 818 0004 0000      		.zero	2
- 819               	.global	flow1ml
- 822               	flow1ml:
- 823 0006 0000      		.zero	2
- 824               	.global	flowTimer
- 827               	flowTimer:
- 828 0008 0000      		.zero	2
- 829               	.global	flow1
- 832               	flow1:
- 833 000a 0000      		.zero	2
- 834               	.global	T0_millis
- 837               	T0_millis:
- 838 000c 0000      		.zero	2
- 848               		.text
- 850               	.Letext0:
- 851               		.ident	"GCC: (GNU) 5.4.0"
- 852               	.global __do_copy_data
- 853               	.global __do_clear_bss
+  26:Src/driver/flow_sensor.c ****     // The flow sensor outputs 4.5 pulses per second per litre/minute of flow.
+  27:Src/driver/flow_sensor.c ****     //float calibrationFactor = 4.5 * (4250/500) ; //4.5;
+  28:Src/driver/flow_sensor.c **** 
+  29:Src/driver/flow_sensor.c ****     // Because this loop may not complete in exactly 1 second intervals we calculate
+  30:Src/driver/flow_sensor.c ****     // the number of milliseconds that have passed since the last execution and use
+  31:Src/driver/flow_sensor.c ****     // that to scale the output. We also apply the calibrationFactor to scale the output
+  32:Src/driver/flow_sensor.c ****     // based on the number of pulses per second per units of measure (litres/minute in
+  33:Src/driver/flow_sensor.c ****     // this case) coming from the sensor.
+  34:Src/driver/flow_sensor.c ****     
+  35:Src/driver/flow_sensor.c ****     flow1 = (((FLOW_REFRESH_TIME / (get_timer_value() - flowTimer)) * flow1Ticks) / CALIBRATION_FAC
+  56               		.loc 1 35 5 is_stmt 1 view .LVU5
+  57               		.loc 1 35 37 is_stmt 0 view .LVU6
+  58 0024 0E94 0000 		call get_timer_value
+  59               	.LVL1:
+  60               		.loc 1 35 55 view .LVU7
+  61 0028 2091 0000 		lds r18,flowTimer
+  62 002c 3091 0000 		lds r19,flowTimer+1
+  63 0030 BC01      		movw r22,r24
+  64 0032 621B      		sub r22,r18
+  65 0034 730B      		sbc r23,r19
+  66               		.loc 1 35 34 view .LVU8
+  67 0036 88EE      		ldi r24,lo8(-24)
+  68 0038 93E0      		ldi r25,lo8(3)
+  69 003a 0E94 0000 		call __udivmodhi4
+  70               		.loc 1 35 69 view .LVU9
+  71 003e 2091 0000 		lds r18,flow1Ticks
+  72 0042 3091 0000 		lds r19,flow1Ticks+1
+  73 0046 629F      		mul r22,r18
+  74 0048 C001      		movw r24,r0
+  75 004a 639F      		mul r22,r19
+  76 004c 900D      		add r25,r0
+  77 004e 729F      		mul r23,r18
+  78 0050 900D      		add r25,r0
+  79 0052 1124      		clr r1
+  80               		.loc 1 35 83 view .LVU10
+  81 0054 9C01      		movw r18,r24
+  82 0056 50E0      		ldi r21,0
+  83 0058 40E0      		ldi r20,0
+  84 005a 2983      		std Y+1,r18
+  85 005c 3A83      		std Y+2,r19
+  86 005e 4B83      		std Y+3,r20
+  87 0060 5C83      		std Y+4,r21
+  88 0062 CA01      		movw r24,r20
+  89 0064 B901      		movw r22,r18
+  90 0066 0E94 0000 		call __floatunsisf
+  91               	.LVL2:
+  92 006a 20E0      		ldi r18,0
+  93 006c 30E0      		ldi r19,0
+  94 006e 40E1      		ldi r20,lo8(16)
+  95 0070 52E4      		ldi r21,lo8(66)
+  96 0072 6983      		std Y+1,r22
+  97 0074 7A83      		std Y+2,r23
+  98 0076 8B83      		std Y+3,r24
+  99 0078 9C83      		std Y+4,r25
+ 100 007a 6981      		ldd r22,Y+1
+ 101 007c 7A81      		ldd r23,Y+2
+ 102 007e 8B81      		ldd r24,Y+3
+ 103 0080 9C81      		ldd r25,Y+4
+ 104 0082 0E94 0000 		call __divsf3
+ 105               	.LVL3:
+ 106               		.loc 1 35 104 view .LVU11
+ 107 0086 20E0      		ldi r18,0
+ 108 0088 30E0      		ldi r19,0
+ 109 008a 40E7      		ldi r20,lo8(112)
+ 110 008c 52E4      		ldi r21,lo8(66)
+ 111 008e 6983      		std Y+1,r22
+ 112 0090 7A83      		std Y+2,r23
+ 113 0092 8B83      		std Y+3,r24
+ 114 0094 9C83      		std Y+4,r25
+ 115 0096 6981      		ldd r22,Y+1
+ 116 0098 7A81      		ldd r23,Y+2
+ 117 009a 8B81      		ldd r24,Y+3
+ 118 009c 9C81      		ldd r25,Y+4
+ 119 009e 0E94 0000 		call __divsf3
+ 120               	.LVL4:
+ 121               		.loc 1 35 107 view .LVU12
+ 122 00a2 20E0      		ldi r18,0
+ 123 00a4 30E0      		ldi r19,0
+ 124 00a6 4AE7      		ldi r20,lo8(122)
+ 125 00a8 54E4      		ldi r21,lo8(68)
+ 126 00aa 6983      		std Y+1,r22
+ 127 00ac 7A83      		std Y+2,r23
+ 128 00ae 8B83      		std Y+3,r24
+ 129 00b0 9C83      		std Y+4,r25
+ 130 00b2 6981      		ldd r22,Y+1
+ 131 00b4 7A81      		ldd r23,Y+2
+ 132 00b6 8B81      		ldd r24,Y+3
+ 133 00b8 9C81      		ldd r25,Y+4
+ 134 00ba 0E94 0000 		call __mulsf3
+ 135               	.LVL5:
+ 136               		.loc 1 35 11 view .LVU13
+ 137 00be 6983      		std Y+1,r22
+ 138 00c0 7A83      		std Y+2,r23
+ 139 00c2 8B83      		std Y+3,r24
+ 140 00c4 9C83      		std Y+4,r25
+ 141 00c6 6981      		ldd r22,Y+1
+ 142 00c8 7A81      		ldd r23,Y+2
+ 143 00ca 8B81      		ldd r24,Y+3
+ 144 00cc 9C81      		ldd r25,Y+4
+ 145 00ce 0E94 0000 		call __fixunssfsi
+ 146               	.LVL6:
+ 147 00d2 6093 0000 		sts flow1,r22
+ 148 00d6 7093 0000 		sts flow1+1,r23
+  36:Src/driver/flow_sensor.c ****     
+  37:Src/driver/flow_sensor.c ****     //flow2 = (((FLOW_REFRESH_TIME / (T0_millis - flowTimer)) * flow2Ticks) / CALIBRATION_FACTOR)/6
+  38:Src/driver/flow_sensor.c ****     // Note the time this processing pass was executed. Note that because we've
+  39:Src/driver/flow_sensor.c ****     // disabled interrupts the millis() function won't actually be incrementing right
+  40:Src/driver/flow_sensor.c ****     // at this point, but it will still return the value it was set to just before
+  41:Src/driver/flow_sensor.c ****     // interrupts went away.
+  42:Src/driver/flow_sensor.c **** 
+  43:Src/driver/flow_sensor.c ****     flowTimer = get_timer_value();
+ 149               		.loc 1 43 5 is_stmt 1 view .LVU14
+ 150               		.loc 1 43 17 is_stmt 0 view .LVU15
+ 151 00da 0E94 0000 		call get_timer_value
+ 152               	.LVL7:
+ 153               		.loc 1 43 15 view .LVU16
+ 154 00de 8093 0000 		sts flowTimer,r24
+ 155 00e2 9093 0000 		sts flowTimer+1,r25
+  44:Src/driver/flow_sensor.c **** 
+  45:Src/driver/flow_sensor.c ****     // Divide the flow rate in litres/minute by 60 to determine how many litres have
+  46:Src/driver/flow_sensor.c ****     // passed through the sensor in this 1 second interval, then multiply by 1000 to
+  47:Src/driver/flow_sensor.c ****     // convert to millilitres.
+  48:Src/driver/flow_sensor.c ****     flow1ml = (flow1 / 60) * 1000;
+ 156               		.loc 1 48 5 is_stmt 1 view .LVU17
+ 157               		.loc 1 48 22 is_stmt 0 view .LVU18
+ 158 00e6 2091 0000 		lds r18,flow1
+ 159 00ea 3091 0000 		lds r19,flow1+1
+ 160 00ee C901      		movw r24,r18
+ 161 00f0 6CE3      		ldi r22,lo8(60)
+ 162 00f2 70E0      		ldi r23,0
+ 163 00f4 0E94 0000 		call __udivmodhi4
+ 164               		.loc 1 48 28 view .LVU19
+ 165 00f8 88EE      		ldi r24,lo8(-24)
+ 166 00fa 93E0      		ldi r25,lo8(3)
+ 167 00fc 689F      		mul r22,r24
+ 168 00fe A001      		movw r20,r0
+ 169 0100 699F      		mul r22,r25
+ 170 0102 500D      		add r21,r0
+ 171 0104 789F      		mul r23,r24
+ 172 0106 500D      		add r21,r0
+ 173 0108 1124      		clr r1
+ 174               		.loc 1 48 13 view .LVU20
+ 175 010a 4093 0000 		sts flow1ml,r20
+ 176 010e 5093 0000 		sts flow1ml+1,r21
+  49:Src/driver/flow_sensor.c ****     //flow2ml = (flow2 / 60) * 1000;
+  50:Src/driver/flow_sensor.c ****     
+  51:Src/driver/flow_sensor.c ****     // Add the millilitres passed in this second to the cumulative total
+  52:Src/driver/flow_sensor.c ****     qtyWater1 += flow1;
+ 177               		.loc 1 52 5 is_stmt 1 view .LVU21
+ 178               		.loc 1 52 15 is_stmt 0 view .LVU22
+ 179 0112 8091 0000 		lds r24,qtyWater1
+ 180 0116 9091 0000 		lds r25,qtyWater1+1
+ 181 011a 820F      		add r24,r18
+ 182 011c 931F      		adc r25,r19
+ 183 011e 8093 0000 		sts qtyWater1,r24
+ 184 0122 9093 0000 		sts qtyWater1+1,r25
+  53:Src/driver/flow_sensor.c ****     //qtyWater2 += flow2;
+  54:Src/driver/flow_sensor.c **** 
+  55:Src/driver/flow_sensor.c ****     spew("ticks: %d | flow: %d | flow(ml): %d | qty: %d\n", flow1Ticks, flow1, flow1ml, qtyWater1);
+ 185               		.loc 1 55 5 is_stmt 1 view .LVU23
+ 186 0126 9F93      		push r25
+ 187 0128 8F93      		push r24
+ 188 012a 5F93      		push r21
+ 189 012c 4F93      		push r20
+ 190 012e 3F93      		push r19
+ 191 0130 2F93      		push r18
+ 192 0132 8091 0000 		lds r24,flow1Ticks+1
+ 193 0136 8F93      		push r24
+ 194 0138 8091 0000 		lds r24,flow1Ticks
+ 195 013c 8F93      		push r24
+ 196 013e 80E0      		ldi r24,lo8(.LC0)
+ 197 0140 90E0      		ldi r25,hi8(.LC0)
+ 198 0142 9F93      		push r25
+ 199 0144 8F93      		push r24
+ 200 0146 0E94 0000 		call spew
+ 201               	.LVL8:
+  56:Src/driver/flow_sensor.c ****     //spew("ticks: %d\n", flow1Ticks);
+  57:Src/driver/flow_sensor.c **** 
+  58:Src/driver/flow_sensor.c ****     flow1 = 0;
+ 202               		.loc 1 58 5 view .LVU24
+ 203               		.loc 1 58 11 is_stmt 0 view .LVU25
+ 204 014a 1092 0000 		sts flow1,__zero_reg__
+ 205 014e 1092 0000 		sts flow1+1,__zero_reg__
+  59:Src/driver/flow_sensor.c ****     flow1Ticks = 0;
+ 206               		.loc 1 59 5 is_stmt 1 view .LVU26
+ 207               		.loc 1 59 16 is_stmt 0 view .LVU27
+ 208 0152 1092 0000 		sts flow1Ticks,__zero_reg__
+ 209 0156 1092 0000 		sts flow1Ticks+1,__zero_reg__
+ 210 015a CDBF      		out __SP_L__,r28
+ 211 015c DEBF      		out __SP_H__,r29
+ 212               	.L1:
+ 213               	/* epilogue start */
+  60:Src/driver/flow_sensor.c ****   }
+  61:Src/driver/flow_sensor.c **** }
+ 214               		.loc 1 61 1 view .LVU28
+ 215 015e 2496      		adiw r28,4
+ 216 0160 CDBF      		out __SP_L__,r28
+ 217 0162 DEBF      		out __SP_H__,r29
+ 218 0164 DF91      		pop r29
+ 219 0166 CF91      		pop r28
+ 220 0168 0895      		ret
+ 221               		.cfi_endproc
+ 222               	.LFE12:
+ 224               	.global	__vector_64
+ 226               	__vector_64:
+ 227               	.LFB13:
+  62:Src/driver/flow_sensor.c **** 
+  63:Src/driver/flow_sensor.c **** ISR(PORTD_INT0_vect)
+  64:Src/driver/flow_sensor.c **** {
+ 228               		.loc 1 64 1 is_stmt 1 view -0
+ 229               		.cfi_startproc
+ 230 016a 8F93 8FB7 		__gcc_isr 1
+ 230      8F93 
+ 231 0170 9F93      		push r25
+ 232               		.cfi_def_cfa_offset 3
+ 233               		.cfi_offset 25, -2
+ 234               	/* prologue: Signal */
+ 235               	/* frame size = 0 */
+ 236               	/* stack size = 1...5 */
+ 237               	.L__stack_usage = 1 + __gcc_isr.n_pushed
+  65:Src/driver/flow_sensor.c ****   flow1Ticks++;
+ 238               		.loc 1 65 3 view .LVU30
+ 239               		.loc 1 65 13 is_stmt 0 view .LVU31
+ 240 0172 8091 0000 		lds r24,flow1Ticks
+ 241 0176 9091 0000 		lds r25,flow1Ticks+1
+ 242 017a 0196      		adiw r24,1
+ 243 017c 8093 0000 		sts flow1Ticks,r24
+ 244 0180 9093 0000 		sts flow1Ticks+1,r25
+ 245               	/* epilogue start */
+  66:Src/driver/flow_sensor.c **** }
+ 246               		.loc 1 66 1 view .LVU32
+ 247 0184 9F91      		pop r25
+ 248 0186 8F91 8FBF 		__gcc_isr 2
+ 248      8F91 
+ 249 018c 1895      		reti
+ 250               		__gcc_isr 0,r24
+ 251               		.cfi_endproc
+ 252               	.LFE13:
+ 254               	.global	end_stop1
+ 255               		.section .bss
+ 258               	end_stop1:
+ 259 0000 0000      		.zero	2
+ 260               		.comm	last_switch1,2,1
+ 261               	.global	switch1
+ 262               		.data
+ 265               	switch1:
+ 266 0000 0100      		.word	1
+ 267               	.global	qtyWater1
+ 268               		.section .bss
+ 271               	qtyWater1:
+ 272 0002 0000      		.zero	2
+ 273               	.global	flow1Ticks
+ 276               	flow1Ticks:
+ 277 0004 0000      		.zero	2
+ 278               	.global	flow1ml
+ 281               	flow1ml:
+ 282 0006 0000      		.zero	2
+ 283               	.global	flowTimer
+ 286               	flowTimer:
+ 287 0008 0000      		.zero	2
+ 288               	.global	flow1
+ 291               	flow1:
+ 292 000a 0000      		.zero	2
+ 293               		.text
+ 294               	.Letext0:
+ 295               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 296               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
+ 297               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 298               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdio.h"
+ 299               		.file 6 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 300               		.file 7 "Src/driver/../../Inc/driver/clock.h"
+ 301               		.file 8 "Src/driver/../../Inc/driver/uart.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 flow_sensor.c
-     /tmp/ccRvPtZ7.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccRvPtZ7.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccRvPtZ7.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccRvPtZ7.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccRvPtZ7.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccRvPtZ7.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccRvPtZ7.s:496    .text:0000000000000000 __vector_47
-     /tmp/ccRvPtZ7.s:837    .bss:000000000000000c T0_millis
-     /tmp/ccRvPtZ7.s:546    .text:000000000000002e update_flows
-     /tmp/ccRvPtZ7.s:817    .bss:0000000000000004 flow1Ticks
-     /tmp/ccRvPtZ7.s:827    .bss:0000000000000008 flowTimer
-     /tmp/ccRvPtZ7.s:832    .bss:000000000000000a flow1
-     /tmp/ccRvPtZ7.s:822    .bss:0000000000000006 flow1ml
-     /tmp/ccRvPtZ7.s:812    .bss:0000000000000002 qtyWater1
-     /tmp/ccRvPtZ7.s:676    .text:0000000000000124 measure_water_level
-     /tmp/ccRvPtZ7.s:699    .text:000000000000012e __vector_66
-     /tmp/ccRvPtZ7.s:739    .text:000000000000015c __vector_2
-     /tmp/ccRvPtZ7.s:799    .bss:0000000000000000 end_stop1
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:21     .text:0000000000000000 get_flow1_value
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:286    .bss:0000000000000008 flowTimer
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:276    .bss:0000000000000004 flow1Ticks
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:291    .bss:000000000000000a flow1
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:281    .bss:0000000000000006 flow1ml
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:271    .bss:0000000000000002 qtyWater1
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:226    .text:000000000000016a __vector_64
+                            *ABS*:0000000000000002 __gcc_isr.n_pushed.001
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:258    .bss:0000000000000000 end_stop1
                             *COM*:0000000000000002 last_switch1
-     /tmp/ccRvPtZ7.s:806    .data:0000000000000000 switch1
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cck4zfuy.s:265    .data:0000000000000000 switch1
 
 UNDEFINED SYMBOLS
 __floatunsisf
 __divsf3
 __mulsf3
 __fixunssfsi
+get_timer_value
 __udivmodhi4
 spew
-gpio_tgl_np
 __do_copy_data
 __do_clear_bss

@@ -8,17 +8,24 @@
 
 #include "../../Inc/core/main.h"
 
-/*! Success variable, used to test driver. */
-extern int end_stop1;
-servo_motor_t motor_disc;
+uint32_t time = 0;
 
 int main(void)
 {
   cli();
   board_init();
+  clock_init();
+  initUsart();
   sei();
 
+  spew("START\n");
+  time = get_timer_value();
   while (1)
   {
+    if (get_timer_value() - time >= 1000)
+    {
+      GPIO_TGL(LED);
+      time = get_timer_value();
+    }
   }
 }

@@ -7,7 +7,7 @@
 
 #include "../../Inc/driver/io.h"
 #include "../../Inc/driver/servo_driver.h"
-#include "../../Inc/driver/uart.h"
+//#include "../../Inc/driver/uart.h"
 
 void servo_cfg_start(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool value)
 {
@@ -15,7 +15,7 @@ void servo_cfg_start(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool valu
   servo_motor_disc.start_stop.pino = pin;
   //spew("arguments:  %d, %d\n", port, pin);
   //spew("start_stop:  %d, %d\n", servo_motor_disc.start_stop.porta, servo_motor_disc.start_stop.pino);
-  gpio_cfg_out_np((PORT_t *)port, pin, value);
+  gpio_cfg_out_np(port, pin, value);
 }
 
 void servo_cfg_brake(/*servo_motor servo,*/ PORT_t *port, uint8_t pin, bool value)

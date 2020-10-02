@@ -303,15 +303,15 @@
  192               		.file 9 "Src/core/../../Inc/core/../../Inc/core/../driver/io.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:5      *ABS*:0000000000000034 __CCP__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:6      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:7      *ABS*:0000000000000001 __zero_reg__
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:14     .text.startup:0000000000000000 main
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:182    .bss:0000000000000000 T0_millis
-/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccZriqJq.s:150    .text:0000000000000000 __vector_47
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:14     .text.startup:0000000000000000 main
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:182    .bss:0000000000000000 T0_millis
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccNlpl1B.s:150    .text:0000000000000000 __vector_47
                             *ABS*:0000000000000002 __gcc_isr.n_pushed.001
 
 UNDEFINED SYMBOLS

@@ -17,8 +17,8 @@
 #define LED_PORT                        (PORTC)
 #define LED_PIN                         (0)
 
-#define FLOW_SENSOR_PORT                (PORTC)
-#define FLOW_SENSOR_PIN                 (1)
+#define FLOW_SENSOR_PORT                (PORTD)
+#define FLOW_SENSOR_PIN                 (0)
 
 #define CALIBRATION_FACTOR              (4.5 * (4250/500)) //4.5;
 #define FLOW_REFRESH_TIME               (1000) //ms

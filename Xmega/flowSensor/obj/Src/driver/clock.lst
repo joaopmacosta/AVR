@@ -1,0 +1,157 @@
+   1               		.file	"clock.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               	.global	clock_init
+  13               	clock_init:
+  14               	.LFB12:
+  15               		.file 1 "Src/driver/clock.c"
+   1:Src/driver/clock.c **** // Local Headers
+   2:Src/driver/clock.c **** #include "../../config.h"
+   3:Src/driver/clock.c **** #include "../../Inc/driver/io.h"
+   4:Src/driver/clock.c **** #include "../../Inc/driver/clock.h"
+   5:Src/driver/clock.c **** #include "../../TC_driver/TC_driver.h"
+   6:Src/driver/clock.c **** 
+   7:Src/driver/clock.c **** void clock_init(void)
+   8:Src/driver/clock.c **** {
+  16               		.loc 1 8 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+   9:Src/driver/clock.c ****   // Setting the period/TOP of timer E1
+  10:Src/driver/clock.c ****   // F_CPU/prescaler * period - 1 = ticks
+  11:Src/driver/clock.c ****   // 32000000/256 * 0.001s - 1 = 125
+  12:Src/driver/clock.c ****   TC_SetPeriod(&TCE0, 125); //TE0C->PER = 125
+  22               		.loc 1 12 3 view .LVU1
+  23 0000 8DE7      		ldi r24,lo8(125)
+  24 0002 90E0      		ldi r25,0
+  25 0004 8093 260A 		sts 2598,r24
+  26 0008 9093 270A 		sts 2598+1,r25
+  13:Src/driver/clock.c **** 
+  14:Src/driver/clock.c ****   // Setting the clock of timer E0 (F_CPU/256)
+  15:Src/driver/clock.c ****   TC0_ConfigClockSource(&TCE0, TC_CLKSEL_DIV256_gc); //tc->CTRLA[3:0] = xxx
+  27               		.loc 1 15 3 view .LVU2
+  28 000c 66E0      		ldi r22,lo8(6)
+  29 000e 80E0      		ldi r24,0
+  30 0010 9AE0      		ldi r25,lo8(10)
+  31 0012 0E94 0000 		call TC0_ConfigClockSource
+  32               	.LVL0:
+  16:Src/driver/clock.c **** 
+  17:Src/driver/clock.c ****   // Setting timer E0 to the normal operating mode
+  18:Src/driver/clock.c ****   TC0_ConfigWGM(&TCE0, TC_WGMODE_NORMAL_gc); //Normal Mode: TOP = PER, OVF = TOP
+  33               		.loc 1 18 3 view .LVU3
+  34 0016 60E0      		ldi r22,0
+  35 0018 80E0      		ldi r24,0
+  36 001a 9AE0      		ldi r25,lo8(10)
+  37 001c 0E94 0000 		call TC0_ConfigWGM
+  38               	.LVL1:
+  19:Src/driver/clock.c **** 
+  20:Src/driver/clock.c ****   // Enabling low-priority overflow interruptions
+  21:Src/driver/clock.c ****   TC0_SetOverflowIntLevel(&TCE0, TC_OVFINTLVL_LO_gc);
+  39               		.loc 1 21 3 view .LVU4
+  40 0020 61E0      		ldi r22,lo8(1)
+  41 0022 80E0      		ldi r24,0
+  42 0024 9AE0      		ldi r25,lo8(10)
+  43 0026 0C94 0000 		jmp TC0_SetOverflowIntLevel
+  44               	.LVL2:
+  45               		.cfi_endproc
+  46               	.LFE12:
+  48               	.global	__vector_47
+  50               	__vector_47:
+  51               	.LFB13:
+  22:Src/driver/clock.c **** }
+  23:Src/driver/clock.c **** 
+  24:Src/driver/clock.c **** uint16_t T0_millis = 0;
+  25:Src/driver/clock.c **** //uint8_t over=0;
+  26:Src/driver/clock.c **** ISR(TCE0_OVF_vect)
+  27:Src/driver/clock.c **** {
+  52               		.loc 1 27 1 view -0
+  53               		.cfi_startproc
+  54 002a 8F93 8FB7 		__gcc_isr 1
+  54      8F93 
+  55 0030 9F93      		push r25
+  56               		.cfi_def_cfa_offset 3
+  57               		.cfi_offset 25, -2
+  58               	/* prologue: Signal */
+  59               	/* frame size = 0 */
+  60               	/* stack size = 1...5 */
+  61               	.L__stack_usage = 1 + __gcc_isr.n_pushed
+  28:Src/driver/clock.c ****   T0_millis++;
+  62               		.loc 1 28 3 view .LVU6
+  63               		.loc 1 28 12 is_stmt 0 view .LVU7
+  64 0032 8091 0000 		lds r24,T0_millis
+  65 0036 9091 0000 		lds r25,T0_millis+1
+  66 003a 0196      		adiw r24,1
+  67 003c 8093 0000 		sts T0_millis,r24
+  68 0040 9093 0000 		sts T0_millis+1,r25
+  69               	/* epilogue start */
+  29:Src/driver/clock.c ****   //GPIO_TGL(LED);
+  30:Src/driver/clock.c **** }
+  70               		.loc 1 30 1 view .LVU8
+  71 0044 9F91      		pop r25
+  72 0046 8F91 8FBF 		__gcc_isr 2
+  72      8F91 
+  73 004c 1895      		reti
+  74               		__gcc_isr 0,r24
+  75               		.cfi_endproc
+  76               	.LFE13:
+  78               	.global	get_timer_value
+  80               	get_timer_value:
+  81               	.LFB14:
+  31:Src/driver/clock.c **** 
+  32:Src/driver/clock.c **** uint16_t get_timer_value(){
+  82               		.loc 1 32 27 is_stmt 1 view -0
+  83               		.cfi_startproc
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+  86               	/* stack size = 0 */
+  87               	.L__stack_usage = 0
+  33:Src/driver/clock.c ****   return T0_millis;
+  88               		.loc 1 33 3 view .LVU10
+  34:Src/driver/clock.c **** }...
+  89               		.loc 1 34 1 is_stmt 0 view .LVU11
+  90 004e 8091 0000 		lds r24,T0_millis
+  91 0052 9091 0000 		lds r25,T0_millis+1
+  92               	/* epilogue start */
+  93 0056 0895      		ret
+  94               		.cfi_endproc
+  95               	.LFE14:
+  97               	.global	T0_millis
+  98               		.section .bss
+ 101               	T0_millis:
+ 102 0000 0000      		.zero	2
+ 103               		.text
+ 104               	.Letext0:
+ 105               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 106               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
+ 107               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 108               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdio.h"
+ 109               		.file 6 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 110               		.file 7 "Src/driver/../../TC_driver/TC_driver.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 clock.c
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:13     .text:0000000000000000 clock_init
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:50     .text:000000000000002a __vector_47
+                            *ABS*:0000000000000002 __gcc_isr.n_pushed.001
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:101    .bss:0000000000000000 T0_millis
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//cclYPwsn.s:80     .text:000000000000004e get_timer_value
+
+UNDEFINED SYMBOLS
+TC0_ConfigClockSource
+TC0_ConfigWGM
+TC0_SetOverflowIntLevel
+__do_clear_bss

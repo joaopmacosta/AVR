@@ -20,7 +20,7 @@
 // Local headers.
 
 #include "../../Inc/core/board_init.h"
-#include "../../Inc/core/clock.h"
+#include "../../Inc/driver/clock.h"
 #include "../../Inc/driver/flow_sensor.h"
 #include "../../Inc/driver/io.h"
 #include "../../Inc/driver/uart.h"

@@ -16,7 +16,7 @@
 // Local Headers
 #include "../../config.h"
 #include "../driver/io.h"
-#include "../../Inc/driver/servo_driver.h"
+#include "../../Inc/driver/stepper_driver.h"
 #include "../../TC_driver/TC_driver.h"
 
 // AVR headers.
@@ -24,8 +24,6 @@
 
 #ifndef BOARD_INIT_H_INCLUDED_
 #define BOARD_INIT_H_INCLUDED_
-
-extern servo_motor_t motor_disc;
 
 static inline void
 board_init(void)
@@ -54,16 +52,11 @@ board_init(void)
   GPIO_CFG_OUT(LED, false);
   GPIO_CFG_OPC(LED, GPIO_OPC_PULLDOWN);
 
-  SERVO_CFG_BRAKE(motor_disc, MOTOR_RUNBRAKE, true);
-  SERVO_CFG_START(motor_disc, MOTOR_STARTSTOP, true);
-
-  //***********************************************************************
-  //* GPIO/External Interrupt                                             *
-  //***********************************************************************
-  // External interrupt 0 on PC1, enable pullup, sence falling edge
-  //PORTC.PIN0CTRL = PORT_OPC_PULLUP_gc | PORT_ISC_FALLING_gc;
-  //PORTC.INT0MASK = (1 << BUTTON_PIN);
-  //PORTC.INTCTRL = PORT_INT0LVL_MED_gc;
+  // Setup stepper pins
+  STEPPER_CFG_A(STEPPER1_A, false);
+  STEPPER_CFG_A_(STEPPER1_a, false);
+  STEPPER_CFG_B(STEPPER1_B, false);
+  STEPPER_CFG_B_(STEPPER1_b, false);
 
   //***********************************************************************
   //* Interrupt levels.                                                   *

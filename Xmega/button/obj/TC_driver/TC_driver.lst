@@ -5,11 +5,14 @@
    5               	__CCP__ = 0x34
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
-  10               		.text
-  11               	.Ltext0:
- 478               	.global	TC0_ConfigClockSource
- 480               	TC0_ConfigClockSource:
- 481               		.stabd	46,0,0
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               	.global	TC0_ConfigClockSource
+  13               	TC0_ConfigClockSource:
+  14               	.LVL0:
+  15               	.LFB11:
+  16               		.file 1 "TC_driver/TC_driver.c"
    1:TC_driver/TC_driver.c **** /* This file has been prepared for Doxygen automatic documentation generation.*/   
    2:TC_driver/TC_driver.c **** /*! \file *********************************************************************  
    3:TC_driver/TC_driver.c ****  *  
@@ -90,26 +93,35 @@
   78:TC_driver/TC_driver.c ****  */   
   79:TC_driver/TC_driver.c **** void TC0_ConfigClockSource( volatile TC0_t * tc, TC_CLKSEL_t clockSelection )   
   80:TC_driver/TC_driver.c **** {   
- 483               	.LM0:
- 484               	.LFBB1:
- 485               	/* prologue: function */
- 486               	/* frame size = 0 */
- 487               	/* stack size = 0 */
- 488               	.L__stack_usage = 0
- 489 0000 FC01      		movw r30,r24
+  17               		.loc 1 80 1 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  23               		.loc 1 80 1 is_stmt 0 view .LVU1
+  24 0000 FC01      		movw r30,r24
   81:TC_driver/TC_driver.c ****     tc->CTRLA = ( tc->CTRLA & ~TC0_CLKSEL_gm ) | clockSelection;   
- 491               	.LM1:
- 492 0002 9081      		ld r25,Z
- 493 0004 907F      		andi r25,lo8(-16)
- 494 0006 692B      		or r22,r25
- 495 0008 6083      		st Z,r22
- 496 000a 0895      		ret
- 498               	.Lscope1:
- 500               		.stabd	78,0,0
- 504               	.global	TC1_ConfigClockSource
- 506               	TC1_ConfigClockSource:
- 507               		.stabd	46,0,0
+  25               		.loc 1 81 5 is_stmt 1 view .LVU2
+  26               		.loc 1 81 21 is_stmt 0 view .LVU3
+  27 0002 8081      		ld r24,Z
+  28               	.LVL1:
+  29               		.loc 1 81 29 view .LVU4
+  30 0004 807F      		andi r24,lo8(-16)
+  31               		.loc 1 81 48 view .LVU5
+  32 0006 862B      		or r24,r22
+  33               		.loc 1 81 15 view .LVU6
+  34 0008 8083      		st Z,r24
+  35               	/* epilogue start */
   82:TC_driver/TC_driver.c **** }   
+  36               		.loc 1 82 1 view .LVU7
+  37 000a 0895      		ret
+  38               		.cfi_endproc
+  39               	.LFE11:
+  41               	.global	TC1_ConfigClockSource
+  43               	TC1_ConfigClockSource:
+  44               	.LVL2:
+  45               	.LFB12:
   83:TC_driver/TC_driver.c ****    
   84:TC_driver/TC_driver.c **** /*! \brief Configures clock source for the Timer/Counter 1.  
   85:TC_driver/TC_driver.c ****  *  
@@ -121,26 +133,35 @@
   91:TC_driver/TC_driver.c ****  */   
   92:TC_driver/TC_driver.c **** void TC1_ConfigClockSource( volatile TC1_t * tc, TC_CLKSEL_t clockSelection )   
   93:TC_driver/TC_driver.c **** {   
- 509               	.LM2:
- 510               	.LFBB2:
- 511               	/* prologue: function */
- 512               	/* frame size = 0 */
- 513               	/* stack size = 0 */
- 514               	.L__stack_usage = 0
- 515 000c FC01      		movw r30,r24
+  46               		.loc 1 93 1 is_stmt 1 view -0
+  47               		.cfi_startproc
+  48               	/* prologue: function */
+  49               	/* frame size = 0 */
+  50               	/* stack size = 0 */
+  51               	.L__stack_usage = 0
+  52               		.loc 1 93 1 is_stmt 0 view .LVU9
+  53 000c FC01      		movw r30,r24
   94:TC_driver/TC_driver.c ****     tc->CTRLA = ( tc->CTRLA & ~TC1_CLKSEL_gm ) | clockSelection;   
- 517               	.LM3:
- 518 000e 9081      		ld r25,Z
- 519 0010 907F      		andi r25,lo8(-16)
- 520 0012 692B      		or r22,r25
- 521 0014 6083      		st Z,r22
- 522 0016 0895      		ret
- 524               	.Lscope2:
- 526               		.stabd	78,0,0
- 530               	.global	TC0_ConfigWGM
- 532               	TC0_ConfigWGM:
- 533               		.stabd	46,0,0
+  54               		.loc 1 94 5 is_stmt 1 view .LVU10
+  55               		.loc 1 94 21 is_stmt 0 view .LVU11
+  56 000e 8081      		ld r24,Z
+  57               	.LVL3:
+  58               		.loc 1 94 29 view .LVU12
+  59 0010 807F      		andi r24,lo8(-16)
+  60               		.loc 1 94 48 view .LVU13
+  61 0012 862B      		or r24,r22
+  62               		.loc 1 94 15 view .LVU14
+  63 0014 8083      		st Z,r24
+  64               	/* epilogue start */
   95:TC_driver/TC_driver.c **** }   
+  65               		.loc 1 95 1 view .LVU15
+  66 0016 0895      		ret
+  67               		.cfi_endproc
+  68               	.LFE12:
+  70               	.global	TC0_ConfigWGM
+  72               	TC0_ConfigWGM:
+  73               	.LVL4:
+  74               	.LFB13:
   96:TC_driver/TC_driver.c ****    
   97:TC_driver/TC_driver.c ****    
   98:TC_driver/TC_driver.c **** /*! \brief Configures the Waveform Generation Mode for the Timer/Counter 0.  
@@ -153,26 +174,35 @@
  105:TC_driver/TC_driver.c ****  */   
  106:TC_driver/TC_driver.c **** void TC0_ConfigWGM( volatile TC0_t * tc, TC_WGMODE_t wgm )   
  107:TC_driver/TC_driver.c **** {   
- 535               	.LM4:
- 536               	.LFBB3:
- 537               	/* prologue: function */
- 538               	/* frame size = 0 */
- 539               	/* stack size = 0 */
- 540               	.L__stack_usage = 0
- 541 0018 FC01      		movw r30,r24
+  75               		.loc 1 107 1 is_stmt 1 view -0
+  76               		.cfi_startproc
+  77               	/* prologue: function */
+  78               	/* frame size = 0 */
+  79               	/* stack size = 0 */
+  80               	.L__stack_usage = 0
+  81               		.loc 1 107 1 is_stmt 0 view .LVU17
+  82 0018 FC01      		movw r30,r24
  108:TC_driver/TC_driver.c ****     tc->CTRLB = ( tc->CTRLB & ~TC0_WGMODE_gm ) | wgm;   
- 543               	.LM5:
- 544 001a 9181      		ldd r25,Z+1
- 545 001c 987F      		andi r25,lo8(-8)
- 546 001e 692B      		or r22,r25
- 547 0020 6183      		std Z+1,r22
- 548 0022 0895      		ret
- 550               	.Lscope3:
- 552               		.stabd	78,0,0
- 556               	.global	TC1_ConfigWGM
- 558               	TC1_ConfigWGM:
- 559               		.stabd	46,0,0
+  83               		.loc 1 108 5 is_stmt 1 view .LVU18
+  84               		.loc 1 108 21 is_stmt 0 view .LVU19
+  85 001a 8181      		ldd r24,Z+1
+  86               	.LVL5:
+  87               		.loc 1 108 29 view .LVU20
+  88 001c 887F      		andi r24,lo8(-8)
+  89               		.loc 1 108 48 view .LVU21
+  90 001e 862B      		or r24,r22
+  91               		.loc 1 108 15 view .LVU22
+  92 0020 8183      		std Z+1,r24
+  93               	/* epilogue start */
  109:TC_driver/TC_driver.c **** }   
+  94               		.loc 1 109 1 view .LVU23
+  95 0022 0895      		ret
+  96               		.cfi_endproc
+  97               	.LFE13:
+  99               	.global	TC1_ConfigWGM
+ 101               	TC1_ConfigWGM:
+ 102               	.LVL6:
+ 103               	.LFB14:
  110:TC_driver/TC_driver.c ****    
  111:TC_driver/TC_driver.c ****    
  112:TC_driver/TC_driver.c **** /*! \brief Configures the Waveform Generation Mode for the Timer/Counter 1.  
@@ -185,26 +215,35 @@
  119:TC_driver/TC_driver.c ****  */   
  120:TC_driver/TC_driver.c **** void TC1_ConfigWGM( volatile TC1_t * tc, TC_WGMODE_t wgm )   
  121:TC_driver/TC_driver.c **** {   
- 561               	.LM6:
- 562               	.LFBB4:
- 563               	/* prologue: function */
- 564               	/* frame size = 0 */
- 565               	/* stack size = 0 */
- 566               	.L__stack_usage = 0
- 567 0024 FC01      		movw r30,r24
+ 104               		.loc 1 121 1 is_stmt 1 view -0
+ 105               		.cfi_startproc
+ 106               	/* prologue: function */
+ 107               	/* frame size = 0 */
+ 108               	/* stack size = 0 */
+ 109               	.L__stack_usage = 0
+ 110               		.loc 1 121 1 is_stmt 0 view .LVU25
+ 111 0024 FC01      		movw r30,r24
  122:TC_driver/TC_driver.c ****     tc->CTRLB = ( tc->CTRLB & ~TC1_WGMODE_gm ) | wgm;   
- 569               	.LM7:
- 570 0026 9181      		ldd r25,Z+1
- 571 0028 987F      		andi r25,lo8(-8)
- 572 002a 692B      		or r22,r25
- 573 002c 6183      		std Z+1,r22
- 574 002e 0895      		ret
- 576               	.Lscope4:
- 578               		.stabd	78,0,0
- 582               	.global	TC0_ConfigInputCapture
- 584               	TC0_ConfigInputCapture:
- 585               		.stabd	46,0,0
+ 112               		.loc 1 122 5 is_stmt 1 view .LVU26
+ 113               		.loc 1 122 21 is_stmt 0 view .LVU27
+ 114 0026 8181      		ldd r24,Z+1
+ 115               	.LVL7:
+ 116               		.loc 1 122 29 view .LVU28
+ 117 0028 887F      		andi r24,lo8(-8)
+ 118               		.loc 1 122 48 view .LVU29
+ 119 002a 862B      		or r24,r22
+ 120               		.loc 1 122 15 view .LVU30
+ 121 002c 8183      		std Z+1,r24
+ 122               	/* epilogue start */
  123:TC_driver/TC_driver.c **** }   
+ 123               		.loc 1 123 1 view .LVU31
+ 124 002e 0895      		ret
+ 125               		.cfi_endproc
+ 126               	.LFE14:
+ 128               	.global	TC0_ConfigInputCapture
+ 130               	TC0_ConfigInputCapture:
+ 131               	.LVL8:
+ 132               	.LFB15:
  124:TC_driver/TC_driver.c ****    
  125:TC_driver/TC_driver.c ****    
  126:TC_driver/TC_driver.c **** /*! \brief Configures the Timer/Counter 0 for input capture operation.  
@@ -220,29 +259,40 @@
  136:TC_driver/TC_driver.c ****  */   
  137:TC_driver/TC_driver.c **** void TC0_ConfigInputCapture( volatile TC0_t * tc, TC_EVSEL_t eventSource )   
  138:TC_driver/TC_driver.c **** {   
- 587               	.LM8:
- 588               	.LFBB5:
- 589               	/* prologue: function */
- 590               	/* frame size = 0 */
- 591               	/* stack size = 0 */
- 592               	.L__stack_usage = 0
- 593 0030 FC01      		movw r30,r24
+ 133               		.loc 1 138 1 is_stmt 1 view -0
+ 134               		.cfi_startproc
+ 135               	/* prologue: function */
+ 136               	/* frame size = 0 */
+ 137               	/* stack size = 0 */
+ 138               	.L__stack_usage = 0
+ 139               		.loc 1 138 1 is_stmt 0 view .LVU33
+ 140 0030 FC01      		movw r30,r24
  139:TC_driver/TC_driver.c ****     tc->CTRLD = ( tc->CTRLD & ~( TC0_EVSEL_gm | TC0_EVACT_gm ) ) |   
- 595               	.LM9:
- 596 0032 9381      		ldd r25,Z+3
- 597 0034 9071      		andi r25,lo8(16)
- 598 0036 9062      		ori r25,lo8(32)
- 599 0038 962B      		or r25,r22
- 600 003a 9383      		std Z+3,r25
- 601 003c 0895      		ret
- 603               	.Lscope5:
- 605               		.stabd	78,0,0
- 609               	.global	TC1_ConfigInputCapture
- 611               	TC1_ConfigInputCapture:
- 612               		.stabd	46,0,0
+ 141               		.loc 1 139 5 is_stmt 1 view .LVU34
+ 142               		.loc 1 139 21 is_stmt 0 view .LVU35
+ 143 0032 8381      		ldd r24,Z+3
+ 144               	.LVL9:
+ 145               		.loc 1 139 29 view .LVU36
+ 146 0034 8071      		andi r24,lo8(16)
+ 147               		.loc 1 139 66 view .LVU37
+ 148 0036 862B      		or r24,r22
  140:TC_driver/TC_driver.c ****                 eventSource |   
+ 149               		.loc 1 140 29 view .LVU38
+ 150 0038 8062      		ori r24,lo8(32)
+ 139:TC_driver/TC_driver.c ****     tc->CTRLD = ( tc->CTRLD & ~( TC0_EVSEL_gm | TC0_EVACT_gm ) ) |   
+ 151               		.loc 1 139 15 view .LVU39
+ 152 003a 8383      		std Z+3,r24
+ 153               	/* epilogue start */
  141:TC_driver/TC_driver.c ****                 TC_EVACT_CAPT_gc;   
  142:TC_driver/TC_driver.c **** }   
+ 154               		.loc 1 142 1 view .LVU40
+ 155 003c 0895      		ret
+ 156               		.cfi_endproc
+ 157               	.LFE15:
+ 159               	.global	TC1_ConfigInputCapture
+ 161               	TC1_ConfigInputCapture:
+ 162               	.LVL10:
+ 163               	.LFB16:
  143:TC_driver/TC_driver.c ****    
  144:TC_driver/TC_driver.c ****    
  145:TC_driver/TC_driver.c **** /*! \brief Configures the Timer/Counter 1 for input capture operation.  
@@ -258,29 +308,40 @@
  155:TC_driver/TC_driver.c ****  */   
  156:TC_driver/TC_driver.c **** void TC1_ConfigInputCapture( volatile TC1_t * tc, TC_EVSEL_t eventSource )   
  157:TC_driver/TC_driver.c **** {   
- 614               	.LM10:
- 615               	.LFBB6:
- 616               	/* prologue: function */
- 617               	/* frame size = 0 */
- 618               	/* stack size = 0 */
- 619               	.L__stack_usage = 0
- 620 003e FC01      		movw r30,r24
+ 164               		.loc 1 157 1 is_stmt 1 view -0
+ 165               		.cfi_startproc
+ 166               	/* prologue: function */
+ 167               	/* frame size = 0 */
+ 168               	/* stack size = 0 */
+ 169               	.L__stack_usage = 0
+ 170               		.loc 1 157 1 is_stmt 0 view .LVU42
+ 171 003e FC01      		movw r30,r24
  158:TC_driver/TC_driver.c ****     tc->CTRLD = ( tc->CTRLD & ~( TC1_EVSEL_gm | TC1_EVACT_gm ) ) |   
- 622               	.LM11:
- 623 0040 9381      		ldd r25,Z+3
- 624 0042 9071      		andi r25,lo8(16)
- 625 0044 9062      		ori r25,lo8(32)
- 626 0046 962B      		or r25,r22
- 627 0048 9383      		std Z+3,r25
- 628 004a 0895      		ret
- 630               	.Lscope6:
- 632               		.stabd	78,0,0
- 636               	.global	TC0_EnableCCChannels
- 638               	TC0_EnableCCChannels:
- 639               		.stabd	46,0,0
+ 172               		.loc 1 158 5 is_stmt 1 view .LVU43
+ 173               		.loc 1 158 21 is_stmt 0 view .LVU44
+ 174 0040 8381      		ldd r24,Z+3
+ 175               	.LVL11:
+ 176               		.loc 1 158 29 view .LVU45
+ 177 0042 8071      		andi r24,lo8(16)
+ 178               		.loc 1 158 66 view .LVU46
+ 179 0044 862B      		or r24,r22
  159:TC_driver/TC_driver.c ****                 eventSource |   
+ 180               		.loc 1 159 29 view .LVU47
+ 181 0046 8062      		ori r24,lo8(32)
+ 158:TC_driver/TC_driver.c ****     tc->CTRLD = ( tc->CTRLD & ~( TC1_EVSEL_gm | TC1_EVACT_gm ) ) |   
+ 182               		.loc 1 158 15 view .LVU48
+ 183 0048 8383      		std Z+3,r24
+ 184               	/* epilogue start */
  160:TC_driver/TC_driver.c ****                 TC_EVACT_CAPT_gc;   
  161:TC_driver/TC_driver.c **** }   
+ 185               		.loc 1 161 1 view .LVU49
+ 186 004a 0895      		ret
+ 187               		.cfi_endproc
+ 188               	.LFE16:
+ 190               	.global	TC0_EnableCCChannels
+ 192               	TC0_EnableCCChannels:
+ 193               	.LVL12:
+ 194               	.LFB17:
  162:TC_driver/TC_driver.c ****    
  163:TC_driver/TC_driver.c ****    
  164:TC_driver/TC_driver.c **** /*! \brief Enables compare/capture channels for Timer/Counter 0.  
@@ -303,30 +364,44 @@
  181:TC_driver/TC_driver.c ****  */   
  182:TC_driver/TC_driver.c **** void TC0_EnableCCChannels( volatile TC0_t * tc, uint8_t enableMask )   
  183:TC_driver/TC_driver.c **** {   
- 641               	.LM12:
- 642               	.LFBB7:
- 643               	/* prologue: function */
- 644               	/* frame size = 0 */
- 645               	/* stack size = 0 */
- 646               	.L__stack_usage = 0
- 647 004c FC01      		movw r30,r24
+ 195               		.loc 1 183 1 is_stmt 1 view -0
+ 196               		.cfi_startproc
+ 197               	/* prologue: function */
+ 198               	/* frame size = 0 */
+ 199               	/* stack size = 0 */
+ 200               	.L__stack_usage = 0
+ 201               		.loc 1 183 1 is_stmt 0 view .LVU51
+ 202 004c FC01      		movw r30,r24
  184:TC_driver/TC_driver.c ****     /* Make sure only CCxEN bits are set in enableMask. */   
  185:TC_driver/TC_driver.c ****     enableMask &= ( TC0_CCAEN_bm | TC0_CCBEN_bm | TC0_CCCEN_bm | TC0_CCDEN_bm );   
+ 203               		.loc 1 185 5 is_stmt 1 view .LVU52
+ 204               	.LVL13:
  186:TC_driver/TC_driver.c ****    
  187:TC_driver/TC_driver.c ****     /* Enable channels. */   
  188:TC_driver/TC_driver.c ****     tc->CTRLB |= enableMask;   
- 649               	.LM13:
- 650 004e 9181      		ldd r25,Z+1
- 651 0050 607F      		andi r22,lo8(-16)
- 652 0052 692B      		or r22,r25
- 653 0054 6183      		std Z+1,r22
- 654 0056 0895      		ret
- 656               	.Lscope7:
- 658               		.stabd	78,0,0
- 662               	.global	TC1_EnableCCChannels
- 664               	TC1_EnableCCChannels:
- 665               		.stabd	46,0,0
+ 205               		.loc 1 188 5 view .LVU53
+ 206               		.loc 1 188 15 is_stmt 0 view .LVU54
+ 207 004e 8181      		ldd r24,Z+1
+ 208               	.LVL14:
+ 185:TC_driver/TC_driver.c ****    
+ 209               		.loc 1 185 16 view .LVU55
+ 210 0050 607F      		andi r22,lo8(-16)
+ 211               	.LVL15:
+ 212               		.loc 1 188 15 view .LVU56
+ 213 0052 682B      		or r22,r24
+ 214               	.LVL16:
+ 215               		.loc 1 188 15 view .LVU57
+ 216 0054 6183      		std Z+1,r22
+ 217               	/* epilogue start */
  189:TC_driver/TC_driver.c **** }   
+ 218               		.loc 1 189 1 view .LVU58
+ 219 0056 0895      		ret
+ 220               		.cfi_endproc
+ 221               	.LFE17:
+ 223               	.global	TC1_EnableCCChannels
+ 225               	TC1_EnableCCChannels:
+ 226               	.LVL17:
+ 227               	.LFB18:
  190:TC_driver/TC_driver.c ****    
  191:TC_driver/TC_driver.c **** /*! \brief Enables compare/capture channels for Timer/Counter 1.  
  192:TC_driver/TC_driver.c ****  *  
@@ -346,30 +421,44 @@
  206:TC_driver/TC_driver.c ****  */   
  207:TC_driver/TC_driver.c **** void TC1_EnableCCChannels( volatile TC1_t * tc, uint8_t enableMask )   
  208:TC_driver/TC_driver.c **** {   
- 667               	.LM14:
- 668               	.LFBB8:
- 669               	/* prologue: function */
- 670               	/* frame size = 0 */
- 671               	/* stack size = 0 */
- 672               	.L__stack_usage = 0
- 673 0058 FC01      		movw r30,r24
+ 228               		.loc 1 208 1 is_stmt 1 view -0
+ 229               		.cfi_startproc
+ 230               	/* prologue: function */
+ 231               	/* frame size = 0 */
+ 232               	/* stack size = 0 */
+ 233               	.L__stack_usage = 0
+ 234               		.loc 1 208 1 is_stmt 0 view .LVU60
+ 235 0058 FC01      		movw r30,r24
  209:TC_driver/TC_driver.c ****     /* Make sure only CCxEN bits are set in enableMask. */   
  210:TC_driver/TC_driver.c ****     enableMask &= ( TC1_CCAEN_bm | TC1_CCBEN_bm );   
+ 236               		.loc 1 210 5 is_stmt 1 view .LVU61
+ 237               	.LVL18:
  211:TC_driver/TC_driver.c ****    
  212:TC_driver/TC_driver.c ****     /* Enable channels. */   
  213:TC_driver/TC_driver.c ****     tc->CTRLB |= enableMask;   
- 675               	.LM15:
- 676 005a 9181      		ldd r25,Z+1
- 677 005c 6073      		andi r22,lo8(48)
- 678 005e 692B      		or r22,r25
- 679 0060 6183      		std Z+1,r22
- 680 0062 0895      		ret
- 682               	.Lscope8:
- 684               		.stabd	78,0,0
- 688               	.global	TC0_DisableCCChannels
- 690               	TC0_DisableCCChannels:
- 691               		.stabd	46,0,0
+ 238               		.loc 1 213 5 view .LVU62
+ 239               		.loc 1 213 15 is_stmt 0 view .LVU63
+ 240 005a 8181      		ldd r24,Z+1
+ 241               	.LVL19:
+ 210:TC_driver/TC_driver.c ****    
+ 242               		.loc 1 210 16 view .LVU64
+ 243 005c 6073      		andi r22,lo8(48)
+ 244               	.LVL20:
+ 245               		.loc 1 213 15 view .LVU65
+ 246 005e 682B      		or r22,r24
+ 247               	.LVL21:
+ 248               		.loc 1 213 15 view .LVU66
+ 249 0060 6183      		std Z+1,r22
+ 250               	/* epilogue start */
  214:TC_driver/TC_driver.c **** }   
+ 251               		.loc 1 214 1 view .LVU67
+ 252 0062 0895      		ret
+ 253               		.cfi_endproc
+ 254               	.LFE18:
+ 256               	.global	TC0_DisableCCChannels
+ 258               	TC0_DisableCCChannels:
+ 259               	.LVL22:
+ 260               	.LFB19:
  215:TC_driver/TC_driver.c ****    
  216:TC_driver/TC_driver.c ****    
  217:TC_driver/TC_driver.c **** /*! \brief Disables compare/capture channels on Timer/Counter 0.  
@@ -389,31 +478,47 @@
  231:TC_driver/TC_driver.c ****  */   
  232:TC_driver/TC_driver.c **** void TC0_DisableCCChannels( volatile TC0_t * tc, uint8_t disableMask )   
  233:TC_driver/TC_driver.c **** {   
- 693               	.LM16:
- 694               	.LFBB9:
- 695               	/* prologue: function */
- 696               	/* frame size = 0 */
- 697               	/* stack size = 0 */
- 698               	.L__stack_usage = 0
- 699 0064 FC01      		movw r30,r24
+ 261               		.loc 1 233 1 is_stmt 1 view -0
+ 262               		.cfi_startproc
+ 263               	/* prologue: function */
+ 264               	/* frame size = 0 */
+ 265               	/* stack size = 0 */
+ 266               	.L__stack_usage = 0
+ 267               		.loc 1 233 1 is_stmt 0 view .LVU69
+ 268 0064 FC01      		movw r30,r24
  234:TC_driver/TC_driver.c ****     /* Make sure only CCxEN bits are set in disableMask. */   
  235:TC_driver/TC_driver.c ****     disableMask &= ( TC0_CCAEN_bm | TC0_CCBEN_bm | TC0_CCCEN_bm | TC0_CCDEN_bm );   
+ 269               		.loc 1 235 5 is_stmt 1 view .LVU70
+ 270               	.LVL23:
  236:TC_driver/TC_driver.c ****    
  237:TC_driver/TC_driver.c ****     /* Disable channels. */   
  238:TC_driver/TC_driver.c ****     tc->CTRLB &= ~disableMask;   
- 701               	.LM17:
- 702 0066 9181      		ldd r25,Z+1
- 703 0068 607F      		andi r22,lo8(-16)
- 704 006a 6095      		com r22
- 705 006c 6923      		and r22,r25
- 706 006e 6183      		std Z+1,r22
- 707 0070 0895      		ret
- 709               	.Lscope9:
- 711               		.stabd	78,0,0
- 715               	.global	TC1_DisableCCChannels
- 717               	TC1_DisableCCChannels:
- 718               		.stabd	46,0,0
+ 271               		.loc 1 238 5 view .LVU71
+ 272               		.loc 1 238 15 is_stmt 0 view .LVU72
+ 273 0066 8181      		ldd r24,Z+1
+ 274               	.LVL24:
+ 235:TC_driver/TC_driver.c ****    
+ 275               		.loc 1 235 17 view .LVU73
+ 276 0068 607F      		andi r22,lo8(-16)
+ 277               	.LVL25:
+ 278               		.loc 1 238 15 view .LVU74
+ 279 006a 6095      		com r22
+ 280               	.LVL26:
+ 281               		.loc 1 238 15 view .LVU75
+ 282 006c 6823      		and r22,r24
+ 283               	.LVL27:
+ 284               		.loc 1 238 15 view .LVU76
+ 285 006e 6183      		std Z+1,r22
+ 286               	/* epilogue start */
  239:TC_driver/TC_driver.c **** }   
+ 287               		.loc 1 239 1 view .LVU77
+ 288 0070 0895      		ret
+ 289               		.cfi_endproc
+ 290               	.LFE19:
+ 292               	.global	TC1_DisableCCChannels
+ 294               	TC1_DisableCCChannels:
+ 295               	.LVL28:
+ 296               	.LFB20:
  240:TC_driver/TC_driver.c ****    
  241:TC_driver/TC_driver.c ****    
  242:TC_driver/TC_driver.c **** /*! \brief Disables compare/capture channels on Timer/Counter 1.  
@@ -431,31 +536,47 @@
  254:TC_driver/TC_driver.c ****  */   
  255:TC_driver/TC_driver.c **** void TC1_DisableCCChannels( volatile TC1_t * tc, uint8_t disableMask )   
  256:TC_driver/TC_driver.c **** {   
- 720               	.LM18:
- 721               	.LFBB10:
- 722               	/* prologue: function */
- 723               	/* frame size = 0 */
- 724               	/* stack size = 0 */
- 725               	.L__stack_usage = 0
- 726 0072 FC01      		movw r30,r24
+ 297               		.loc 1 256 1 is_stmt 1 view -0
+ 298               		.cfi_startproc
+ 299               	/* prologue: function */
+ 300               	/* frame size = 0 */
+ 301               	/* stack size = 0 */
+ 302               	.L__stack_usage = 0
+ 303               		.loc 1 256 1 is_stmt 0 view .LVU79
+ 304 0072 FC01      		movw r30,r24
  257:TC_driver/TC_driver.c ****     /* Make sure only CCxEN bits are set in disableMask. */   
  258:TC_driver/TC_driver.c ****     disableMask &= ( TC1_CCAEN_bm | TC1_CCBEN_bm );   
+ 305               		.loc 1 258 5 is_stmt 1 view .LVU80
+ 306               	.LVL29:
  259:TC_driver/TC_driver.c ****    
  260:TC_driver/TC_driver.c ****     /* Disable channels. */   
  261:TC_driver/TC_driver.c ****     tc->CTRLB &= ~disableMask;   
- 728               	.LM19:
- 729 0074 9181      		ldd r25,Z+1
- 730 0076 6073      		andi r22,lo8(48)
- 731 0078 6095      		com r22
- 732 007a 6923      		and r22,r25
- 733 007c 6183      		std Z+1,r22
- 734 007e 0895      		ret
- 736               	.Lscope10:
- 738               		.stabd	78,0,0
- 742               	.global	TC0_SetOverflowIntLevel
- 744               	TC0_SetOverflowIntLevel:
- 745               		.stabd	46,0,0
+ 307               		.loc 1 261 5 view .LVU81
+ 308               		.loc 1 261 15 is_stmt 0 view .LVU82
+ 309 0074 8181      		ldd r24,Z+1
+ 310               	.LVL30:
+ 258:TC_driver/TC_driver.c ****    
+ 311               		.loc 1 258 17 view .LVU83
+ 312 0076 6073      		andi r22,lo8(48)
+ 313               	.LVL31:
+ 314               		.loc 1 261 15 view .LVU84
+ 315 0078 6095      		com r22
+ 316               	.LVL32:
+ 317               		.loc 1 261 15 view .LVU85
+ 318 007a 6823      		and r22,r24
+ 319               	.LVL33:
+ 320               		.loc 1 261 15 view .LVU86
+ 321 007c 6183      		std Z+1,r22
+ 322               	/* epilogue start */
  262:TC_driver/TC_driver.c **** }   
+ 323               		.loc 1 262 1 view .LVU87
+ 324 007e 0895      		ret
+ 325               		.cfi_endproc
+ 326               	.LFE20:
+ 328               	.global	TC0_SetOverflowIntLevel
+ 330               	TC0_SetOverflowIntLevel:
+ 331               	.LVL34:
+ 332               	.LFB21:
  263:TC_driver/TC_driver.c ****    
  264:TC_driver/TC_driver.c **** /*! \brief Sets the overflow interrupt level.  
  265:TC_driver/TC_driver.c ****  *  
@@ -466,26 +587,35 @@
  270:TC_driver/TC_driver.c ****  */   
  271:TC_driver/TC_driver.c **** void TC0_SetOverflowIntLevel( volatile TC0_t * tc, TC_OVFINTLVL_t intLevel )   
  272:TC_driver/TC_driver.c **** {   
- 747               	.LM20:
- 748               	.LFBB11:
- 749               	/* prologue: function */
- 750               	/* frame size = 0 */
- 751               	/* stack size = 0 */
- 752               	.L__stack_usage = 0
- 753 0080 FC01      		movw r30,r24
+ 333               		.loc 1 272 1 is_stmt 1 view -0
+ 334               		.cfi_startproc
+ 335               	/* prologue: function */
+ 336               	/* frame size = 0 */
+ 337               	/* stack size = 0 */
+ 338               	.L__stack_usage = 0
+ 339               		.loc 1 272 1 is_stmt 0 view .LVU89
+ 340 0080 FC01      		movw r30,r24
  273:TC_driver/TC_driver.c ****     tc->INTCTRLA = ( tc->INTCTRLA & ~TC0_OVFINTLVL_gm ) | intLevel;   
- 755               	.LM21:
- 756 0082 9681      		ldd r25,Z+6
- 757 0084 9C7F      		andi r25,lo8(-4)
- 758 0086 692B      		or r22,r25
- 759 0088 6683      		std Z+6,r22
- 760 008a 0895      		ret
- 762               	.Lscope11:
- 764               		.stabd	78,0,0
- 768               	.global	TC1_SetOverflowIntLevel
- 770               	TC1_SetOverflowIntLevel:
- 771               		.stabd	46,0,0
+ 341               		.loc 1 273 5 is_stmt 1 view .LVU90
+ 342               		.loc 1 273 24 is_stmt 0 view .LVU91
+ 343 0082 8681      		ldd r24,Z+6
+ 344               	.LVL35:
+ 345               		.loc 1 273 35 view .LVU92
+ 346 0084 8C7F      		andi r24,lo8(-4)
+ 347               		.loc 1 273 57 view .LVU93
+ 348 0086 862B      		or r24,r22
+ 349               		.loc 1 273 18 view .LVU94
+ 350 0088 8683      		std Z+6,r24
+ 351               	/* epilogue start */
  274:TC_driver/TC_driver.c **** }   
+ 352               		.loc 1 274 1 view .LVU95
+ 353 008a 0895      		ret
+ 354               		.cfi_endproc
+ 355               	.LFE21:
+ 357               	.global	TC1_SetOverflowIntLevel
+ 359               	TC1_SetOverflowIntLevel:
+ 360               	.LVL36:
+ 361               	.LFB22:
  275:TC_driver/TC_driver.c ****    
  276:TC_driver/TC_driver.c ****    
  277:TC_driver/TC_driver.c **** /*! \brief Sets the overflow interrupt level.  
@@ -497,26 +627,35 @@
  283:TC_driver/TC_driver.c ****  */   
  284:TC_driver/TC_driver.c **** void TC1_SetOverflowIntLevel( volatile TC1_t * tc, TC_OVFINTLVL_t intLevel )   
  285:TC_driver/TC_driver.c **** {   
- 773               	.LM22:
- 774               	.LFBB12:
- 775               	/* prologue: function */
- 776               	/* frame size = 0 */
- 777               	/* stack size = 0 */
- 778               	.L__stack_usage = 0
- 779 008c FC01      		movw r30,r24
+ 362               		.loc 1 285 1 is_stmt 1 view -0
+ 363               		.cfi_startproc
+ 364               	/* prologue: function */
+ 365               	/* frame size = 0 */
+ 366               	/* stack size = 0 */
+ 367               	.L__stack_usage = 0
+ 368               		.loc 1 285 1 is_stmt 0 view .LVU97
+ 369 008c FC01      		movw r30,r24
  286:TC_driver/TC_driver.c ****     tc->INTCTRLA = ( tc->INTCTRLA & ~TC1_OVFINTLVL_gm ) | intLevel;   
- 781               	.LM23:
- 782 008e 9681      		ldd r25,Z+6
- 783 0090 9C7F      		andi r25,lo8(-4)
- 784 0092 692B      		or r22,r25
- 785 0094 6683      		std Z+6,r22
- 786 0096 0895      		ret
- 788               	.Lscope12:
- 790               		.stabd	78,0,0
- 794               	.global	TC0_SetErrorIntLevel
- 796               	TC0_SetErrorIntLevel:
- 797               		.stabd	46,0,0
+ 370               		.loc 1 286 5 is_stmt 1 view .LVU98
+ 371               		.loc 1 286 24 is_stmt 0 view .LVU99
+ 372 008e 8681      		ldd r24,Z+6
+ 373               	.LVL37:
+ 374               		.loc 1 286 35 view .LVU100
+ 375 0090 8C7F      		andi r24,lo8(-4)
+ 376               		.loc 1 286 57 view .LVU101
+ 377 0092 862B      		or r24,r22
+ 378               		.loc 1 286 18 view .LVU102
+ 379 0094 8683      		std Z+6,r24
+ 380               	/* epilogue start */
  287:TC_driver/TC_driver.c **** }   
+ 381               		.loc 1 287 1 view .LVU103
+ 382 0096 0895      		ret
+ 383               		.cfi_endproc
+ 384               	.LFE22:
+ 386               	.global	TC0_SetErrorIntLevel
+ 388               	TC0_SetErrorIntLevel:
+ 389               	.LVL38:
+ 390               	.LFB23:
  288:TC_driver/TC_driver.c ****    
  289:TC_driver/TC_driver.c ****    
  290:TC_driver/TC_driver.c **** /*! \brief Sets the Error interrupt level.  
@@ -528,26 +667,35 @@
  296:TC_driver/TC_driver.c ****  */   
  297:TC_driver/TC_driver.c **** void TC0_SetErrorIntLevel( volatile TC0_t * tc, TC_ERRINTLVL_t intLevel )   
  298:TC_driver/TC_driver.c **** {   
- 799               	.LM24:
- 800               	.LFBB13:
- 801               	/* prologue: function */
- 802               	/* frame size = 0 */
- 803               	/* stack size = 0 */
- 804               	.L__stack_usage = 0
- 805 0098 FC01      		movw r30,r24
+ 391               		.loc 1 298 1 is_stmt 1 view -0
+ 392               		.cfi_startproc
+ 393               	/* prologue: function */
+ 394               	/* frame size = 0 */
+ 395               	/* stack size = 0 */
+ 396               	.L__stack_usage = 0
+ 397               		.loc 1 298 1 is_stmt 0 view .LVU105
+ 398 0098 FC01      		movw r30,r24
  299:TC_driver/TC_driver.c ****     tc->INTCTRLA = ( tc->INTCTRLA & ~TC0_ERRINTLVL_gm ) | intLevel;   
- 807               	.LM25:
- 808 009a 9681      		ldd r25,Z+6
- 809 009c 937F      		andi r25,lo8(-13)
- 810 009e 692B      		or r22,r25
- 811 00a0 6683      		std Z+6,r22
- 812 00a2 0895      		ret
- 814               	.Lscope13:
- 816               		.stabd	78,0,0
- 820               	.global	TC1_SetErrorIntLevel
- 822               	TC1_SetErrorIntLevel:
- 823               		.stabd	46,0,0
+ 399               		.loc 1 299 5 is_stmt 1 view .LVU106
+ 400               		.loc 1 299 24 is_stmt 0 view .LVU107
+ 401 009a 8681      		ldd r24,Z+6
+ 402               	.LVL39:
+ 403               		.loc 1 299 35 view .LVU108
+ 404 009c 837F      		andi r24,lo8(-13)
+ 405               		.loc 1 299 57 view .LVU109
+ 406 009e 862B      		or r24,r22
+ 407               		.loc 1 299 18 view .LVU110
+ 408 00a0 8683      		std Z+6,r24
+ 409               	/* epilogue start */
  300:TC_driver/TC_driver.c **** }   
+ 410               		.loc 1 300 1 view .LVU111
+ 411 00a2 0895      		ret
+ 412               		.cfi_endproc
+ 413               	.LFE23:
+ 415               	.global	TC1_SetErrorIntLevel
+ 417               	TC1_SetErrorIntLevel:
+ 418               	.LVL40:
+ 419               	.LFB24:
  301:TC_driver/TC_driver.c ****    
  302:TC_driver/TC_driver.c ****    
  303:TC_driver/TC_driver.c **** /*! \brief Sets the Error interrupt level.  
@@ -559,26 +707,35 @@
  309:TC_driver/TC_driver.c ****  */   
  310:TC_driver/TC_driver.c **** void TC1_SetErrorIntLevel( volatile TC1_t * tc, TC_ERRINTLVL_t intLevel )   
  311:TC_driver/TC_driver.c **** {   
- 825               	.LM26:
- 826               	.LFBB14:
- 827               	/* prologue: function */
- 828               	/* frame size = 0 */
- 829               	/* stack size = 0 */
- 830               	.L__stack_usage = 0
- 831 00a4 FC01      		movw r30,r24
+ 420               		.loc 1 311 1 is_stmt 1 view -0
+ 421               		.cfi_startproc
+ 422               	/* prologue: function */
+ 423               	/* frame size = 0 */
+ 424               	/* stack size = 0 */
+ 425               	.L__stack_usage = 0
+ 426               		.loc 1 311 1 is_stmt 0 view .LVU113
+ 427 00a4 FC01      		movw r30,r24
  312:TC_driver/TC_driver.c ****     tc->INTCTRLA = ( tc->INTCTRLA & ~TC1_ERRINTLVL_gm ) | intLevel;   
- 833               	.LM27:
- 834 00a6 9681      		ldd r25,Z+6
- 835 00a8 937F      		andi r25,lo8(-13)
- 836 00aa 692B      		or r22,r25
- 837 00ac 6683      		std Z+6,r22
- 838 00ae 0895      		ret
- 840               	.Lscope14:
- 842               		.stabd	78,0,0
- 846               	.global	TC0_SetCCAIntLevel
- 848               	TC0_SetCCAIntLevel:
- 849               		.stabd	46,0,0
+ 428               		.loc 1 312 5 is_stmt 1 view .LVU114
+ 429               		.loc 1 312 24 is_stmt 0 view .LVU115
+ 430 00a6 8681      		ldd r24,Z+6
+ 431               	.LVL41:
+ 432               		.loc 1 312 35 view .LVU116
+ 433 00a8 837F      		andi r24,lo8(-13)
+ 434               		.loc 1 312 57 view .LVU117
+ 435 00aa 862B      		or r24,r22
+ 436               		.loc 1 312 18 view .LVU118
+ 437 00ac 8683      		std Z+6,r24
+ 438               	/* epilogue start */
  313:TC_driver/TC_driver.c **** }   
+ 439               		.loc 1 313 1 view .LVU119
+ 440 00ae 0895      		ret
+ 441               		.cfi_endproc
+ 442               	.LFE24:
+ 444               	.global	TC0_SetCCAIntLevel
+ 446               	TC0_SetCCAIntLevel:
+ 447               	.LVL42:
+ 448               	.LFB25:
  314:TC_driver/TC_driver.c ****    
  315:TC_driver/TC_driver.c ****    
  316:TC_driver/TC_driver.c **** /*! \brief Sets the interrupt level for compare/capture channel A interrupt.  
@@ -591,26 +748,35 @@
  323:TC_driver/TC_driver.c ****  */   
  324:TC_driver/TC_driver.c **** void TC0_SetCCAIntLevel( volatile TC0_t * tc, TC_CCAINTLVL_t intLevel )   
  325:TC_driver/TC_driver.c **** {   
- 851               	.LM28:
- 852               	.LFBB15:
- 853               	/* prologue: function */
- 854               	/* frame size = 0 */
- 855               	/* stack size = 0 */
- 856               	.L__stack_usage = 0
- 857 00b0 FC01      		movw r30,r24
+ 449               		.loc 1 325 1 is_stmt 1 view -0
+ 450               		.cfi_startproc
+ 451               	/* prologue: function */
+ 452               	/* frame size = 0 */
+ 453               	/* stack size = 0 */
+ 454               	.L__stack_usage = 0
+ 455               		.loc 1 325 1 is_stmt 0 view .LVU121
+ 456 00b0 FC01      		movw r30,r24
  326:TC_driver/TC_driver.c ****     tc->INTCTRLB = ( tc->INTCTRLB & ~TC0_CCAINTLVL_gm ) | intLevel;   
- 859               	.LM29:
- 860 00b2 9781      		ldd r25,Z+7
- 861 00b4 9C7F      		andi r25,lo8(-4)
- 862 00b6 692B      		or r22,r25
- 863 00b8 6783      		std Z+7,r22
- 864 00ba 0895      		ret
- 866               	.Lscope15:
- 868               		.stabd	78,0,0
- 872               	.global	TC1_SetCCAIntLevel
- 874               	TC1_SetCCAIntLevel:
- 875               		.stabd	46,0,0
+ 457               		.loc 1 326 5 is_stmt 1 view .LVU122
+ 458               		.loc 1 326 24 is_stmt 0 view .LVU123
+ 459 00b2 8781      		ldd r24,Z+7
+ 460               	.LVL43:
+ 461               		.loc 1 326 35 view .LVU124
+ 462 00b4 8C7F      		andi r24,lo8(-4)
+ 463               		.loc 1 326 57 view .LVU125
+ 464 00b6 862B      		or r24,r22
+ 465               		.loc 1 326 18 view .LVU126
+ 466 00b8 8783      		std Z+7,r24
+ 467               	/* epilogue start */
  327:TC_driver/TC_driver.c **** }   
+ 468               		.loc 1 327 1 view .LVU127
+ 469 00ba 0895      		ret
+ 470               		.cfi_endproc
+ 471               	.LFE25:
+ 473               	.global	TC1_SetCCAIntLevel
+ 475               	TC1_SetCCAIntLevel:
+ 476               	.LVL44:
+ 477               	.LFB26:
  328:TC_driver/TC_driver.c ****    
  329:TC_driver/TC_driver.c ****    
  330:TC_driver/TC_driver.c **** /*! \brief Sets the interrupt level for compare/capture channel A interrupt.  
@@ -623,26 +789,35 @@
  337:TC_driver/TC_driver.c ****  */   
  338:TC_driver/TC_driver.c **** void TC1_SetCCAIntLevel( volatile TC1_t * tc, TC_CCAINTLVL_t intLevel )   
  339:TC_driver/TC_driver.c **** {   
- 877               	.LM30:
- 878               	.LFBB16:
- 879               	/* prologue: function */
- 880               	/* frame size = 0 */
- 881               	/* stack size = 0 */
- 882               	.L__stack_usage = 0
- 883 00bc FC01      		movw r30,r24
+ 478               		.loc 1 339 1 is_stmt 1 view -0
+ 479               		.cfi_startproc
+ 480               	/* prologue: function */
+ 481               	/* frame size = 0 */
+ 482               	/* stack size = 0 */
+ 483               	.L__stack_usage = 0
+ 484               		.loc 1 339 1 is_stmt 0 view .LVU129
+ 485 00bc FC01      		movw r30,r24
  340:TC_driver/TC_driver.c ****     tc->INTCTRLB = ( tc->INTCTRLB & ~TC1_CCAINTLVL_gm ) | intLevel;   
- 885               	.LM31:
- 886 00be 9781      		ldd r25,Z+7
- 887 00c0 9C7F      		andi r25,lo8(-4)
- 888 00c2 692B      		or r22,r25
- 889 00c4 6783      		std Z+7,r22
- 890 00c6 0895      		ret
- 892               	.Lscope16:
- 894               		.stabd	78,0,0
- 898               	.global	TC0_SetCCBIntLevel
- 900               	TC0_SetCCBIntLevel:
- 901               		.stabd	46,0,0
+ 486               		.loc 1 340 5 is_stmt 1 view .LVU130
+ 487               		.loc 1 340 24 is_stmt 0 view .LVU131
+ 488 00be 8781      		ldd r24,Z+7
+ 489               	.LVL45:
+ 490               		.loc 1 340 35 view .LVU132
+ 491 00c0 8C7F      		andi r24,lo8(-4)
+ 492               		.loc 1 340 57 view .LVU133
+ 493 00c2 862B      		or r24,r22
+ 494               		.loc 1 340 18 view .LVU134
+ 495 00c4 8783      		std Z+7,r24
+ 496               	/* epilogue start */
  341:TC_driver/TC_driver.c **** }   
+ 497               		.loc 1 341 1 view .LVU135
+ 498 00c6 0895      		ret
+ 499               		.cfi_endproc
+ 500               	.LFE26:
+ 502               	.global	TC0_SetCCBIntLevel
+ 504               	TC0_SetCCBIntLevel:
+ 505               	.LVL46:
+ 506               	.LFB27:
  342:TC_driver/TC_driver.c ****    
  343:TC_driver/TC_driver.c ****    
  344:TC_driver/TC_driver.c **** /*! \brief Sets the interrupt level for compare/capture channel B interrupt.  
@@ -655,26 +830,35 @@
  351:TC_driver/TC_driver.c ****  */   
  352:TC_driver/TC_driver.c **** void TC0_SetCCBIntLevel( volatile TC0_t * tc, TC_CCBINTLVL_t intLevel )   
  353:TC_driver/TC_driver.c **** {   
- 903               	.LM32:
- 904               	.LFBB17:
- 905               	/* prologue: function */
- 906               	/* frame size = 0 */
- 907               	/* stack size = 0 */
- 908               	.L__stack_usage = 0
- 909 00c8 FC01      		movw r30,r24
+ 507               		.loc 1 353 1 is_stmt 1 view -0
+ 508               		.cfi_startproc
+ 509               	/* prologue: function */
+ 510               	/* frame size = 0 */
+ 511               	/* stack size = 0 */
+ 512               	.L__stack_usage = 0
+ 513               		.loc 1 353 1 is_stmt 0 view .LVU137
+ 514 00c8 FC01      		movw r30,r24
  354:TC_driver/TC_driver.c ****     tc->INTCTRLB = ( tc->INTCTRLB & ~TC0_CCBINTLVL_gm ) | intLevel;   
- 911               	.LM33:
- 912 00ca 9781      		ldd r25,Z+7
- 913 00cc 937F      		andi r25,lo8(-13)
- 914 00ce 692B      		or r22,r25
- 915 00d0 6783      		std Z+7,r22
- 916 00d2 0895      		ret
- 918               	.Lscope17:
- 920               		.stabd	78,0,0
- 924               	.global	TC1_SetCCBIntLevel
- 926               	TC1_SetCCBIntLevel:
- 927               		.stabd	46,0,0
+ 515               		.loc 1 354 5 is_stmt 1 view .LVU138
+ 516               		.loc 1 354 24 is_stmt 0 view .LVU139
+ 517 00ca 8781      		ldd r24,Z+7
+ 518               	.LVL47:
+ 519               		.loc 1 354 35 view .LVU140
+ 520 00cc 837F      		andi r24,lo8(-13)
+ 521               		.loc 1 354 57 view .LVU141
+ 522 00ce 862B      		or r24,r22
+ 523               		.loc 1 354 18 view .LVU142
+ 524 00d0 8783      		std Z+7,r24
+ 525               	/* epilogue start */
  355:TC_driver/TC_driver.c **** }   
+ 526               		.loc 1 355 1 view .LVU143
+ 527 00d2 0895      		ret
+ 528               		.cfi_endproc
+ 529               	.LFE27:
+ 531               	.global	TC1_SetCCBIntLevel
+ 533               	TC1_SetCCBIntLevel:
+ 534               	.LVL48:
+ 535               	.LFB28:
  356:TC_driver/TC_driver.c ****    
  357:TC_driver/TC_driver.c ****    
  358:TC_driver/TC_driver.c **** /*! \brief Sets the interrupt level for compare/capture channel B interrupt.  
@@ -687,26 +871,35 @@
  365:TC_driver/TC_driver.c ****  */   
  366:TC_driver/TC_driver.c **** void TC1_SetCCBIntLevel( volatile TC1_t * tc, TC_CCBINTLVL_t intLevel )   
  367:TC_driver/TC_driver.c **** {   
- 929               	.LM34:
- 930               	.LFBB18:
- 931               	/* prologue: function */
- 932               	/* frame size = 0 */
- 933               	/* stack size = 0 */
- 934               	.L__stack_usage = 0
- 935 00d4 FC01      		movw r30,r24
+ 536               		.loc 1 367 1 is_stmt 1 view -0
+ 537               		.cfi_startproc
+ 538               	/* prologue: function */
+ 539               	/* frame size = 0 */
+ 540               	/* stack size = 0 */
+ 541               	.L__stack_usage = 0
+ 542               		.loc 1 367 1 is_stmt 0 view .LVU145
+ 543 00d4 FC01      		movw r30,r24
  368:TC_driver/TC_driver.c ****     tc->INTCTRLB = ( tc->INTCTRLB & ~TC1_CCBINTLVL_gm ) | intLevel;   
- 937               	.LM35:
- 938 00d6 9781      		ldd r25,Z+7
- 939 00d8 937F      		andi r25,lo8(-13)
- 940 00da 692B      		or r22,r25
- 941 00dc 6783      		std Z+7,r22
- 942 00de 0895      		ret
- 944               	.Lscope18:
- 946               		.stabd	78,0,0
- 950               	.global	TC0_SetCCCIntLevel
- 952               	TC0_SetCCCIntLevel:
- 953               		.stabd	46,0,0
+ 544               		.loc 1 368 5 is_stmt 1 view .LVU146
+ 545               		.loc 1 368 24 is_stmt 0 view .LVU147
+ 546 00d6 8781      		ldd r24,Z+7
+ 547               	.LVL49:
+ 548               		.loc 1 368 35 view .LVU148
+ 549 00d8 837F      		andi r24,lo8(-13)
+ 550               		.loc 1 368 57 view .LVU149
+ 551 00da 862B      		or r24,r22
+ 552               		.loc 1 368 18 view .LVU150
+ 553 00dc 8783      		std Z+7,r24
+ 554               	/* epilogue start */
  369:TC_driver/TC_driver.c **** }   
+ 555               		.loc 1 369 1 view .LVU151
+ 556 00de 0895      		ret
+ 557               		.cfi_endproc
+ 558               	.LFE28:
+ 560               	.global	TC0_SetCCCIntLevel
+ 562               	TC0_SetCCCIntLevel:
+ 563               	.LVL50:
+ 564               	.LFB29:
  370:TC_driver/TC_driver.c ****    
  371:TC_driver/TC_driver.c ****    
  372:TC_driver/TC_driver.c **** /*! \brief Sets the interrupt level for compare/capture channel C interrupt.  
@@ -719,26 +912,35 @@
  379:TC_driver/TC_driver.c ****  */   
  380:TC_driver/TC_driver.c **** void TC0_SetCCCIntLevel( volatile TC0_t * tc, TC_CCCINTLVL_t intLevel )   
  381:TC_driver/TC_driver.c **** {   
- 955               	.LM36:
- 956               	.LFBB19:
- 957               	/* prologue: function */
- 958               	/* frame size = 0 */
- 959               	/* stack size = 0 */
- 960               	.L__stack_usage = 0
- 961 00e0 FC01      		movw r30,r24
+ 565               		.loc 1 381 1 is_stmt 1 view -0
+ 566               		.cfi_startproc
+ 567               	/* prologue: function */
+ 568               	/* frame size = 0 */
+ 569               	/* stack size = 0 */
+ 570               	.L__stack_usage = 0
+ 571               		.loc 1 381 1 is_stmt 0 view .LVU153
+ 572 00e0 FC01      		movw r30,r24
  382:TC_driver/TC_driver.c ****     tc->INTCTRLB = ( tc->INTCTRLB & ~TC0_CCCINTLVL_gm ) | intLevel;   
- 963               	.LM37:
- 964 00e2 9781      		ldd r25,Z+7
- 965 00e4 9F7C      		andi r25,lo8(-49)
- 966 00e6 692B      		or r22,r25
- 967 00e8 6783      		std Z+7,r22
- 968 00ea 0895      		ret
- 970               	.Lscope19:
- 972               		.stabd	78,0,0
- 976               	.global	TC0_SetCCDIntLevel
- 978               	TC0_SetCCDIntLevel:
- 979               		.stabd	46,0,0
+ 573               		.loc 1 382 5 is_stmt 1 view .LVU154
+ 574               		.loc 1 382 24 is_stmt 0 view .LVU155
+ 575 00e2 8781      		ldd r24,Z+7
+ 576               	.LVL51:
+ 577               		.loc 1 382 35 view .LVU156
+ 578 00e4 8F7C      		andi r24,lo8(-49)
+ 579               		.loc 1 382 57 view .LVU157
+ 580 00e6 862B      		or r24,r22
+ 581               		.loc 1 382 18 view .LVU158
+ 582 00e8 8783      		std Z+7,r24
+ 583               	/* epilogue start */
  383:TC_driver/TC_driver.c **** }   
+ 584               		.loc 1 383 1 view .LVU159
+ 585 00ea 0895      		ret
+ 586               		.cfi_endproc
+ 587               	.LFE29:
+ 589               	.global	TC0_SetCCDIntLevel
+ 591               	TC0_SetCCDIntLevel:
+ 592               	.LVL52:
+ 593               	.LFB30:
  384:TC_driver/TC_driver.c ****    
  385:TC_driver/TC_driver.c ****    
  386:TC_driver/TC_driver.c **** /*! \brief Sets the interrupt level for compare/capture channel D interrupt.  
@@ -751,26 +953,35 @@
  393:TC_driver/TC_driver.c ****  */   
  394:TC_driver/TC_driver.c **** void TC0_SetCCDIntLevel( volatile TC0_t * tc, TC_CCDINTLVL_t intLevel )   
  395:TC_driver/TC_driver.c **** {   
- 981               	.LM38:
- 982               	.LFBB20:
- 983               	/* prologue: function */
- 984               	/* frame size = 0 */
- 985               	/* stack size = 0 */
- 986               	.L__stack_usage = 0
- 987 00ec FC01      		movw r30,r24
+ 594               		.loc 1 395 1 is_stmt 1 view -0
+ 595               		.cfi_startproc
+ 596               	/* prologue: function */
+ 597               	/* frame size = 0 */
+ 598               	/* stack size = 0 */
+ 599               	.L__stack_usage = 0
+ 600               		.loc 1 395 1 is_stmt 0 view .LVU161
+ 601 00ec FC01      		movw r30,r24
  396:TC_driver/TC_driver.c ****     tc->INTCTRLB = ( tc->INTCTRLB & ~TC0_CCDINTLVL_gm ) | intLevel;   
- 989               	.LM39:
- 990 00ee 9781      		ldd r25,Z+7
- 991 00f0 9F73      		andi r25,lo8(63)
- 992 00f2 692B      		or r22,r25
- 993 00f4 6783      		std Z+7,r22
- 994 00f6 0895      		ret
- 996               	.Lscope20:
- 998               		.stabd	78,0,0
- 1001               	.global	TC0_Reset
- 1003               	TC0_Reset:
- 1004               		.stabd	46,0,0
+ 602               		.loc 1 396 5 is_stmt 1 view .LVU162
+ 603               		.loc 1 396 24 is_stmt 0 view .LVU163
+ 604 00ee 8781      		ldd r24,Z+7
+ 605               	.LVL53:
+ 606               		.loc 1 396 35 view .LVU164
+ 607 00f0 8F73      		andi r24,lo8(63)
+ 608               		.loc 1 396 57 view .LVU165
+ 609 00f2 862B      		or r24,r22
+ 610               		.loc 1 396 18 view .LVU166
+ 611 00f4 8783      		std Z+7,r24
+ 612               	/* epilogue start */
  397:TC_driver/TC_driver.c **** }   
+ 613               		.loc 1 397 1 view .LVU167
+ 614 00f6 0895      		ret
+ 615               		.cfi_endproc
+ 616               	.LFE30:
+ 618               	.global	TC0_Reset
+ 620               	TC0_Reset:
+ 621               	.LVL54:
+ 622               	.LFB31:
  398:TC_driver/TC_driver.c ****    
  399:TC_driver/TC_driver.c ****    
  400:TC_driver/TC_driver.c **** /*! \brief Resets the Timer/Counter 0.  
@@ -783,32 +994,41 @@
  407:TC_driver/TC_driver.c ****  */   
  408:TC_driver/TC_driver.c **** void TC0_Reset( volatile TC0_t * tc )   
  409:TC_driver/TC_driver.c **** {   
- 1006               	.LM40:
- 1007               	.LFBB21:
- 1008               	/* prologue: function */
- 1009               	/* frame size = 0 */
- 1010               	/* stack size = 0 */
- 1011               	.L__stack_usage = 0
- 1012 00f8 FC01      		movw r30,r24
+ 623               		.loc 1 409 1 is_stmt 1 view -0
+ 624               		.cfi_startproc
+ 625               	/* prologue: function */
+ 626               	/* frame size = 0 */
+ 627               	/* stack size = 0 */
+ 628               	.L__stack_usage = 0
+ 629               		.loc 1 409 1 is_stmt 0 view .LVU169
+ 630 00f8 FC01      		movw r30,r24
  410:TC_driver/TC_driver.c ****     /* TC must be turned off before a Reset command. */   
  411:TC_driver/TC_driver.c ****     tc->CTRLA = ( tc->CTRLA & ~TC0_CLKSEL_gm ) | TC_CLKSEL_OFF_gc;   
- 1014               	.LM41:
- 1015 00fa 8081      		ld r24,Z
- 1016 00fc 807F      		andi r24,lo8(-16)
- 1017 00fe 8083      		st Z,r24
+ 631               		.loc 1 411 5 is_stmt 1 view .LVU170
+ 632               		.loc 1 411 21 is_stmt 0 view .LVU171
+ 633 00fa 8081      		ld r24,Z
+ 634               	.LVL55:
+ 635               		.loc 1 411 48 view .LVU172
+ 636 00fc 807F      		andi r24,lo8(-16)
+ 637               		.loc 1 411 15 view .LVU173
+ 638 00fe 8083      		st Z,r24
  412:TC_driver/TC_driver.c ****    
  413:TC_driver/TC_driver.c ****     /* Issue Reset command. */   
  414:TC_driver/TC_driver.c ****     tc->CTRLFSET = TC_CMD_RESET_gc;   
- 1019               	.LM42:
- 1020 0100 8CE0      		ldi r24,lo8(12)
- 1021 0102 8187      		std Z+9,r24
- 1022 0104 0895      		ret
- 1024               	.Lscope21:
- 1026               		.stabd	78,0,0
- 1029               	.global	TC1_Reset
- 1031               	TC1_Reset:
- 1032               		.stabd	46,0,0
+ 639               		.loc 1 414 5 is_stmt 1 view .LVU174
+ 640               		.loc 1 414 18 is_stmt 0 view .LVU175
+ 641 0100 8CE0      		ldi r24,lo8(12)
+ 642 0102 8187      		std Z+9,r24
+ 643               	/* epilogue start */
  415:TC_driver/TC_driver.c **** }   
+ 644               		.loc 1 415 1 view .LVU176
+ 645 0104 0895      		ret
+ 646               		.cfi_endproc
+ 647               	.LFE31:
+ 649               	.global	TC1_Reset
+ 651               	TC1_Reset:
+ 652               	.LVL56:
+ 653               	.LFB32:
  416:TC_driver/TC_driver.c ****    
  417:TC_driver/TC_driver.c ****    
  418:TC_driver/TC_driver.c **** /*! \brief Resets the Timer/Counter 1.  
@@ -821,59 +1041,71 @@
  425:TC_driver/TC_driver.c ****  */   
  426:TC_driver/TC_driver.c **** void TC1_Reset( volatile TC1_t * tc )   
  427:TC_driver/TC_driver.c **** {   
- 1034               	.LM43:
- 1035               	.LFBB22:
- 1036               	/* prologue: function */
- 1037               	/* frame size = 0 */
- 1038               	/* stack size = 0 */
- 1039               	.L__stack_usage = 0
- 1040 0106 FC01      		movw r30,r24
+ 654               		.loc 1 427 1 is_stmt 1 view -0
+ 655               		.cfi_startproc
+ 656               	/* prologue: function */
+ 657               	/* frame size = 0 */
+ 658               	/* stack size = 0 */
+ 659               	.L__stack_usage = 0
+ 660               		.loc 1 427 1 is_stmt 0 view .LVU178
+ 661 0106 FC01      		movw r30,r24
  428:TC_driver/TC_driver.c ****     /* TC must be turned off before a Reset command. */   
  429:TC_driver/TC_driver.c ****     tc->CTRLA = ( tc->CTRLA & ~TC1_CLKSEL_gm ) | TC_CLKSEL_OFF_gc;   
- 1042               	.LM44:
- 1043 0108 8081      		ld r24,Z
- 1044 010a 807F      		andi r24,lo8(-16)
- 1045 010c 8083      		st Z,r24
+ 662               		.loc 1 429 5 is_stmt 1 view .LVU179
+ 663               		.loc 1 429 21 is_stmt 0 view .LVU180
+ 664 0108 8081      		ld r24,Z
+ 665               	.LVL57:
+ 666               		.loc 1 429 48 view .LVU181
+ 667 010a 807F      		andi r24,lo8(-16)
+ 668               		.loc 1 429 15 view .LVU182
+ 669 010c 8083      		st Z,r24
  430:TC_driver/TC_driver.c ****    
  431:TC_driver/TC_driver.c ****     /* Issue Reset command. */   
  432:TC_driver/TC_driver.c ****     tc->CTRLFSET = TC_CMD_RESET_gc;   
- 1047               	.LM45:
- 1048 010e 8CE0      		ldi r24,lo8(12)
- 1049 0110 8187      		std Z+9,r24
- 1050 0112 0895      		ret
- 1052               	.Lscope22:
- 1054               		.stabd	78,0,0
- 1056               	.Letext0:
- 1057               		.ident	"GCC: (GNU) 5.4.0"
+ 670               		.loc 1 432 5 is_stmt 1 view .LVU183
+ 671               		.loc 1 432 18 is_stmt 0 view .LVU184
+ 672 010e 8CE0      		ldi r24,lo8(12)
+ 673 0110 8187      		std Z+9,r24
+ 674               	/* epilogue start */
+ 433:TC_driver/TC_driver.c **** } ...
+ 675               		.loc 1 433 1 view .LVU185
+ 676 0112 0895      		ret
+ 677               		.cfi_endproc
+ 678               	.LFE32:
+ 680               	.Letext0:
+ 681               		.file 2 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint-gcc.h"
+ 682               		.file 3 "/usr/local/Cellar/avr-gcc/9.3.0/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h"
+ 683               		.file 4 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/stdlib.h"
+ 684               		.file 5 "/usr/local/Cellar/avr-gcc/9.3.0/avr/include/avr/iox32a4u.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 TC_driver.c
-     /tmp/cctOaYBw.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cctOaYBw.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cctOaYBw.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cctOaYBw.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/cctOaYBw.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cctOaYBw.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cctOaYBw.s:480    .text:0000000000000000 TC0_ConfigClockSource
-     /tmp/cctOaYBw.s:506    .text:000000000000000c TC1_ConfigClockSource
-     /tmp/cctOaYBw.s:532    .text:0000000000000018 TC0_ConfigWGM
-     /tmp/cctOaYBw.s:558    .text:0000000000000024 TC1_ConfigWGM
-     /tmp/cctOaYBw.s:584    .text:0000000000000030 TC0_ConfigInputCapture
-     /tmp/cctOaYBw.s:611    .text:000000000000003e TC1_ConfigInputCapture
-     /tmp/cctOaYBw.s:638    .text:000000000000004c TC0_EnableCCChannels
-     /tmp/cctOaYBw.s:664    .text:0000000000000058 TC1_EnableCCChannels
-     /tmp/cctOaYBw.s:690    .text:0000000000000064 TC0_DisableCCChannels
-     /tmp/cctOaYBw.s:717    .text:0000000000000072 TC1_DisableCCChannels
-     /tmp/cctOaYBw.s:744    .text:0000000000000080 TC0_SetOverflowIntLevel
-     /tmp/cctOaYBw.s:770    .text:000000000000008c TC1_SetOverflowIntLevel
-     /tmp/cctOaYBw.s:796    .text:0000000000000098 TC0_SetErrorIntLevel
-     /tmp/cctOaYBw.s:822    .text:00000000000000a4 TC1_SetErrorIntLevel
-     /tmp/cctOaYBw.s:848    .text:00000000000000b0 TC0_SetCCAIntLevel
-     /tmp/cctOaYBw.s:874    .text:00000000000000bc TC1_SetCCAIntLevel
-     /tmp/cctOaYBw.s:900    .text:00000000000000c8 TC0_SetCCBIntLevel
-     /tmp/cctOaYBw.s:926    .text:00000000000000d4 TC1_SetCCBIntLevel
-     /tmp/cctOaYBw.s:952    .text:00000000000000e0 TC0_SetCCCIntLevel
-     /tmp/cctOaYBw.s:978    .text:00000000000000ec TC0_SetCCDIntLevel
-     /tmp/cctOaYBw.s:1003   .text:00000000000000f8 TC0_Reset
-     /tmp/cctOaYBw.s:1031   .text:0000000000000106 TC1_Reset
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:5      *ABS*:0000000000000034 __CCP__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:6      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:7      *ABS*:0000000000000001 __zero_reg__
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:13     .text:0000000000000000 TC0_ConfigClockSource
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:43     .text:000000000000000c TC1_ConfigClockSource
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:72     .text:0000000000000018 TC0_ConfigWGM
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:101    .text:0000000000000024 TC1_ConfigWGM
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:130    .text:0000000000000030 TC0_ConfigInputCapture
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:161    .text:000000000000003e TC1_ConfigInputCapture
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:192    .text:000000000000004c TC0_EnableCCChannels
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:225    .text:0000000000000058 TC1_EnableCCChannels
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:258    .text:0000000000000064 TC0_DisableCCChannels
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:294    .text:0000000000000072 TC1_DisableCCChannels
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:330    .text:0000000000000080 TC0_SetOverflowIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:359    .text:000000000000008c TC1_SetOverflowIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:388    .text:0000000000000098 TC0_SetErrorIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:417    .text:00000000000000a4 TC1_SetErrorIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:446    .text:00000000000000b0 TC0_SetCCAIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:475    .text:00000000000000bc TC1_SetCCAIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:504    .text:00000000000000c8 TC0_SetCCBIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:533    .text:00000000000000d4 TC1_SetCCBIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:562    .text:00000000000000e0 TC0_SetCCCIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:591    .text:00000000000000ec TC0_SetCCDIntLevel
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:620    .text:00000000000000f8 TC0_Reset
+/var/folders/yp/mmqk4_hx5c99vq73lkt1gzd00000gn/T//ccbtBcdW.s:651    .text:0000000000000106 TC1_Reset
 
 NO UNDEFINED SYMBOLS
