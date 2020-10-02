@@ -9,6 +9,16 @@
 #include "../../Inc/driver/io.h"
 #include "../../Inc/driver/stepper_driver.h"
 
+bool microstep_phase[8][4] = {
+    {1, 0, 0, 0},
+    {1, 1, 0, 0},
+    {0, 1, 0, 0},
+    {0, 1, 1, 0},
+    {0, 0, 1, 0},
+    {0, 0, 1, 1},
+    {0, 0, 0, 1},
+    {1, 0, 0, 1}};
+
 void servo_cfg_A(PORT_t *port, uint8_t pin, bool value)
 {
   stepper_motor_t.a->port = port;

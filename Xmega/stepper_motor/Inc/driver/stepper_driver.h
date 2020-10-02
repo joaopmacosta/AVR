@@ -32,16 +32,6 @@ stepper_motor stepper_motor_t;
     {0, 0, 1, 0},
     {0, 0, 0, 1}};*/
 
-int microstep_phase[8][4] = {
-    {1, 0, 0, 0},
-    {1, 1, 0, 0},
-    {0, 1, 0, 0},
-    {0, 1, 1, 0},
-    {0, 0, 1, 0},
-    {0, 0, 1, 1},
-    {0, 0, 0, 1},
-    {1, 0, 0, 1}};
-
 #define STEPPER_CFG_PHASE(val) stepper_motor_t.phase = 0;
 #define STEPPER_CFG_A(name, val) servo_cfg_A(&name##_PORT, name##_PIN, val)
 #define STEPPER_CFG_A_(name, val) servo_cfg_A_(&name##_PORT, name##_PIN, val)
