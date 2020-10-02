@@ -21,7 +21,7 @@ typedef struct
   // B'
   gpio_t b_;
   // phase
-  int phase;
+  int phase[4];
 } stepper_motor;
 
 stepper_motor stepper_motor_t;
@@ -32,7 +32,7 @@ stepper_motor stepper_motor_t;
     {0, 0, 1, 0},
     {0, 0, 0, 1}};*/
 
-bool microstep_phase[8][4] = {
+int microstep_phase[8][4] = {
     {1, 0, 0, 0},
     {1, 1, 0, 0},
     {0, 1, 0, 0},
@@ -52,5 +52,7 @@ void servo_cfg_A(PORT_t *port, uint8_t pin, bool value);
 void servo_cfg_A_(PORT_t *port, uint8_t pin, bool value);
 void servo_cfg_B(PORT_t *port, uint8_t pin, bool value);
 void servo_cfg_B_(PORT_t *port, uint8_t pin, bool value);
+
+bool move_forward(uint8_t speed);
 
 #endif //STEPPER_DRIVER_H_INCLUDED_

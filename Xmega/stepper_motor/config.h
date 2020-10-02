@@ -19,16 +19,23 @@
 #define LED_PIN                         (0)
 
 //! Stepper 1 select port/pin.
-#define STEPPER1_A_PORT                  (PORTD)
-#define STEPPER1_A_PIN                   (0)
-#define STEPPER1_a_PORT                  (PORTD)
-#define STEPPER1_a_PIN                   (1)
-#define STEPPER1_B_PORT                  (PORTD)
-#define STEPPER1_B_PIN                   (4)
-#define STEPPER1_b_PORT                  (PORTD)
-#define STEPPER1_b_PIN                   (5)
+#define STEPPER1_A_PORT                 (PORTD)
+#define STEPPER1_A_PIN                  (0)
+#define STEPPER1_a_PORT                 (PORTD)
+#define STEPPER1_a_PIN                  (1)
+#define STEPPER1_B_PORT                 (PORTD)
+#define STEPPER1_B_PIN                  (4)
+#define STEPPER1_b_PORT                 (PORTD)
+#define STEPPER1_b_PIN                  (5)
 
-#define MICROSTTEPING_ENABLED            (false)
+#define MICROSTTEPING_ENABLED           (false)
+
+#define STEP_DISTANCE_MM                (30)    //linear mm
+#define STEP_DISTANCE_DEG               (0.10)  //distance per degree a.k.a wheel radius
+#define STEP_MIN_DEG                    (1.8)   //degrees per phase
+#define STEP_DISTANCE                   (STEP_DISTANCE_MM/(STEP_MIN_DEG*STEP_DISTANCE_DEG))
+#define STEP_SPEED_MM_SEC               (10)    //
+#define STEP_SPEED                      (STEP_DISTANCE/STEP_MM_SEC)
 
 //! UART peripheral.                    //57600
 #define UART0                           (USARTC0)
