@@ -55,8 +55,7 @@
 #include <stdlib.h> 
  
 /*! \brief This macro will protect the following code from interrupts. */ 
-#define AVR_ENTER_CRITICAL_REGION( ) uint8_t volatile saved_sreg = SREG; \ 
-                                     cli(); 
+#define AVR_ENTER_CRITICAL_REGION( ) uint8_t volatile saved_sreg = SREG; cli();
  
 /*! \brief This macro must always be used in conjunction with AVR_ENTER_CRITICAL_REGION 
  *        so the interrupts are enabled again. 
