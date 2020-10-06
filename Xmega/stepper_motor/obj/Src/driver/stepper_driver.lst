@@ -1,0 +1,406 @@
+   1               		.file	"stepper_driver.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  10               		.text
+  11               	.Ltext0:
+ 504               	.global	servo_cfg_A
+ 506               	servo_cfg_A:
+ 507               		.stabd	46,0,0
+   1:Src/driver/stepper_driver.c **** #include <stdlib.h>
+   2:Src/driver/stepper_driver.c **** #include <avr/io.h>
+   3:Src/driver/stepper_driver.c **** #include <avr/interrupt.h>
+   4:Src/driver/stepper_driver.c **** #include <util/delay.h>
+   5:Src/driver/stepper_driver.c **** #include <avr/pgmspace.h>
+   6:Src/driver/stepper_driver.c **** #include <stdbool.h>
+   7:Src/driver/stepper_driver.c **** 
+   8:Src/driver/stepper_driver.c **** //#include "../../Inc/driver/io.h"
+   9:Src/driver/stepper_driver.c **** #include "../../Inc/driver/stepper_driver.h"
+  10:Src/driver/stepper_driver.c **** 
+  11:Src/driver/stepper_driver.c **** bool microstep_phase[8][4] = {
+  12:Src/driver/stepper_driver.c ****     {1, 0, 0, 0},
+  13:Src/driver/stepper_driver.c ****     {1, 1, 0, 0},
+  14:Src/driver/stepper_driver.c ****     {0, 1, 0, 0},
+  15:Src/driver/stepper_driver.c ****     {0, 1, 1, 0},
+  16:Src/driver/stepper_driver.c ****     {0, 0, 1, 0},
+  17:Src/driver/stepper_driver.c ****     {0, 0, 1, 1},
+  18:Src/driver/stepper_driver.c ****     {0, 0, 0, 1},
+  19:Src/driver/stepper_driver.c ****     {1, 0, 0, 1}};
+  20:Src/driver/stepper_driver.c **** 
+  21:Src/driver/stepper_driver.c **** void servo_cfg_A(PORT_t *port, uint8_t pin, bool value)
+  22:Src/driver/stepper_driver.c **** {
+ 509               	.LM0:
+ 510               	.LFBB1:
+ 511               	/* prologue: function */
+ 512               	/* frame size = 0 */
+ 513               	/* stack size = 0 */
+ 514               	.L__stack_usage = 0
+  23:Src/driver/stepper_driver.c ****   stepper_motor_t.a->port = port;
+ 516               	.LM1:
+ 517 0000 E091 0000 		lds r30,stepper_motor_t
+ 518 0004 F091 0000 		lds r31,stepper_motor_t+1
+ 519 0008 8083      		st Z,r24
+ 520 000a 9183      		std Z+1,r25
+  24:Src/driver/stepper_driver.c ****   stepper_motor_t.a->pin = pin;
+ 522               	.LM2:
+ 523 000c 6283      		std Z+2,r22
+  25:Src/driver/stepper_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 525               	.LM3:
+ 526 000e 0C94 0000 		jmp gpio_cfg_out_np
+ 528               	.Lscope1:
+ 530               		.stabd	78,0,0
+ 535               	.global	servo_cfg_A_
+ 537               	servo_cfg_A_:
+ 538               		.stabd	46,0,0
+  26:Src/driver/stepper_driver.c **** }
+  27:Src/driver/stepper_driver.c **** void servo_cfg_A_(PORT_t *port, uint8_t pin, bool value)
+  28:Src/driver/stepper_driver.c **** {
+ 540               	.LM4:
+ 541               	.LFBB2:
+ 542               	/* prologue: function */
+ 543               	/* frame size = 0 */
+ 544               	/* stack size = 0 */
+ 545               	.L__stack_usage = 0
+  29:Src/driver/stepper_driver.c ****   stepper_motor_t.a_->port = port;
+ 547               	.LM5:
+ 548 0012 E091 0000 		lds r30,stepper_motor_t+2
+ 549 0016 F091 0000 		lds r31,stepper_motor_t+2+1
+ 550 001a 8083      		st Z,r24
+ 551 001c 9183      		std Z+1,r25
+  30:Src/driver/stepper_driver.c ****   stepper_motor_t.a_->pin = pin;
+ 553               	.LM6:
+ 554 001e 6283      		std Z+2,r22
+  31:Src/driver/stepper_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 556               	.LM7:
+ 557 0020 0C94 0000 		jmp gpio_cfg_out_np
+ 559               	.Lscope2:
+ 561               		.stabd	78,0,0
+ 566               	.global	servo_cfg_B
+ 568               	servo_cfg_B:
+ 569               		.stabd	46,0,0
+  32:Src/driver/stepper_driver.c **** }
+  33:Src/driver/stepper_driver.c **** void servo_cfg_B(PORT_t *port, uint8_t pin, bool value)
+  34:Src/driver/stepper_driver.c **** {
+ 571               	.LM8:
+ 572               	.LFBB3:
+ 573               	/* prologue: function */
+ 574               	/* frame size = 0 */
+ 575               	/* stack size = 0 */
+ 576               	.L__stack_usage = 0
+  35:Src/driver/stepper_driver.c ****   stepper_motor_t.b->port = port;
+ 578               	.LM9:
+ 579 0024 E091 0000 		lds r30,stepper_motor_t+4
+ 580 0028 F091 0000 		lds r31,stepper_motor_t+4+1
+ 581 002c 8083      		st Z,r24
+ 582 002e 9183      		std Z+1,r25
+  36:Src/driver/stepper_driver.c ****   stepper_motor_t.b->pin = pin;
+ 584               	.LM10:
+ 585 0030 6283      		std Z+2,r22
+  37:Src/driver/stepper_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 587               	.LM11:
+ 588 0032 0C94 0000 		jmp gpio_cfg_out_np
+ 590               	.Lscope3:
+ 592               		.stabd	78,0,0
+ 597               	.global	servo_cfg_B_
+ 599               	servo_cfg_B_:
+ 600               		.stabd	46,0,0
+  38:Src/driver/stepper_driver.c **** }
+  39:Src/driver/stepper_driver.c **** void servo_cfg_B_(PORT_t *port, uint8_t pin, bool value)
+  40:Src/driver/stepper_driver.c **** {
+ 602               	.LM12:
+ 603               	.LFBB4:
+ 604               	/* prologue: function */
+ 605               	/* frame size = 0 */
+ 606               	/* stack size = 0 */
+ 607               	.L__stack_usage = 0
+  41:Src/driver/stepper_driver.c ****   stepper_motor_t.b_->port = port;
+ 609               	.LM13:
+ 610 0036 E091 0000 		lds r30,stepper_motor_t+6
+ 611 003a F091 0000 		lds r31,stepper_motor_t+6+1
+ 612 003e 8083      		st Z,r24
+ 613 0040 9183      		std Z+1,r25
+  42:Src/driver/stepper_driver.c ****   stepper_motor_t.b_->pin = pin;
+ 615               	.LM14:
+ 616 0042 6283      		std Z+2,r22
+  43:Src/driver/stepper_driver.c ****   gpio_cfg_out_np(port, pin, value);
+ 618               	.LM15:
+ 619 0044 0C94 0000 		jmp gpio_cfg_out_np
+ 621               	.Lscope4:
+ 623               		.stabd	78,0,0
+ 625               	.global	set_step_timer
+ 627               	set_step_timer:
+ 628               		.stabd	46,0,0
+  44:Src/driver/stepper_driver.c **** }
+  45:Src/driver/stepper_driver.c **** 
+  46:Src/driver/stepper_driver.c **** uint16_t step_count = 0;
+  47:Src/driver/stepper_driver.c **** uint16_t step_timer = 0;
+  48:Src/driver/stepper_driver.c **** 
+  49:Src/driver/stepper_driver.c **** int move_forward()
+  50:Src/driver/stepper_driver.c **** {
+  51:Src/driver/stepper_driver.c ****   GPIO_TGL(LED);
+  52:Src/driver/stepper_driver.c ****   if (get_timer_value() - step_timer >= STEP_SPEED)
+  53:Src/driver/stepper_driver.c ****   {
+  54:Src/driver/stepper_driver.c ****     spew("step - %d\n", step_count);
+  55:Src/driver/stepper_driver.c ****     if (step_count < STEP_DISTANCE)
+  56:Src/driver/stepper_driver.c ****     {
+  57:Src/driver/stepper_driver.c ****       stepper_motor_t.phase++;
+  58:Src/driver/stepper_driver.c ****       step_count++;
+  59:Src/driver/stepper_driver.c ****       if (stepper_motor_t.phase > 7)
+  60:Src/driver/stepper_driver.c ****       {
+  61:Src/driver/stepper_driver.c ****         stepper_motor_t.phase = 0;
+  62:Src/driver/stepper_driver.c ****       }
+  63:Src/driver/stepper_driver.c ****       set_step_timer();
+  64:Src/driver/stepper_driver.c ****       return 0; //MOVE NOT DONE YET
+  65:Src/driver/stepper_driver.c ****     }
+  66:Src/driver/stepper_driver.c ****     else
+  67:Src/driver/stepper_driver.c ****     {
+  68:Src/driver/stepper_driver.c ****       step_count = 0;
+  69:Src/driver/stepper_driver.c ****       stepper_motor_t.phase = 0;
+  70:Src/driver/stepper_driver.c ****       set_step_timer();
+  71:Src/driver/stepper_driver.c ****       return 1; //MOVE DONE
+  72:Src/driver/stepper_driver.c ****     }
+  73:Src/driver/stepper_driver.c ****   }
+  74:Src/driver/stepper_driver.c **** }
+  75:Src/driver/stepper_driver.c **** 
+  76:Src/driver/stepper_driver.c **** void set_step_timer(void)
+  77:Src/driver/stepper_driver.c **** {
+ 630               	.LM16:
+ 631               	.LFBB5:
+ 632               	/* prologue: function */
+ 633               	/* frame size = 0 */
+ 634               	/* stack size = 0 */
+ 635               	.L__stack_usage = 0
+  78:Src/driver/stepper_driver.c ****   step_timer = get_timer_value();
+ 637               	.LM17:
+ 638 0048 0E94 0000 		call get_timer_value
+ 639 004c 8093 0000 		sts step_timer,r24
+ 640 0050 9093 0000 		sts step_timer+1,r25
+ 641 0054 0895      		ret
+ 643               	.Lscope5:
+ 645               		.stabd	78,0,0
+ 646               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 647               	.LC0:
+ 648 0000 7374 6570 		.string	"step - %d\n"
+ 648      202D 2025 
+ 648      640A 00
+ 649               		.text
+ 651               	.global	move_forward
+ 653               	move_forward:
+ 654               		.stabd	46,0,0
+  50:Src/driver/stepper_driver.c ****   GPIO_TGL(LED);
+ 656               	.LM18:
+ 657               	.LFBB6:
+ 658               	/* prologue: function */
+ 659               	/* frame size = 0 */
+ 660               	/* stack size = 0 */
+ 661               	.L__stack_usage = 0
+  51:Src/driver/stepper_driver.c ****   if (get_timer_value() - step_timer >= STEP_SPEED)
+ 663               	.LM19:
+ 664 0056 60E0      		ldi r22,0
+ 665 0058 80E4      		ldi r24,lo8(64)
+ 666 005a 96E0      		ldi r25,lo8(6)
+ 667 005c 0E94 0000 		call gpio_tgl_np
+  52:Src/driver/stepper_driver.c ****   {
+ 669               	.LM20:
+ 670 0060 0E94 0000 		call get_timer_value
+ 671 0064 2091 0000 		lds r18,step_timer
+ 672 0068 3091 0000 		lds r19,step_timer+1
+ 673 006c 821B      		sub r24,r18
+ 674 006e 930B      		sbc r25,r19
+ 675 0070 8436      		cpi r24,100
+ 676 0072 9105      		cpc r25,__zero_reg__
+ 677 0074 00F0      		brlo .L7
+  54:Src/driver/stepper_driver.c ****     if (step_count < STEP_DISTANCE)
+ 679               	.LM21:
+ 680 0076 8091 0000 		lds r24,step_count+1
+ 681 007a 8F93      		push r24
+ 682 007c 8091 0000 		lds r24,step_count
+ 683 0080 8F93      		push r24
+ 684 0082 80E0      		ldi r24,lo8(.LC0)
+ 685 0084 90E0      		ldi r25,hi8(.LC0)
+ 686 0086 9F93      		push r25
+ 687 0088 8F93      		push r24
+ 688 008a 0E94 0000 		call spew
+  55:Src/driver/stepper_driver.c ****     {
+ 690               	.LM22:
+ 691 008e 2091 0000 		lds r18,step_count
+ 692 0092 3091 0000 		lds r19,step_count+1
+ 693 0096 0F90      		pop __tmp_reg__
+ 694 0098 0F90      		pop __tmp_reg__
+ 695 009a 0F90      		pop __tmp_reg__
+ 696 009c 0F90      		pop __tmp_reg__
+ 697 009e 2A30      		cpi r18,10
+ 698 00a0 3105      		cpc r19,__zero_reg__
+ 699 00a2 00F4      		brsh .L8
+  57:Src/driver/stepper_driver.c ****       step_count++;
+ 701               	.LM23:
+ 702 00a4 8091 0000 		lds r24,stepper_motor_t+8
+ 703 00a8 9091 0000 		lds r25,stepper_motor_t+8+1
+ 704 00ac 0196      		adiw r24,1
+ 705 00ae 8093 0000 		sts stepper_motor_t+8,r24
+ 706 00b2 9093 0000 		sts stepper_motor_t+8+1,r25
+  58:Src/driver/stepper_driver.c ****       if (stepper_motor_t.phase > 7)
+ 708               	.LM24:
+ 709 00b6 2F5F      		subi r18,-1
+ 710 00b8 3F4F      		sbci r19,-1
+ 711 00ba 2093 0000 		sts step_count,r18
+ 712 00be 3093 0000 		sts step_count+1,r19
+  59:Src/driver/stepper_driver.c ****       {
+ 714               	.LM25:
+ 715 00c2 0897      		sbiw r24,8
+ 716 00c4 04F0      		brlt .L9
+  61:Src/driver/stepper_driver.c ****       }
+ 718               	.LM26:
+ 719 00c6 1092 0000 		sts stepper_motor_t+8,__zero_reg__
+ 720 00ca 1092 0000 		sts stepper_motor_t+8+1,__zero_reg__
+ 721               	.L9:
+  63:Src/driver/stepper_driver.c ****       return 0; //MOVE NOT DONE YET
+ 723               	.LM27:
+ 724 00ce 0E94 0000 		call set_step_timer
+  64:Src/driver/stepper_driver.c ****     }
+ 726               	.LM28:
+ 727 00d2 80E0      		ldi r24,0
+ 728 00d4 00C0      		rjmp .L11
+ 729               	.L8:
+  68:Src/driver/stepper_driver.c ****       stepper_motor_t.phase = 0;
+ 731               	.LM29:
+ 732 00d6 1092 0000 		sts step_count,__zero_reg__
+ 733 00da 1092 0000 		sts step_count+1,__zero_reg__
+  69:Src/driver/stepper_driver.c ****       set_step_timer();
+ 735               	.LM30:
+ 736 00de 1092 0000 		sts stepper_motor_t+8,__zero_reg__
+ 737 00e2 1092 0000 		sts stepper_motor_t+8+1,__zero_reg__
+  70:Src/driver/stepper_driver.c ****       return 1; //MOVE DONE
+ 739               	.LM31:
+ 740 00e6 0E94 0000 		call set_step_timer
+  71:Src/driver/stepper_driver.c ****     }
+ 742               	.LM32:
+ 743 00ea 81E0      		ldi r24,lo8(1)
+ 744               	.L11:
+ 745 00ec 90E0      		ldi r25,0
+ 746 00ee 0895      		ret
+ 747               	.L7:
+  74:Src/driver/stepper_driver.c **** 
+ 749               	.LM33:
+ 750 00f0 0895      		ret
+ 752               	.Lscope6:
+ 754               		.stabd	78,0,0
+ 756               	.global	clear_step_timer
+ 758               	clear_step_timer:
+ 759               		.stabd	46,0,0
+  79:Src/driver/stepper_driver.c **** }
+  80:Src/driver/stepper_driver.c **** 
+  81:Src/driver/stepper_driver.c **** void clear_step_timer(void)
+  82:Src/driver/stepper_driver.c **** {
+ 761               	.LM34:
+ 762               	.LFBB7:
+ 763               	/* prologue: function */
+ 764               	/* frame size = 0 */
+ 765               	/* stack size = 0 */
+ 766               	.L__stack_usage = 0
+  83:Src/driver/stepper_driver.c ****   step_timer = 0;
+ 768               	.LM35:
+ 769 00f2 1092 0000 		sts step_timer,__zero_reg__
+ 770 00f6 1092 0000 		sts step_timer+1,__zero_reg__
+ 771 00fa 0895      		ret
+ 773               	.Lscope7:
+ 775               		.stabd	78,0,0
+ 777               	.global	reset_step_count
+ 779               	reset_step_count:
+ 780               		.stabd	46,0,0
+  84:Src/driver/stepper_driver.c **** }
+  85:Src/driver/stepper_driver.c **** 
+  86:Src/driver/stepper_driver.c **** void reset_step_count(void)
+  87:Src/driver/stepper_driver.c **** {
+ 782               	.LM36:
+ 783               	.LFBB8:
+ 784               	/* prologue: function */
+ 785               	/* frame size = 0 */
+ 786               	/* stack size = 0 */
+ 787               	.L__stack_usage = 0
+  88:Src/driver/stepper_driver.c ****   step_count = 0;
+ 789               	.LM37:
+ 790 00fc 1092 0000 		sts step_count,__zero_reg__
+ 791 0100 1092 0000 		sts step_count+1,__zero_reg__
+ 792 0104 0895      		ret
+ 794               	.Lscope8:
+ 796               		.stabd	78,0,0
+ 797               	.global	step_timer
+ 798               		.section .bss
+ 801               	step_timer:
+ 802 0000 0000      		.zero	2
+ 803               	.global	step_count
+ 806               	step_count:
+ 807 0002 0000      		.zero	2
+ 808               	.global	microstep_phase
+ 809               		.data
+ 812               	microstep_phase:
+ 813 0000 01        		.byte	1
+ 814 0001 00        		.byte	0
+ 815 0002 00        		.byte	0
+ 816 0003 00        		.byte	0
+ 817 0004 01        		.byte	1
+ 818 0005 01        		.byte	1
+ 819 0006 00        		.byte	0
+ 820 0007 00        		.byte	0
+ 821 0008 00        		.byte	0
+ 822 0009 01        		.byte	1
+ 823 000a 00        		.byte	0
+ 824 000b 00        		.byte	0
+ 825 000c 00        		.byte	0
+ 826 000d 01        		.byte	1
+ 827 000e 01        		.byte	1
+ 828 000f 00        		.byte	0
+ 829 0010 00        		.byte	0
+ 830 0011 00        		.byte	0
+ 831 0012 01        		.byte	1
+ 832 0013 00        		.byte	0
+ 833 0014 00        		.byte	0
+ 834 0015 00        		.byte	0
+ 835 0016 01        		.byte	1
+ 836 0017 01        		.byte	1
+ 837 0018 00        		.byte	0
+ 838 0019 00        		.byte	0
+ 839 001a 00        		.byte	0
+ 840 001b 01        		.byte	1
+ 841 001c 01        		.byte	1
+ 842 001d 00        		.byte	0
+ 843 001e 00        		.byte	0
+ 844 001f 01        		.byte	1
+ 845               		.comm	stepper_motor_t,10,1
+ 850               		.text
+ 852               	.Letext0:
+ 853               		.ident	"GCC: (GNU) 5.4.0"
+ 854               	.global __do_copy_data
+ 855               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stepper_driver.c
+     /tmp/ccQbrKEN.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccQbrKEN.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccQbrKEN.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccQbrKEN.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccQbrKEN.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccQbrKEN.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccQbrKEN.s:506    .text:0000000000000000 servo_cfg_A
+                            *COM*:000000000000000a stepper_motor_t
+     /tmp/ccQbrKEN.s:537    .text:0000000000000012 servo_cfg_A_
+     /tmp/ccQbrKEN.s:568    .text:0000000000000024 servo_cfg_B
+     /tmp/ccQbrKEN.s:599    .text:0000000000000036 servo_cfg_B_
+     /tmp/ccQbrKEN.s:627    .text:0000000000000048 set_step_timer
+     /tmp/ccQbrKEN.s:801    .bss:0000000000000000 step_timer
+     /tmp/ccQbrKEN.s:653    .text:0000000000000056 move_forward
+     /tmp/ccQbrKEN.s:806    .bss:0000000000000002 step_count
+     /tmp/ccQbrKEN.s:758    .text:00000000000000f2 clear_step_timer
+     /tmp/ccQbrKEN.s:779    .text:00000000000000fc reset_step_count
+     /tmp/ccQbrKEN.s:812    .data:0000000000000000 microstep_phase
+
+UNDEFINED SYMBOLS
+gpio_cfg_out_np
+get_timer_value
+gpio_tgl_np
+spew
+__do_copy_data
+__do_clear_bss

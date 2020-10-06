@@ -9,7 +9,7 @@
 #include "../../Inc/core/main.h"
 
 uint32_t time = 0;
-
+int var = 0;
 int main(void)
 {
   cli();
@@ -19,13 +19,16 @@ int main(void)
   sei();
 
   spew("START\n");
-  time = get_timer_value();
-  while (1)
+  //time = get_timer_value();
+  set_step_timer();
+  reset_step_count();
+
+  do
   {
-    if (get_timer_value() - time >= 1000)
-    {
-      GPIO_TGL(LED);
-      time = get_timer_value();
-    }
-  }
+    _delay_ms(100);
+    var = move_forward();
+  } while (var != 1);
+
+
+spew("Move done!\n");
 }

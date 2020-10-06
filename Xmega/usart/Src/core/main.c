@@ -18,7 +18,6 @@ int main(void)
   sei();
 
   spew("START\n");
-  spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
   while (1)
   {
     _delay_ms(1000);

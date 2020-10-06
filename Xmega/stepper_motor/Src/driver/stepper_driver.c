@@ -5,8 +5,7 @@
 #include <avr/pgmspace.h>
 #include <stdbool.h>
 
-#include "../../config.h"
-#include "../../Inc/driver/io.h"
+//#include "../../Inc/driver/io.h"
 #include "../../Inc/driver/stepper_driver.h"
 
 bool microstep_phase[8][4] = {
@@ -44,26 +43,47 @@ void servo_cfg_B_(PORT_t *port, uint8_t pin, bool value)
   gpio_cfg_out_np(port, pin, value);
 }
 
-uint8_t var;
+uint16_t step_count = 0;
+uint16_t step_timer = 0;
 
-bool move_forward()
+int move_forward()
 {
-  if (get_timer_value() - STEP_SPEED >= 10)
+  GPIO_TGL(LED);
+  if (get_timer_value() - step_timer >= STEP_SPEED)
   {
-    if (steps_count < BOTTLE_DISTANCE)
+    spew("step - %d\n", step_count);
+    if (step_count < STEP_DISTANCE)
     {
       stepper_motor_t.phase++;
-      if (phase > 7)
+      step_count++;
+      if (stepper_motor_t.phase > 7)
       {
-        stepper_motor_t.phase = 1;
+        stepper_motor_t.phase = 0;
       }
+      set_step_timer();
       return 0; //MOVE NOT DONE YET
     }
     else
     {
-      steps_count = 0;
+      step_count = 0;
       stepper_motor_t.phase = 0;
+      set_step_timer();
       return 1; //MOVE DONE
     }
   }
+}
+
+void set_step_timer(void)
+{
+  step_timer = get_timer_value();
+}
+
+void clear_step_timer(void)
+{
+  step_timer = 0;
+}
+
+void reset_step_count(void)
+{
+  step_count = 0;
 }

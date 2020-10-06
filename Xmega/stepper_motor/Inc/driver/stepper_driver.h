@@ -7,7 +7,11 @@
 // AVR headers.
 #include <avr/io.h>
 
-#include "../../Inc/driver/io.h"
+#include "uart.h"
+#include "../../config.h"
+#include "io.h"
+#include "clock.h"
+
 
 // This structure contains stepper motor's pins
 typedef struct
@@ -21,7 +25,7 @@ typedef struct
   // B'
   gpio_t b_;
   // phase
-  int phase[4];
+  int phase;
 } stepper_motor;
 
 stepper_motor stepper_motor_t;
@@ -31,6 +35,7 @@ stepper_motor stepper_motor_t;
     {0, 1, 0, 0},
     {0, 0, 1, 0},
     {0, 0, 0, 1}};*/
+
 
 #define STEPPER_CFG_PHASE(val) stepper_motor_t.phase = 0;
 #define STEPPER_CFG_A(name, val) servo_cfg_A(&name##_PORT, name##_PIN, val)
@@ -43,6 +48,9 @@ void servo_cfg_A_(PORT_t *port, uint8_t pin, bool value);
 void servo_cfg_B(PORT_t *port, uint8_t pin, bool value);
 void servo_cfg_B_(PORT_t *port, uint8_t pin, bool value);
 
-bool move_forward(uint8_t speed);
+int move_forward(void);
+void set_step_timer(void);
+void clear_step_timer(void);
+void reset_step_count(void);
 
 #endif //STEPPER_DRIVER_H_INCLUDED_

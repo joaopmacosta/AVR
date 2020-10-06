@@ -58,6 +58,10 @@ board_init(void)
   STEPPER_CFG_B(STEPPER1_B, false);
   STEPPER_CFG_B_(STEPPER1_b, false);
 
+  // UART Pins Init
+  GPIO_CFG_OUT(UART0_TX, false);
+  GPIO_CFG_IN(UART0_RX);
+
   //***********************************************************************
   //* Interrupt levels.                                                   *
   //***********************************************************************
