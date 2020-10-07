@@ -30,14 +30,12 @@
 
 #define MICROSTTEPING_ENABLED           (false)
 
-#define STEP_DISTANCE_MM                (100)    //linear mm
-#define STEP_DISTANCE_DEG               (0.10)  //distance per degree a.k.a wheel radius
-#define STEP_MIN_DEG                    (1.8)   //degrees per phase
-//#define STEP_DISTANCE                   (STEP_DISTANCE_MM/(STEP_MIN_DEG*STEP_DISTANCE_DEG))
-#define STEP_DISTANCE                   (10)
-#define STEP_SPEED_MM_SEC               (1000)    //
-//#define STEP_SPEED                      (STEP_DISTANCE/STEP_SPEED_MM_SEC)
-#define STEP_SPEED                      (100)
+#define STEP_DISTANCE_MM                (30)  //linear mm
+#define STEP_MM_PER_DEG                 (2)   //distance per degree a.k.a wheel radius
+#define STEP_MIN_DEG                    (1)   //degrees per phase
+
+#define STEP_SPEED_MM_SEC               (60)  //
+
 
 //! UART peripheral.                    //57600
 #define UART0                           (USARTC0)

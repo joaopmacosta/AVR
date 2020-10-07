@@ -48,11 +48,11 @@ uint16_t step_timer = 0;
 
 int move_forward()
 {
-  GPIO_TGL(LED);
   if (get_timer_value() - step_timer >= STEP_SPEED)
   {
-    spew("step - %d\n", step_count);
-    if (step_count < STEP_DISTANCE)
+    spew("%d\n", step_count);
+    GPIO_TGL(LED);
+    if (step_count < STEP_NUMBER)
     {
       stepper_motor_t.phase++;
       step_count++;
@@ -71,6 +71,7 @@ int move_forward()
       return 1; //MOVE DONE
     }
   }
+  return 0;
 }
 
 void set_step_timer(void)

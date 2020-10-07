@@ -12,6 +12,10 @@
 #include "io.h"
 #include "clock.h"
 
+#define MM_PER_STEP                     (STEP_MM_PER_DEG * STEP_MIN_DEG)
+#define STEP_NUMBER                     (STEP_DISTANCE_MM/MM_PER_STEP)
+#define STEP_SPEED_STEPS_SEC            (STEP_SPEED_MM_SEC/MM_PER_STEP)
+#define STEP_SPEED                      (1000/STEP_SPEED_STEPS_SEC)
 
 // This structure contains stepper motor's pins
 typedef struct
