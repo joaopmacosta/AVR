@@ -36,27 +36,23 @@ struct cpuData _cpuData;
 
 typedef enum
 {
-  PARSER        = 0,
-  DATA          = 1,
-  CSUM          = 2
+  PARSER = 0,
+  DATA = 1,
+  CSUM = 2
 } parser_state;
 
 //void init_cpu_parser(void);
 
 void cpu_parser(uint8_t data);
 
-void parse_cpu_data_rx(char *data_rx);
+//bool read_new_command(void);
 
-bool read_new_command(void);
+void parse_cpu_data_rx(char *data_rx);
 
 char* get_cpu_buffer(void);
 
+bool is_new_command_available(void);
+
 void new_command_read_done(void);
-
-int get_cpu_cmd(void);
-
-int get_cpu_arg(void);
-
-void print_cpu(void);
 
 #endif /* CPU_PARSER_H_ */

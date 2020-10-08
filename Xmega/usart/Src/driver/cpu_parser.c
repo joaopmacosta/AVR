@@ -95,7 +95,7 @@ void cpu_parser(uint8_t data)
     }
 }
 
-bool read_new_command(void)
+/*bool read_new_command(void)
 {
     if (new_command)
     {
@@ -107,7 +107,7 @@ bool read_new_command(void)
     {
         return false;
     }
-}
+}*/
 
 void parse_cpu_data_rx(char *data_rx)
 {
@@ -119,6 +119,8 @@ void parse_cpu_data_rx(char *data_rx)
     switch (pre_mode[1])
     {
     case START:
+        spew("on\n");
+        GPIO_SET(LED);
         _cpuData.cmd = atoi(pre_mode);
 
         word = strtok(NULL, ",");
@@ -126,30 +128,15 @@ void parse_cpu_data_rx(char *data_rx)
         pre_mode[1] = '\0';
 
         _cpuData.arg1 = atoi(pre_mode);
-        
-        spew("CMD: %d | ARG: %d\n", _cpuData.cmd, _cpuData.arg1);
 
-        /*word = strtok(NULL, ",");
-        char rx_arg2[16];
-        sprintf(rx_arg2, "%s", word);
-        rx_arg2[strlen(rx_arg2)] = '\0';
-
-        _cpuData.arg2 = atoi(rx_arg2);
-        spew("2 - %d\n", _cpuData.arg2);
-
-        word = strtok(NULL, ",");
-        char rx_arg3[16];
-        sprintf(rx_arg3, "%s", word);
-        rx_arg3[strlen(rx_arg3)] = '\0';
-
-        _cpuData.arg3 = atoi(rx_arg3);
-        spew("3 - %d\n", _cpuData.arg3);*/
+        //spew("CMD: %d | ARG: %d\n", _cpuData.cmd, _cpuData.arg1);
 
         //DO STUFF!
         break;
 
     case STOP:
-
+        spew("off\n");
+        GPIO_CLR(LED);
         break;
 
     default:
@@ -163,32 +150,12 @@ char *get_cpu_buffer(void)
     return data_cpu_cmd;
 }
 
+bool is_new_command_available(void)
+{
+    return new_command;
+}
+
 void new_command_read_done(void)
 {
     new_command = false;
 }
-
-int get_cpu_cmd(void)
-{
-    return _cpuData.cmd;
-}
-
-int get_cpu_arg(void)
-{
-    return _cpuData.arg1;
-}
-
-void print_cpu(void)
-{
-    spew("%d, %d\n", _cpuData.cmd, _cpuData.arg1);
-}
-
-/*void read_CPU_command()
-{
-    if (check_new_command())
-    {
-        parse_cpu_data_rx(get_cpu_cmd());
-        spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
-        new_command_read();
-    }
-}*/

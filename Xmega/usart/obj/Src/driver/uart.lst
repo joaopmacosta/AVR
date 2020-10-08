@@ -868,22 +868,22 @@
  878               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 uart.c
-     /tmp/ccoOoEfL.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccoOoEfL.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccoOoEfL.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccoOoEfL.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccoOoEfL.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccoOoEfL.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccoOoEfL.s:507    .text:0000000000000000 initUsart
-     /tmp/ccoOoEfL.s:545    .text:000000000000001e UART_sendChar
-     /tmp/ccoOoEfL.s:582    .text:0000000000000030 UART_sendString
-     /tmp/ccoOoEfL.s:627    .text:0000000000000050 UART_sendInt
-     /tmp/ccoOoEfL.s:688    .text:0000000000000086 UART_sendLint
-     /tmp/ccoOoEfL.s:748    .text:00000000000000be __vector_25
-     /tmp/ccoOoEfL.s:866    .bss:0000000000000000 cnt_reset_stop_emerg
-     /tmp/ccoOoEfL.s:810    .text:0000000000000112 spew
+     /tmp/cctKSVle.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cctKSVle.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cctKSVle.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cctKSVle.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cctKSVle.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cctKSVle.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cctKSVle.s:507    .text:0000000000000000 initUsart
+     /tmp/cctKSVle.s:545    .text:000000000000001e UART_sendChar
+     /tmp/cctKSVle.s:582    .text:0000000000000030 UART_sendString
+     /tmp/cctKSVle.s:627    .text:0000000000000050 UART_sendInt
+     /tmp/cctKSVle.s:688    .text:0000000000000086 UART_sendLint
+     /tmp/cctKSVle.s:748    .text:00000000000000be __vector_25
+     /tmp/cctKSVle.s:866    .bss:0000000000000000 cnt_reset_stop_emerg
+     /tmp/cctKSVle.s:810    .text:0000000000000112 spew
                             *COM*:0000000000000100 debug_bfr
-     /tmp/ccoOoEfL.s:860    .data:0000000000000000 text_emerg
+     /tmp/cctKSVle.s:860    .data:0000000000000000 text_emerg
                             *COM*:0000000000000006 _cpuData
 
 UNDEFINED SYMBOLS

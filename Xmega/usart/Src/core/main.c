@@ -8,7 +8,6 @@
 
 #include "../../Inc/core/main.h"
 
-
 int main(void)
 {
 
@@ -20,9 +19,11 @@ int main(void)
   spew("START\n");
   while (1)
   {
-    _delay_ms(1000);
-
-    get_new_command();
+    if (is_new_command_available())
+    {
+      parse_cpu_data_rx(get_cpu_buffer());
+      new_command_read_done();
+    }
 
     //GPIO_TGL(LED);
   }
