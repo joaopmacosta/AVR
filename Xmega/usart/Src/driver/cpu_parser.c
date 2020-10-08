@@ -14,8 +14,8 @@
 #include <avr/pgmspace.h>
 #include <stdbool.h>
 
-#include "../../Inc/driver/uart.h"
 #include "../../Inc/driver/io.h"
+#include "../../Inc/driver/uart.h"
 #include "../../Inc/driver/cpu_parser.h"
 #include "../../config.h"
 
@@ -37,7 +37,7 @@ bool new_command = false;
 enum
 {
     START = 'S',
-    STOP = 'P'
+    STOP = 'A'
 };
 
 uint8_t CRC8_CPU(unsigned char *data)
@@ -95,6 +95,20 @@ void cpu_parser(uint8_t data)
     }
 }
 
+bool read_new_command(void)
+{
+    if (new_command)
+    {
+        parse_cpu_data_rx(get_cpu_cmd());
+        new_command = false;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void parse_cpu_data_rx(char *data_rx)
 {
     spew("parse_cpu_data_rx: %s\n", data_rx);
@@ -105,13 +119,17 @@ void parse_cpu_data_rx(char *data_rx)
     switch (pre_mode[1])
     {
     case START:
+        _cpuData.cmd = atoi(pre_mode);
+
         word = strtok(NULL, ",");
         pre_mode[0] = word[0];
         pre_mode[1] = '\0';
-        _cpuData.arg1 = atoi(pre_mode);
-        spew("1 - %d\n", _cpuData.arg1);
 
-        word = strtok(NULL, ",");
+        _cpuData.arg1 = atoi(pre_mode);
+        
+        spew("CMD: %d | ARG: %d\n", _cpuData.cmd, _cpuData.arg1);
+
+        /*word = strtok(NULL, ",");
         char rx_arg2[16];
         sprintf(rx_arg2, "%s", word);
         rx_arg2[strlen(rx_arg2)] = '\0';
@@ -125,39 +143,52 @@ void parse_cpu_data_rx(char *data_rx)
         rx_arg3[strlen(rx_arg3)] = '\0';
 
         _cpuData.arg3 = atoi(rx_arg3);
-        spew("3 - %d\n", _cpuData.arg3);
+        spew("3 - %d\n", _cpuData.arg3);*/
 
         //DO STUFF!
-        GPIO_SET(LED);
         break;
 
     case STOP:
-        GPIO_CLR(LED);
+
         break;
 
     default:
+
         break;
     }
 }
 
-bool check_new_command(void)
-{
-    if (new_command)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-char* get_cpu_cmd() // NOT WORKING... :(
+char *get_cpu_buffer(void)
 {
     return data_cpu_cmd;
 }
 
-void new_command_read()
+void new_command_read_done(void)
 {
     new_command = false;
 }
+
+int get_cpu_cmd(void)
+{
+    return _cpuData.cmd;
+}
+
+int get_cpu_arg(void)
+{
+    return _cpuData.arg1;
+}
+
+void print_cpu(void)
+{
+    spew("%d, %d\n", _cpuData.cmd, _cpuData.arg1);
+}
+
+/*void read_CPU_command()
+{
+    if (check_new_command())
+    {
+        parse_cpu_data_rx(get_cpu_cmd());
+        spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
+        new_command_read();
+    }
+}*/

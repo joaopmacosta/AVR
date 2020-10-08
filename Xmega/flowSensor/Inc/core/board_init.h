@@ -33,11 +33,14 @@ board_init(void)
   //***********************************************************************
   // ENABLE INTERNAL 32MHZ OSCILLATOR
   CCP = CCP_IOREG_gc;
+
   OSC.CTRL = OSC_RC32MEN_bm;
+
   while (!(OSC.STATUS & OSC_RC32MRDY_bm))
     ;
 
   CCP = CCP_IOREG_gc;
+
   CLK.CTRL = CLK_SCLKSEL_RC32M_gc;
 
   //***********************************************************************

@@ -6,10 +6,8 @@
 // Author: Pedro Gonçalves                                                  *
 //***************************************************************************
 
-#ifndef CPU_PARSER_H_INCLUDED_
-#define CPU_PARSER_H_INCLUDED_
-
-#include "../../config.h"
+#ifndef UART_H_
+#define UART_H_
 
 /// ISO C 99 headers.
 #include <stddef.h>
@@ -19,44 +17,23 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef enum
-{
-  STATE = 0,
-  ALL = 1
-} parser_rx_data_cpu;
-
-struct cpuData
-{
-  int cmd;
-  int arg1;
-  int arg2;
-};
-
-struct cpuData _cpuData;
+#define UART_RX_BUF_SIZE 32 // rx buffer size
 
 typedef enum
 {
-  PARSER        = 0,
-  DATA          = 1,
-  CSUM          = 2
-} parser_state;
+  DEBUG
+} uart_channel;
 
-//void init_cpu_parser(void);
+void initUsart(void);
 
-void cpu_parser(uint8_t data);
+void UART_sendChar(uart_channel usart, uint8_t data);
 
-void parse_cpu_data_rx(char *data_rx);
+void UART_sendString(uart_channel usart, char *str);
 
-bool read_new_command(void);
+void UART_sendInt(uart_channel usart, int value);
 
-char* get_cpu_buffer(void);
+void UART_sendLint(uart_channel usart, long int data);
 
-void new_command_read_done(void);
+void spew(const char *fmt, ...);
 
-int get_cpu_cmd(void);
-
-int get_cpu_arg(void);
-
-void print_cpu(void);
-
-#endif /* CPU_PARSER_H_ */
+#endif /* UART_H_ */

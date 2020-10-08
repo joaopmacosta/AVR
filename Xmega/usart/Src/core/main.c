@@ -22,12 +22,7 @@ int main(void)
   {
     _delay_ms(1000);
 
-    if (check_new_command())
-    {
-      parse_cpu_data_rx(get_cpu_cmd());
-      spew("cmd: %d, %d, %d\n", _cpuData.arg1, _cpuData.arg2, _cpuData.arg3);
-      new_command_read();
-    }
+    get_new_command();
 
     //GPIO_TGL(LED);
   }
